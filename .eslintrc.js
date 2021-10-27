@@ -1,0 +1,66 @@
+module.exports = {
+  extends: [
+    "airbnb-base",
+    "airbnb/rules/react",
+    "prettier",
+    "plugin:react/recommended",
+  ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["react", "@typescript-eslint", "prettier"],
+  env: {
+    browser: true,
+    jest: true,
+  },
+  settings: {
+    react: {
+      version: "detect", // Tells eslint-plugin-react to automatically detect the version of React to use
+    },
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        paths: ["./src"],
+      },
+    },
+  },
+  rules: {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/jsx-filename-extension": "off",
+    "function-paren-newline": "off",
+    "prettier/prettier": ["error"],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-wrap-multilines": "off",
+    "react/jsx-curly-newline": "off",
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/jsx-indent": "off",
+    "no-plusplus": "off",
+    "import/prefer-default-export": "off",
+    "lines-between-class-members": "off",
+    "no-underscore-dangle": "off",
+    "no-shadow": "off",
+    "no-debugger": "off",
+    "react/display-name": "off",
+    "no-param-reassign": "off",
+    "react/no-danger": "off",
+    camelcase: "off",
+    "prefer-promise-reject-errors": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-unresolved": "off",
+  },
+};
