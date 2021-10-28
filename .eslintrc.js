@@ -27,7 +27,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "error",
     "react/jsx-filename-extension": "off",
     "function-paren-newline": "off",
-    "prettier/prettier": ["error"],
+    "prettier/prettier": 0,
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -58,7 +58,7 @@ module.exports = {
     "react/display-name": "off",
     "no-param-reassign": "off",
     "react/no-danger": "off",
-    camelcase: "off",
+    "camelcase": "off",
     "prefer-promise-reject-errors": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",

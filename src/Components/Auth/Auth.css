@@ -1,0 +1,32 @@
+.auth-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-flow: column;
+}
+
+.auth-container__title{
+    font-size: 48px;
+    color: darkslategray;
+    padding: 30px;
+}
+
+.auth-container__subtitle{
+    font-size: 28px;
+    color: darkslategray;
+    padding: 30px;
+}
+
+.auth-container__connect{
+    width: 300px;
+    height: 40px;
+    color: white;
+    background-color: darkblue;
+    border-radius: 5px;
+    font-size: 25px;
+    margin: 30px;
+    cursor: pointer;
+    outline: none;
+    border:none
+}
