@@ -1,10 +1,11 @@
 import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { Redirect, Route, Switch } from 'react-router-dom';
 import { Profile } from './Pages/Profile/Profile';
 import { Auth } from './Components/Auth/Auth';
 
@@ -21,6 +22,7 @@ initializeApp(firebaseConfig);
 
 export const AppRouting = () => {
   const [user, loading, error] = useAuthState(getAuth());
+
   console.log(user, loading, error);
 
   /* 
