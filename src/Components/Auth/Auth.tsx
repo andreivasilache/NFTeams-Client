@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 // import { useEtherBalance, useEthers } from '@usedapp/core';
 // import { formatEther } from '@ethersproject/units';
 import './Auth.css';
+import Web3 from 'web3';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { doc, setDoc,getFirestore} from "firebase/firestore"; 
+
 
 export const Auth = () => {
+  const web3 = new Web3();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,6 +27,10 @@ export const Auth = () => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       console.log(res);
+      const {privateKey} = web3.eth.accounts.create();
+      console.log(privateKey);
+      const db = getFirestore();
+      await setDoc(doc(db, "Users Keys", res.user.uid), {privateKey});
     } catch (err: any) {
       alert(err.code);
       console.log(err);
