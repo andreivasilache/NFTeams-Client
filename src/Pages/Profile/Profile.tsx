@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAuth } from '@firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import './Profile.css';
@@ -27,13 +27,15 @@ export const Profile = () => {
     } 
     return "No such document!";
   }
-
-  getPrivateKey(user);
+  useEffect(()=>{
+    getPrivateKey(user);
+  },[])
+  
   // const privateKey = '2a915da949d081da2f0084884d47480a486d25dbddb9125002521b32c148fd03';
   const { wallet } = initEthWalletAndInfuraSmartContracts(privateKey);
   const nfts = useAccountNFTS(wallet.address);
-
-  console.log(wallet);
+  
+  
   return (
     <div>
       <div>Hello {user.email}</div> <br />
