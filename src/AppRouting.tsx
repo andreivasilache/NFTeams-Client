@@ -13,6 +13,8 @@ import { Auth } from './Components/Auth/Auth';
 import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import useStore from './Hooks/useStore';
 import { WalletStore } from './Store/Wallet.store';
+import { SmartContractsStore } from './Store/SmartContracts.store';
+import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -29,29 +31,38 @@ export const AppRouting = () => {
   const [user] = useAuthState(getAuth());
   const [isAppInitializing, setIsAppInitializing] = useState(true);
   const walletStore = useStore('walletStore') as WalletStore;
-
-  // console.log(user, loading, error);
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
 
   const initUserWallet = async (user: any) => {
+    // todo: refactor this.
     const db = getFirestore();
-    const docRef = doc(getFirestore(), 'users', user.uid);
+    const docRef = doc(getFirestore(), FIRESTORE_COLLECTION_KEYS.USERS, user.uid);
     const docSnap = await getDoc(docRef);
+
+    let walletRef;
+    let infuraProviderRef;
 
     const initNewWalletForCurrentUser = async () => {
       const { privateKey } = Wallet.createRandom();
-      await setDoc(doc(db, 'users', user.uid), { privateKey });
+      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), { privateKey });
+      const walletInstance = walletStore.initWalletStore(privateKey);
+      walletRef = walletInstance.wallet;
+      infuraProviderRef = walletInstance.infuraProvider;
     };
 
     if (docSnap.exists()) {
       const currentUserPrivateKey = docSnap.data().privateKey;
       if (currentUserPrivateKey) {
-        walletStore.initWalletStore(currentUserPrivateKey);
+        const walletInstance = walletStore.initWalletStore(currentUserPrivateKey);
+        walletRef = walletInstance.wallet;
+        infuraProviderRef = walletInstance.infuraProvider;
       } else {
         await initNewWalletForCurrentUser();
       }
     } else {
       await initNewWalletForCurrentUser();
     }
+    await smartContractsStore.init(walletRef as any, infuraProviderRef as any);
     setIsAppInitializing(false);
   };
 
@@ -61,14 +72,7 @@ export const AppRouting = () => {
     }
   }, [JSON.stringify(user)]);
 
-  /* 
-    todo: after the auth, check if the user has a wallet assigned 
-    how to read/write to auth metadata: 
-    https://stackoverflow.com/questions/57730452/how-to-add-metadata-to-firebase-authentication/57730489
-  
-  */
-
-  if (isAppInitializing) {
+  if (isAppInitializing && window.location.pathname !== '/auth') {
     return <div>Loading...</div>;
   }
   return (

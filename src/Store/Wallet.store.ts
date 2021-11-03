@@ -11,10 +11,12 @@ export class WalletStore {
     makeAutoObservable(this);
   }
 
-  public initWalletStore(privateKey: string) {
+  public initWalletStore(privateKey: string): { wallet?: Wallet; infuraProvider?: ethers.providers.InfuraProvider } {
     const { wallet, infuraProvider } = initEthWalletAndInfuraSmartContracts(privateKey);
     this.privateKey = privateKey;
     this.wallet = wallet;
     this.infuraProvider = infuraProvider;
+
+    return { wallet: this.wallet, infuraProvider: this.infuraProvider };
   }
 }
