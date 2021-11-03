@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import './Auth.css';
 import { Wallet } from 'ethers';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { doc, setDoc,getFirestore} from "firebase/firestore"; 
-
+import { doc, setDoc, getFirestore } from 'firebase/firestore';
 
 export const Auth = () => {
   const [email, setEmail] = useState('');
@@ -25,10 +24,9 @@ export const Auth = () => {
   const registerWithEmailAndPassword = async (email: string, password: string) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
-      const {privateKey} = Wallet.createRandom();
+      const { privateKey } = Wallet.createRandom();
       const db = getFirestore();
-      await setDoc(doc(db, "Users Keys", res.user.uid), {privateKey});
+      await setDoc(doc(db, 'Users', res.user.uid), { privateKey });
     } catch (err: any) {
       alert(err.code);
       console.log(err);

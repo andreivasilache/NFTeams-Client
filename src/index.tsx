@@ -2,17 +2,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { DAppProvider } from '@usedapp/core';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { StoreProvider } from './Store/StoreProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DAppProvider config={{}}>
+    <StoreProvider>
       <Router>
         <App />
       </Router>
-    </DAppProvider>
+    </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
