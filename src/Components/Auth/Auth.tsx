@@ -24,9 +24,7 @@ export const Auth = () => {
   const registerWithEmailAndPassword = async (email: string, password: string) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const { privateKey } = Wallet.createRandom();
-      const db = getFirestore();
-      await setDoc(doc(db, 'Users', res.user.uid), { privateKey });
+      console.log(res);
     } catch (err: any) {
       alert(err.code);
       console.log(err);
