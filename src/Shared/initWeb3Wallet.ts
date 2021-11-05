@@ -12,7 +12,7 @@ export const initEthWalletAndInfuraSmartContracts = (privateKey: string) => {
 
   const infuraProvider = new providers.InfuraProvider(network, infuraAPIKey);
 
-  const wallet = new Wallet(`0x${privateKey}`, infuraProvider);
+  const wallet = new Wallet(privateKey, infuraProvider);
 
   return { wallet, infuraProvider };
 };

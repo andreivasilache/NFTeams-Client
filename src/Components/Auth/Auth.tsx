@@ -11,7 +11,7 @@ export const Auth = () => {
   const auth = getAuth();
   const loginWithEmailAndPassword = async (email: string, password: string) => {
     try {
-      const res = signInWithEmailAndPassword(auth, email, password);
+      const res = await signInWithEmailAndPassword(auth, email, password);
       console.log(res);
     } catch (err: any) {
       alert(err.code);
@@ -42,7 +42,7 @@ export const Auth = () => {
       <div>
         <input value={email} onChange={e => setEmail(e.target.value)} />
         <input value={password} onChange={e => setPassword(e.target.value)} />
-        <button type='button' onSubmit={() => loginWithEmailAndPassword(email, password)}>
+        <button type='button' onClick={() => loginWithEmailAndPassword(email, password)}>
           login
         </button>
       </div>

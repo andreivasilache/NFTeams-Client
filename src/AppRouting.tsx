@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { doc, getDoc, getFirestore, setDoc } from '@firebase/firestore';
+import { Wallet } from '@ethersproject/wallet';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -8,6 +10,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { Profile } from './Pages/Profile/Profile';
 import { Auth } from './Components/Auth/Auth';
+import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
+import useStore from './Hooks/useStore';
+import { WalletStore } from './Store/Wallet.store';
+import { SmartContractsStore } from './Store/SmartContracts.store';
+import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -21,24 +28,58 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 export const AppRouting = () => {
-  const [user, loading, error] = useAuthState(getAuth());
+  const [user] = useAuthState(getAuth());
+  const [isAppInitializing, setIsAppInitializing] = useState(true);
+  const walletStore = useStore('walletStore') as WalletStore;
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
 
-  console.log(user, loading, error);
+  const initUserWallet = async (user: any) => {
+    // todo: refactor this.
+    const db = getFirestore();
+    const docRef = doc(getFirestore(), FIRESTORE_COLLECTION_KEYS.USERS, user.uid);
+    const docSnap = await getDoc(docRef);
 
-  /* 
-    todo: after the auth, check if the user has a wallet assigned 
-    how to read/write to auth metadata: 
-    https://stackoverflow.com/questions/57730452/how-to-add-metadata-to-firebase-authentication/57730489
-  
-  */
+    let walletRef;
+    let infuraProviderRef;
 
-  if (loading) {
+    const initNewWalletForCurrentUser = async () => {
+      const { privateKey } = Wallet.createRandom();
+      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), { privateKey });
+      const walletInstance = walletStore.initWalletStore(privateKey);
+      walletRef = walletInstance.wallet;
+      infuraProviderRef = walletInstance.infuraProvider;
+    };
+
+    if (docSnap.exists()) {
+      const currentUserPrivateKey = docSnap.data().privateKey;
+      if (currentUserPrivateKey) {
+        const walletInstance = walletStore.initWalletStore(currentUserPrivateKey);
+        walletRef = walletInstance.wallet;
+        infuraProviderRef = walletInstance.infuraProvider;
+      } else {
+        await initNewWalletForCurrentUser();
+      }
+    } else {
+      await initNewWalletForCurrentUser();
+    }
+    await smartContractsStore.init(walletRef as any, infuraProviderRef as any);
+    setIsAppInitializing(false);
+  };
+
+  useEffect(() => {
+    if (user?.uid) {
+      initUserWallet(user);
+    }
+  }, [JSON.stringify(user)]);
+
+  if (isAppInitializing && window.location.pathname !== '/auth') {
     return <div>Loading...</div>;
   }
   return (
     <Switch>
       <Route exact path='/profile' component={Profile} />
       <Route exact path='/auth' component={Auth} />
+      <Route exact path='/admin-dashboard' component={AdminDashBoard} />
       <Redirect to={user ? '/profile' : '/auth'} />
     </Switch>
   );
