@@ -6,6 +6,7 @@ import { FIRESTORE_COLLECTION_KEYS } from '../Shared/constants/FireStoreTableKey
 
 export enum SMART_CONTRACTS_ENUM {
   GENERATE_NFT = 'NFTProvider',
+  COINS_PROVIDER = 'MarketCoins',
 }
 
 export class SmartContractsStore {
