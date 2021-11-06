@@ -15,6 +15,8 @@ import useStore from './Hooks/useStore';
 import { WalletStore } from './Store/Wallet.store';
 import { SmartContractsStore } from './Store/SmartContracts.store';
 import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
+import './App.css'
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -76,11 +78,14 @@ export const AppRouting = () => {
     return <div>Loading...</div>;
   }
   return (
-    <Switch>
-      <Route exact path='/profile' component={Profile} />
-      <Route exact path='/auth' component={Auth} />
-      <Route exact path='/admin-dashboard' component={AdminDashBoard} />
-      <Redirect to={user ? '/profile' : '/auth'} />
-    </Switch>
+    <div className='app-container'>
+      <Switch>
+        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/auth' component={Auth} />
+        <Route exact path='/admin-dashboard' component={AdminDashBoard} />
+        <Route exact path='/dashboard' component={Dashboard} />
+        <Redirect to={user ? '/profile' : '/auth'} />
+      </Switch>
+    </div>
   );
 };
