@@ -30,8 +30,10 @@ const AppMain = () => {
               </GridItem>
             </Grid>
             <Grid item xs={10}>
-              {isUserDashboard && <UserDashboard />}
-              {isProfileSelected && <Profile />}
+              <div style={{height: windowHeight - 120}}>
+                {isUserDashboard && <UserDashboard />}
+                {isProfileSelected && <Profile />}
+              </div>
             </Grid>
             <Grid item xs={1}>
               <GridItem height={windowHeight - 120} color='#6979F8'>
