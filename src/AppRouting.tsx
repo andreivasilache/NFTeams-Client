@@ -15,7 +15,7 @@ import useStore from './Hooks/useStore';
 import { WalletStore } from './Store/Wallet.store';
 import { SmartContractsStore } from './Store/SmartContracts.store';
 import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
-import './App.css'
+import './App.css';
 import Dashboard from './Pages/Dashboard/Dashboard';
 
 const firebaseConfig = {
@@ -84,7 +84,7 @@ export const AppRouting = () => {
         <Route exact path='/auth' component={Auth} />
         <Route exact path='/admin-dashboard' component={AdminDashBoard} />
         <Route exact path='/dashboard' component={Dashboard} />
-        <Redirect to={user ? '/profile' : '/auth'} />
+        <Redirect to={user ? '/dashboard' : '/auth'} />
       </Switch>
     </div>
   );
