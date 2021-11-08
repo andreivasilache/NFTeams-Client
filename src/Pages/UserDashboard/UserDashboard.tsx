@@ -5,6 +5,9 @@ import { GridItem } from '../../Components/GridItem/GridItem';
 import StyledUserDashboard from './StyledUserDashboard'
 import WalletBalance from './WalletBalance/WalletBalance';
 import Hello from '../../Components/Hello/Hello';
+import ProfilePreview from './ProfilePreviw/ProfilePreview';
+import LeaderBoardsPreview from './LeaderBoards/LeaderBoards';
+import NewsPreview from './News/News';
 
 const UserDashboard = () => {
     const windowHeight = window.innerHeight;
@@ -21,7 +24,7 @@ const UserDashboard = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <GridItem height={windowHeight - 240} color='#7EFACD'>
-                    <span>test 2</span>
+                    <ProfilePreview />
                   </GridItem>
                 </Grid>
               </Grid>
@@ -35,14 +38,14 @@ const UserDashboard = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <GridItem height={(windowHeight - 120) * 0.4} color='#6979F8'>
-                    <span>test 2</span>
+                    <LeaderBoardsPreview />
                   </GridItem>
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={4}>
               <GridItem height={windowHeight - 120} color='#6979F8'>
-                <span>test 4</span>
+                <NewsPreview />
               </GridItem>
             </Grid>
           </Grid>
