@@ -6,6 +6,7 @@ import ProfileIcon from './NavIcons/Profile/ProfileIcon';
 import MarketplaceIcon from './NavIcons/Marketplace/MarketplaceIcon';
 import CommunitiesIcon from './NavIcons/Comunities/CommunitiesIcon';
 import WalletIcon from './NavIcons/Wallet/Walleticon';
+import HomeIcon from './NavIcons/HomeIcon/HomeIcon';
 
 const SideNavigation = () => {
     const history = useHistory()
@@ -19,7 +20,7 @@ const SideNavigation = () => {
     return(
         <StyledSideNavigation>
             <NavigationItem
-                NavImage={ProfileIcon}
+                NavImage={HomeIcon}
                 label='home'
                 onClickItem={() => onNavigateTo('/dashboard')}
                 isActive={isActive('/dashboard')}
