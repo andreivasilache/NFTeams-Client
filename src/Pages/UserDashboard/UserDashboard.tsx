@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { GridItem } from '../../Components/GridItem/GridItem';
 import StyledUserDashboard from './StyledUserDashboard'
 import WalletBalance from './WalletBalance/WalletBalance';
+import Hello from '../../Components/Hello/Hello';
 
 const UserDashboard = () => {
     const windowHeight = window.innerHeight;
@@ -15,7 +16,7 @@ const UserDashboard = () => {
               <Grid container rowSpacing={2} columnSpacing={3}>
                 <Grid item xs={12}>
                   <GridItem height={100} color='#7EFACD'>
-                    <span>test 2</span>
+                    <Hello />
                   </GridItem>
                 </Grid>
                 <Grid item xs={12}>
