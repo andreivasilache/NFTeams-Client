@@ -5,23 +5,6 @@ const StyledWalletBalance = styled.div`
   margin-top: 24px;
 
   .wallet {
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-    }
-
-    &__title {
-      font-weight: 700;
-      color: var(--theming-font-color);
-      letter-spacing: 0.0075em;
-    }
-
-    &__view-more {
-      font-weight: 600;
-      color: var(--theming-font-color-secondary);
-      letter-spacing: 0.5px;
-    }
     &__details {
       margin-top: 65px;
       text-align: center;

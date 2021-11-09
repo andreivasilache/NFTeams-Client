@@ -8,7 +8,6 @@ import { getAuth } from 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { Profile } from './Pages/Profile/Profile';
 import { Auth } from './Components/Auth/Auth';
 import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import useStore from './Hooks/useStore';
@@ -16,7 +15,7 @@ import { WalletStore } from './Store/Wallet.store';
 import { SmartContractsStore } from './Store/SmartContracts.store';
 import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
 import './App.css';
-import Dashboard from './Pages/Dashboard/Dashboard';
+import AppMain from './Pages/AppMain/AppMain';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -80,10 +79,10 @@ export const AppRouting = () => {
   return (
     <div className='app-container'>
       <Switch>
-        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/profile' component={AppMain} />
         <Route exact path='/auth' component={Auth} />
         <Route exact path='/admin-dashboard' component={AdminDashBoard} />
-        <Route exact path='/dashboard' component={Dashboard} />
+        <Route exact path='/dashboard' component={AppMain} />
         <Redirect to={user ? '/dashboard' : '/auth'} />
       </Switch>
     </div>
