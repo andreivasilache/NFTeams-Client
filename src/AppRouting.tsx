@@ -9,7 +9,7 @@ import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { Profile } from './Pages/Profile/Profile';
-import { Auth } from './Components/Auth/Auth';
+import { Auth } from './Pages/Auth/Auth';
 import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import useStore from './Hooks/useStore';
 import { WalletStore } from './Store/Wallet.store';
