@@ -14,11 +14,9 @@ export const Login = () =>{
     const auth = getAuth();
     const loginWithEmailAndPassword = async (email: string, password: string) => {
         try {
-          const res = await signInWithEmailAndPassword(auth, email, password);
-          console.log(res);
+          await signInWithEmailAndPassword(auth, email, password);
         } catch (err: any) {
           alert(err.code);
-          console.log(err);
         }
       };
 

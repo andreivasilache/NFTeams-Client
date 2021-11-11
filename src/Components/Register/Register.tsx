@@ -17,13 +17,11 @@ export const Register = () =>{
         return ;
       }
         
-        try {
+      try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
-        console.log(res);
-        } catch (err: any) {
+      } catch (err: any) {
         alert(err.code);
-        console.log(err);
-        }
+      }
     };
 
     return(
