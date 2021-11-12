@@ -8,15 +8,16 @@ import { getAuth } from 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { Profile } from './Pages/Profile/Profile';
 import { Auth } from './Pages/Auth/Auth';
-import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import useStore from './Hooks/useStore';
 import { WalletStore } from './Store/Wallet.store';
 import { SmartContractsStore } from './Store/SmartContracts.store';
 import { FIRESTORE_COLLECTION_KEYS } from './Shared/constants/FireStoreTableKeys';
 import './App.css';
-import AppMain from './Pages/AppMain/AppMain';
+import UserDashboard from './Pages/UserDashboard/UserDashboard';
+import { Profile } from './Pages/Profile/Profile';
+import WalletComponent from './Pages/Wallet/Wallet';
+import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -80,11 +81,11 @@ export const AppRouting = () => {
   return (
     <div className='app-container'>
       <Switch>
-        <Route exact path='/profile' component={AppMain} />
+        <Route exact path='/user-dashboard' component={UserDashboard} />
         <Route exact path='/auth' component={Auth} />
         <Route exact path='/admin-dashboard' component={AdminDashBoard} />
-        <Route exact path='/dashboard' component={AppMain} />
-        <Route exact path='/wallet' component={AppMain} />
+        <Route exact path='/profile' component={Profile} />
+        <Route exact path='/wallet' component={WalletComponent} />
         <Redirect to={user ? '/dashboard' : '/auth'} />
       </Switch>
     </div>
