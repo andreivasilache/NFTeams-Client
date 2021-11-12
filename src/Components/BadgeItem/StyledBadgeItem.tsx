@@ -3,6 +3,7 @@ import styled from 'styled-components'
 const StyledBadgeItem = styled.div`
     width: 100%;
     height: 140px;
+    max-width: 130px;
 
     .badge{
         &__title{

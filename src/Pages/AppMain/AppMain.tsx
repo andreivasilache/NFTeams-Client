@@ -10,12 +10,14 @@ import RightMessages from '../../Components/RightMessages/RightMessages';
 import UserDashboard from '../UserDashboard/UserDashboard';
 import StyledAppMain from './StyledAppMain';
 import { Profile } from '../Profile/Profile';
+import Wallet from '../Wallet/Wallet';
 
 const AppMain = () => {
   const windowHeight = window.innerHeight;
   const location = useLocation();
   const isUserDashboard = location.pathname === '/dashboard';
   const isProfileSelected = location.pathname === '/profile';
+  const isWalletSelected = location.pathname === '/wallet';
 
 
   return (
@@ -33,6 +35,7 @@ const AppMain = () => {
               <div style={{height: windowHeight - 120}}>
                 {isUserDashboard && <UserDashboard />}
                 {isProfileSelected && <Profile />}
+                {isWalletSelected && <Wallet />}
               </div>
             </Grid>
             <Grid item xs={1}>

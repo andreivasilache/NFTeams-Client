@@ -83,6 +83,7 @@ export const AppRouting = () => {
         <Route exact path='/auth' component={Auth} />
         <Route exact path='/admin-dashboard' component={AdminDashBoard} />
         <Route exact path='/dashboard' component={AppMain} />
+        <Route exact path='/wallet' component={AppMain} />
         <Redirect to={user ? '/dashboard' : '/auth'} />
       </Switch>
     </div>
