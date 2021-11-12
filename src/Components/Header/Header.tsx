@@ -22,7 +22,7 @@ const useStyle = makeStyles({
 const Header = () => {
   const classes = useStyle();
   const [searchValue, setSearchValue] = useState();
-  console.log(searchValue, setSearchValue);
+  console.warn(searchValue, setSearchValue);
 
   const { accountCoins, loadCurrentAccountCoins } = useCoins();
 

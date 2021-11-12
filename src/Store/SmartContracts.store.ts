@@ -37,4 +37,10 @@ export class SmartContractsStore {
 
     return new ethers.Contract(address, abi, this.wallet);
   }
+
+  async getNFTSOfWallet(wallet?: string) {
+    const rawData = await this.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).getAllTokensOfOwner(wallet || this.wallet?.address);
+    const NFTS = rawData.map((toBeParsed: string) => JSON.parse(toBeParsed));
+    return NFTS;
+  }
 }

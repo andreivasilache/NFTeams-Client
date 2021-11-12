@@ -24,12 +24,12 @@ const WalletComponent = () => {
                   </GridItem>
                 </Grid>
                 <Grid item xs={12}>
-                  <GridItem height={230}>
+                  <GridItem height={400}>
                     <TokensAndStats />
                   </GridItem>
                 </Grid>
                 <Grid item xs={12}>
-                  <GridItem height={windowHeight - 535}>
+                  <GridItem height={windowHeight - 710}>
                     <Badges />
                   </GridItem>
                 </Grid>
