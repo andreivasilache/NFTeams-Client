@@ -1,17 +1,30 @@
-import React from 'react'
-import BadgeItem from '../../../Components/BadgeItem/BadgeItem'
-import { badges } from '../../../__mocks__/badges'
-import StyledBadges from './StyledBadges'
+import React, { useEffect, useState } from 'react';
+import BadgeItem from '../../../Components/BadgeItem/BadgeItem';
+import useStore from '../../../Hooks/useStore';
+import { SmartContractsStore } from '../../../Store/SmartContracts.store';
+import StyledBadges from './StyledBadges';
 
-const Badges = () => (
+const Badges = () => {
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+  const [badges, setBadges] = useState([]);
+
+  useEffect(() => {
+    smartContractsStore.getNFTSOfWallet().then(assets => {
+      const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
+      setBadges(filteredBadges);
+    });
+  }, []);
+
+  return (
     <StyledBadges>
-        <div className='info'>
-                Your badges
-        </div>
-        <div className='badges'>
-            {badges.map(badge => <BadgeItem key={badge.imgUrl} imgUrl={badge.imgUrl} title={badge.title} />)}
-        </div>
+      <div className='info'>Your badges</div>
+      <div className='badges'>
+        {badges.map((badge: any) => (
+          <BadgeItem key={badge?.metadata?.id} imgUrl={badge.imageURL} title={badge?.metadata?.title} />
+        ))}
+      </div>
     </StyledBadges>
-)
+  );
+};
 
-export default Badges
+export default Badges;
