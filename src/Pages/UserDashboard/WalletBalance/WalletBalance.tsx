@@ -32,7 +32,7 @@ const WalletBalance = () => {
         <div className='wallet__view-more'> View more</div>
       </div> */}
 
-      <CustomCardHeader title='Wallet balance' viewMoreClick={()=> {}} />
+      <CustomCardHeader title='Wallet balance' viewMoreClick={() => {}} />
       <div className='wallet__details'>
         <div className='wallet__balance'>{accountCoins}</div>
         <div className='wallet__balance-eth'>ETH: {balance}</div>

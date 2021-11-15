@@ -1,6 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const StyledUserDashboard = styled.div`
-`
+const StyledUserDashboard = styled.div``;
 
-export default StyledUserDashboard
+export default StyledUserDashboard;
