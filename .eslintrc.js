@@ -62,5 +62,7 @@ module.exports = {
     "prefer-promise-reject-errors": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
+    "no-alert": "off",
+    "no-console": "off",
   },
 };
