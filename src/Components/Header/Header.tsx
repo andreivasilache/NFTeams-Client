@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { LinearProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from '@firebase/auth';
+
 import StyledHeader from './StyledHeader';
 import logo from '../../assets/png/logo.png';
 import profile from '../../assets/png/profile-logo.png';
@@ -22,6 +25,7 @@ const useStyle = makeStyles({
 const Header = () => {
   const classes = useStyle();
   const [searchValue, setSearchValue] = useState();
+  const [user] = useAuthState(getAuth());
   console.warn(searchValue, setSearchValue);
 
   const { accountCoins, loadCurrentAccountCoins } = useCoins();
@@ -56,7 +60,7 @@ const Header = () => {
           <SearchIcon />
         </div>
         <BellIcon />
-        <span className='right-panel__welcome'>Hi again, bui!</span>
+        <span className='right-panel__welcome'>Hi again, {user?.email || ''}!</span>
         <img src={profile} alt='profile logo' />
       </div>
     </StyledHeader>

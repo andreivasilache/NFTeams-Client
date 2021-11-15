@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { AuthFields, WhiteTextField } from '../../Pages/Auth/StyledAuth';
 import StyleRegister from './StyleRegister';
@@ -17,8 +18,8 @@ export const Register = () => {
     }
 
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
+      await createUserWithEmailAndPassword(auth, email, password);
+      window.location.reload();
     } catch (err: any) {
       alert(err.code);
     }
@@ -58,7 +59,7 @@ export const Register = () => {
           variant='standard'
         />
       </AuthFields>
-      <Button type='submit' className='register-button' variant='contained' onClick={() => registerWithEmailAndPassword(email, password)}>
+      <Button className='register-button' variant='contained' onClick={() => registerWithEmailAndPassword(email, password)}>
         register
       </Button>
     </StyleRegister>
