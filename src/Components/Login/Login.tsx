@@ -27,8 +27,8 @@ export const Login = () =>{
               <WhiteTextField type='password' required InputLabelProps={{style: { color: '#fff' },}} onChange={e => setPassword(e.target.value)} value={password} id='standard-basic' label='Password' variant='standard' />
             </AuthFields>
             <StyledPassword>
-            <FormControlLabel className='checkbox-section' control={<Checkbox />} label="Remember me" />
-              <Button size= 'small' variant="text">Fogot your password ?</Button>
+              <FormControlLabel className='checkbox-section' control={<Checkbox />} label="Remember me" />
+              <Button  variant="text">Fogot your password ?</Button>
             </StyledPassword>
             <Button type='submit' className='login-button' variant='contained' onSubmit={() => loginWithEmailAndPassword(email, password)}>
                 login

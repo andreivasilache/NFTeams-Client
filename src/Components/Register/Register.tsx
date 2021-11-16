@@ -18,7 +18,7 @@ export const Register = () =>{
       }
         
       try {
-        const res = await createUserWithEmailAndPassword(auth, email, password);
+        await createUserWithEmailAndPassword(auth, email, password);
       } catch (err: any) {
         alert(err.code);
       }
