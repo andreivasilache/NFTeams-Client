@@ -3,42 +3,99 @@ import styled from 'styled-components'
 import { createTheme } from '@mui/material/styles';
 import { withStyles } from '@mui/styles';
 
+/*
+const PXtoVW = (px:number) =>{
+  return 100 * (px/1920)
+}
+const PXtoVH = (px:number) =>{
+  return 100 * (px/1080)
+}
+*/
+
 const StyledAuth = styled.div`
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap');
+    overflow: hidden;
     background: linear-gradient(84.24deg, #6148D6 15.44%, #3B25B0 75.09%), #090C10;
     height: 100vh;
-    padding-left: 5rem;
-    font-family: "Roboto", sans-serif;
+    padding-left: 14.53125vw;
     position: relative;
+    font-family: "SF Pro Display";
+
+    .main-text,
+    .sub-text{
+      margin: 0;
+      font-style: normal;
+      font-weight: normal;
+    }
 
     .main-text{
-        margin-top: 0px;
-        padding-top: 3.5rem;
+        padding-top: 26.39vh;
+        font-size: 32px;
+        line-height: 48px;
+    }
+    .sub-text{
+      margin-bottom: 8.3vh;
+      font-size: 20px;
+      line-height: 40px;
     }
     
     .login-photo{
       position: absolute;
-      width: 330px;
-      height: 301px;
-      right: 264px;
-      top: 120px;
+      width: 34.32vw;
+      height: 55.83vh;
+      right: 23.43vw;
+      top: 18.24vh;
     }
 
     .vector-photo{
       position: absolute;
-      width: 641px;
-      height: 503px;
-      right: 5px;
+      width: 61.77vw;
+      height: 85.92vh;
+      right: 0px;
       top: 0px;
     }
 
     .MuiTab-root{
       color : #98A1C8;
+      padding: 0px;
+      margin-right: 21px;
+      text-transform: capitalize;
+      font-style: normal;
+      font-size: 14px;
+      line-height: 24px;
+    }
+    .MuiTabs-root{
+      width: 300px;
     }
     .MuiCheckbox-root{
       color : #fff;
     }
-
+    .login-button,
+    .register-button{
+    background-color:#7EFACD;
+    margin-top: 8.7vh;
+    padding: 12px 32px;
+    width: 132px;
+    height: 40px;
+    color:#5F47D4;
+    text-transform: capitalize;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    border-radius: 8px;
+  }
+  .login-button:hover,
+  .register-button:hover{
+    background-color:#7EFACD;
+  }
+    @media (max-width: 1060px) {
+      .vector-photo{
+        display: none;
+      }
+      .login-photo{
+        display: none;
+      }
+    }
 `
 
 export const authTheme = createTheme({
@@ -49,8 +106,7 @@ export const authTheme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Roboto',
-      'sans-serif',
+      "SF Pro Display"
     ].join(','),
   },
 });
@@ -68,12 +124,13 @@ export const AuthFields = styled.div`
 export const WhiteTextField = withStyles({
   root: {
     '& .MuiInput-underline:before': {
-      borderBottomColor: '#fff', // Semi-transparent underline
+      borderBottomColor: '#fff'
     },
     '& .MuiInput-underline:hover:before': {
-      borderBottomColor: '#fff', // Solid underline on hover
+      borderBottomColor: '#fff'
     },
   },
 })(TextField);
+
 
 export default StyledAuth

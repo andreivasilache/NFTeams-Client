@@ -9,20 +9,21 @@ export const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setC_Password] = useState('');
 
-  const auth = getAuth();
-  const registerWithEmailAndPassword = async (email: string, password: string) => {
-    if (password !== confirmedPassword) {
-      alert('Passwords are not matching');
-      return;
-    }
-
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
-    } catch (err: any) {
-      alert(err.code);
-    }
-  };
+    
+    const auth = getAuth();
+    const registerWithEmailAndPassword = async (email: string, password: string) => {
+      if(password !== confirmedPassword )
+      {
+        alert("Passwords are not matching")
+        return ;
+      }
+        
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (err: any) {
+        alert(err.code);
+      }
+    };
 
   return (
     <StyleRegister>

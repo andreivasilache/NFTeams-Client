@@ -43,10 +43,10 @@ export const Auth = () => {
     <ThemeProvider theme={authTheme}>
       <StyledAuth>
         <h1 className='main-text'>Welcome Back</h1>
-        <p>Please log in to your account</p>
+        <p className = 'sub-text'>Please log in to your account</p>
           <StyledTabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-            <Tab label='Login' {...a11yProps(0)} />
-            <Tab label='Register' {...a11yProps(1)} />
+            <Tab style={{minWidth:"41px"}} label='Login' {...a11yProps(0)} />
+            <Tab style={{minWidth:"57px"}} label='Register' {...a11yProps(1)} />
           </StyledTabs>
         <TabPanel value={value} index={0}>
           <Login />
