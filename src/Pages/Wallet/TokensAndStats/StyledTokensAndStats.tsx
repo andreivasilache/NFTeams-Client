@@ -1,16 +1,15 @@
-import styled from 'styled-components'
-
+import styled from 'styled-components';
 
 const StyledTokensAndStats = styled.div`
-    padding:10px;
+  padding: 10px;
 
-    .info{
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 24px;
-        color:#D0CFCF;
-        text-transform: uppercase;
-    }
-`
+  .info {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 24px;
+    color: #d0cfcf;
+    text-transform: uppercase;
+  }
+`;
 
-export default StyledTokensAndStats
+export default StyledTokensAndStats;

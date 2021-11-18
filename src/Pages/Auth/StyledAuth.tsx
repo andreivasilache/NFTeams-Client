@@ -1,5 +1,5 @@
-import { Tabs, TextField } from '@mui/material'
-import styled from 'styled-components'
+import { Tabs, TextField } from '@mui/material';
+import styled from 'styled-components';
 import { createTheme } from '@mui/material/styles';
 import { withStyles } from '@mui/styles';
 
@@ -101,7 +101,7 @@ const StyledAuth = styled.div`
 export const authTheme = createTheme({
   palette: {
     primary: {
-      main: '#fff'
+      main: '#fff',
     },
   },
   typography: {
@@ -112,14 +112,14 @@ export const authTheme = createTheme({
 });
 
 export const StyledTabs = styled(Tabs)`
-    margin-bottom: 1rem;
-`
+  margin-bottom: 1rem;
+`;
 
 export const AuthFields = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-`
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+`;
 
 export const WhiteTextField = withStyles({
   root: {
@@ -132,5 +132,4 @@ export const WhiteTextField = withStyles({
   },
 })(TextField);
 
-
-export default StyledAuth
+export default StyledAuth;

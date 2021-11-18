@@ -1,10 +1,10 @@
-import React from 'react'
-import StyledTokensAndStats from './StyledTokensAndStats'
+import React from 'react';
+import StyledTokensAndStats from './StyledTokensAndStats';
 
 const TokensAndStats = () => (
-    <StyledTokensAndStats>
-        <span className='info'>transaction history</span>
-    </StyledTokensAndStats>
-)
+  <StyledTokensAndStats>
+    <span className='info'>transaction history</span>
+  </StyledTokensAndStats>
+);
 
-export default TokensAndStats
+export default TokensAndStats;
