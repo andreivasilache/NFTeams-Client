@@ -31,4 +31,3 @@ export const StyledPassword = styled.div`
   }
 `;
 export default StyledLogin;
-

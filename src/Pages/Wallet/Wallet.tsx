@@ -43,7 +43,7 @@ const WalletComponent = () => {
                   </GridItem>
                 </Grid>
               </Grid>
-              <div className='wallet-mark'>Wallet</div>
+              <div className='wallet-mark'>Collections</div>
             </Grid>
           </Grid>
         </Box>
