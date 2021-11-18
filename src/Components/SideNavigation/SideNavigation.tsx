@@ -48,7 +48,12 @@ const SideNavigation = () => {
         isActive={isActive('/communities')}
       />
 
-      <NavigationItem NavImage={WalletIcon} label='wallet' onClickItem={() => onNavigateTo('/wallet')} isActive={isActive('/wallet')} />
+      <NavigationItem
+        NavImage={WalletIcon}
+        label='collections'
+        onClickItem={() => onNavigateTo('/wallet')}
+        isActive={isActive('/wallet')}
+      />
 
       <NavigationItem NavImage={QuestsIcon} label='quests' onClickItem={() => onNavigateTo('/quests')} isActive={isActive('/quests')} />
 
