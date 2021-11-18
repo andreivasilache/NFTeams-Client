@@ -34,7 +34,7 @@ export const Register = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setEmail(e.target.value)}
           value={email}
-          id='standard-basic'
+          id='email-register'
           label='Email'
           variant='standard'
         />
@@ -44,7 +44,7 @@ export const Register = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setPassword(e.target.value)}
           value={password}
-          id='standard-basic'
+          id='password-register'
           label='Password'
           variant='standard'
         />
@@ -54,7 +54,7 @@ export const Register = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setC_Password(e.target.value)}
           value={confirmedPassword}
-          id='standard-basic'
+          id='password-rep-register'
           label='Confirm Password'
           variant='standard'
         />
