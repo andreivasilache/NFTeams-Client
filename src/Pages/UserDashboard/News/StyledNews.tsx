@@ -1,15 +1,15 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledNews = styled.div`
-    margin: 0px 32px;
-    margin-top: 24px;
-    height: 100%;
+  margin: 0px 32px;
+  margin-top: 24px;
+  height: 100%;
 
-    .list{
-        margin-top:30px;
-        height: calc(100% - 50px);
-        overflow: auto;
-    }
-`
+  .list {
+    margin-top: 30px;
+    height: calc(100% - 50px);
+    overflow: auto;
+  }
+`;
 
-export default StyledNews
+export default StyledNews;

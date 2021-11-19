@@ -18,6 +18,8 @@ import UserDashboard from './Pages/UserDashboard/UserDashboard';
 import { Profile } from './Pages/Profile/Profile';
 import WalletComponent from './Pages/Wallet/Wallet';
 import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
+import { ROUTES } from './Shared/constants/Routes';
+import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -31,11 +33,11 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 export const AppRouting = () => {
+  const [authState, setAuthState] = useState<true | false | 'loading'>('loading');
   const [user] = useAuthState(getAuth());
   const [isAppInitializing, setIsAppInitializing] = useState(true);
   const walletStore = useStore('walletStore') as WalletStore;
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
-
   const initUserWallet = async (user: any) => {
     // todo: refactor this.
     const db = getFirestore();
@@ -68,24 +70,37 @@ export const AppRouting = () => {
     setIsAppInitializing(false);
   };
 
+  useEffect(
+    () =>
+      getAuth().onAuthStateChanged(user => {
+        if (user) {
+          setAuthState(true);
+        } else {
+          setAuthState(false);
+        }
+      }),
+    [],
+  );
+
   useEffect(() => {
     if (user?.uid) {
       initUserWallet(user);
     }
   }, [JSON.stringify(user)]);
 
-  if (isAppInitializing && window.location.pathname !== '/auth') {
+  if (isAppInitializing && window.location.pathname !== ROUTES.auth) {
     return <div>Loading...</div>;
   }
   return (
     <div className='app-container'>
       <Switch>
-        <Route exact path='/user-dashboard' component={UserDashboard} />
-        <Route exact path='/auth' component={Auth} />
-        <Route exact path='/admin-dashboard' component={AdminDashBoard} />
-        <Route exact path='/profile' component={Profile} />
-        <Route exact path='/wallet' component={WalletComponent} />
-        <Redirect to={user ? '/dashboard' : '/auth'} />
+        <WithProtectedRoute Component={UserDashboard} isAuthenticated={authState === true} path={ROUTES.dashboard} />
+        {/* <Route exact path={ROUTES.dashboard} component={UserDashboard} /> */}
+        <Route exact path={ROUTES.auth} component={Auth} />
+        <WithProtectedRoute path={ROUTES.adminDashboard} isAuthenticated={authState === true} Component={AdminDashBoard} />
+        <WithProtectedRoute path={ROUTES.profile} isAuthenticated={authState === true} Component={Profile} />
+        <WithProtectedRoute path={ROUTES.wallet} isAuthenticated={authState === true} Component={WalletComponent} />
+        <Redirect to={ROUTES.dashboard} />
       </Switch>
     </div>
   );

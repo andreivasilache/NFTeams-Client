@@ -3,7 +3,7 @@ import './App.css';
 import { AppRouting } from './AppRouting';
 
 function App() {
-  return( <AppRouting />);
+  return <AppRouting />;
 }
 
 export default App;

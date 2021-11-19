@@ -2,23 +2,24 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import { FormControlLabel } from '@mui/material';
+
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
-import  StyledLogin, { StyledPassword } from './StyleLogin';
+import StyledLogin, { StyledPassword } from './StyleLogin';
 import { AuthFields, WhiteTextField } from '../../Pages/Auth/StyledAuth';
 
+export const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-export const Login = () =>{
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const auth = getAuth();
-    const loginWithEmailAndPassword = async (email: string, password: string) => {
-        try {
-          await signInWithEmailAndPassword(auth, email, password);
-        } catch (err: any) {
-          alert(err.code);
-        }
-      };
+  const auth = getAuth();
+  const loginWithEmailAndPassword = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.reload();
+    } catch (err: any) {
+      alert(err.code);
+    }
+  };
 
     return(
         <StyledLogin>
