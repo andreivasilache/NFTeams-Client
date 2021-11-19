@@ -7,9 +7,9 @@ const StyledWallet = styled.div`
     font-size: 120px;
     line-height: 64px;
     position: absolute;
-    bottom: 181px;
+    bottom: 309px;
     transform: rotate(-90deg);
-    margin-left: -230px;
+    margin-left: -384px;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, getFirestore } from '@firebase/firestore';
-import { Wallet } from '@ethersproject/wallet';
+// import { collection, getDocs, getFirestore } from '@firebase/firestore';
+// import { Wallet } from '@ethersproject/wallet';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { GridItem } from '../../Components/GridItem/GridItem';
@@ -10,11 +10,11 @@ import useIPFSPinata from '../../Hooks/useIPFSPinata';
 import useStore from '../../Hooks/useStore';
 import { SmartContractsStore, SMART_CONTRACTS_ENUM } from '../../Store/SmartContracts.store';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
-import { FIRESTORE_COLLECTION_KEYS } from '../../Shared/constants/FireStoreTableKeys';
 import useCoins from '../../Hooks/useCoints';
 import UploadFiles from '../../Components/UploadFiles/UploadFiles';
 import AdminMainSection from '../../Components/AdminMainSection/AdminMainSection';
 import StyledAdminDashboard from './StyledAdminDashboard';
+import getAllUsers from '../../Shared/firebase/getAllUsers';
 
 const AdminDashBoard = () => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
@@ -34,15 +34,8 @@ const AdminDashBoard = () => {
   const [giveNFTToAddress, setGiveNFTToAddress] = useState('');
 
   const loadUsers = async () => {
-    const querySnapshot = await getDocs(collection(getFirestore(), FIRESTORE_COLLECTION_KEYS.USERS));
-    const toBeSavedToState: any = [];
-    querySnapshot.forEach(doc => {
-      toBeSavedToState.push({
-        wallet: new Wallet(doc.data().privateKey).address,
-        email: doc.data().email,
-      });
-    });
-    setUsers(toBeSavedToState);
+    const users = await getAllUsers();
+    setUsers(users);
   };
 
   useEffect(() => {
