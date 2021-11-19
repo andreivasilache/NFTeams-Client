@@ -5,11 +5,12 @@ interface Props {
   children: ReactComponentElement<any>;
   height?: number;
   color?: string;
+  hasBackground?: boolean
 }
 
-export const GridItem = ({ children, color = '', height }: Props) => (
+export const GridItem = ({ children, color = '', height, hasBackground=true }: Props) => (
   // @ts-ignore
-  <StyledGrid borderColor={color} height={`${height}px`}>
+  <StyledGrid hasBackground={hasBackground} borderColor={color} height={`${height}px`}>
     {children}
   </StyledGrid>
 );

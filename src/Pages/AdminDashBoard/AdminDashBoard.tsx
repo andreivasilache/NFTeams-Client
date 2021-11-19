@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, getFirestore } from '@firebase/firestore';
 import { Wallet } from '@ethersproject/wallet';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { GridItem } from '../../Components/GridItem/GridItem';
+import HostedAssets from '../../Components/HostedAssets/HostedAssets';
 
 import useIPFSPinata from '../../Hooks/useIPFSPinata';
 import useStore from '../../Hooks/useStore';
 import { SmartContractsStore, SMART_CONTRACTS_ENUM } from '../../Store/SmartContracts.store';
-// import { WalletStore } from '../../Store/Wallet.store';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import { FIRESTORE_COLLECTION_KEYS } from '../../Shared/constants/FireStoreTableKeys';
 import useCoins from '../../Hooks/useCoints';
+import UploadFiles from '../../Components/UploadFiles/UploadFiles';
+import AdminMainSection from '../../Components/AdminMainSection/AdminMainSection';
+import StyledAdminDashboard from './StyledAdminDashboard';
 
 const AdminDashBoard = () => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
@@ -86,10 +92,57 @@ const AdminDashBoard = () => {
     }
   };
 
+  const windowHeight = window.innerHeight;
   return (
     <WithAppLayout>
+      <StyledAdminDashboard>
+      <Box sx={{ flexGrow: 1 }}>
+          {/* <AdminMainCenter className='admin-dashboard-background' /> */}
+          <Grid container rowSpacing={8} columnSpacing={3}>
+            <Grid item xs={12}>
+              <Grid container rowSpacing={10} columnSpacing={6}>
+                <Grid item xs={5}>  
+                  <GridItem height={windowHeight * 0.32} hasBackground={false} >
+                      <HostedAssets items={items} />
+                  </GridItem>
+                </Grid>
+                <Grid item xs={7}>
+                 <GridItem height={windowHeight * 0.32} hasBackground={false} >
+                     <UploadFiles 
+                      fileName={fileName} 
+                      description={fileDescription} 
+                      setFileName={setFileName} 
+                      setDescription={setFileDescription}
+                      setUploadFile={(file) => setUploadedFile(file)}
+                      setUploadType={setAssetCreationType}
+                      creationType={assetCreationType}
+                      selectedFile={uploadedFile}
+                      confirmUploadFile={addAssetToIPFS}
+                    />
+                  </GridItem>
+                </Grid>
+              </Grid>
+              
+            </Grid>
+            <Grid item xs={12}>
+              <GridItem height={windowHeight * 0.52} hasBackground={false}>
+                <AdminMainSection />
+              </GridItem>
+            </Grid>
+          </Grid>
+        </Box>
+
+
+
+
+
+
+
+
+
+
       <div>
-        <div
+        {/* <div
           style={{
             padding: '10px',
             border: '1px solid white',
@@ -117,7 +170,7 @@ const AdminDashBoard = () => {
               Upload to IPFS
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div
           style={{
@@ -203,6 +256,7 @@ const AdminDashBoard = () => {
           </button>
         </div>
       </div>
+      </StyledAdminDashboard>
     </WithAppLayout>
   );
 };

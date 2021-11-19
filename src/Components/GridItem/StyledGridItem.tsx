@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const StyledGrid = styled.div`
-  background-color: #0d1216;
+  background-color:${(props:any) => props.hasBackground? '#0d1216':'transparent'} ;
   border: 1px solid;
-  border-color: ${(props: any) => props.borderColor || '#0D1216'};
+  border-color: ${(props: any) => props.borderColor || 'transparent'};
   border-radius: 8px;
   height: ${(props: any) => props.height};
 `;
