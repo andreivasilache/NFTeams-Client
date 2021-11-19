@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const StyledNews = styled.div`
   margin: 0px 32px;
   margin-top: 24px;
-  height: 100%;
+  height: calc(100% - 24px);
 
   .list {
     margin-top: 30px;

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const StyledHostedAssets = styled.div`
-  width: calc(100% - 63px);
-  margin-left: 43px;
+  width: calc(100% - 20px);
+  margin-left: 39px;
   height: 100%;
-  z-index: 99999;
+
   position: relative;
 
   .hosted-assets__container {

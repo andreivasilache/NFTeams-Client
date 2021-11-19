@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledRightMessages = styled.div`
   width: 100%;
-  height: calc(100% - 30px);
+  height: calc(100% - 40px);
   display: flex;
   flex-flow: column;
   justify-content: flex-start;

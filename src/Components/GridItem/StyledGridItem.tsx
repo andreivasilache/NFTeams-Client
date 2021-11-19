@@ -6,6 +6,8 @@ const StyledGrid = styled.div`
   border-color: ${(props: any) => props.borderColor || 'transparent'};
   border-radius: 8px;
   height: ${(props: any) => props.height};
-  overflow-y: auto;
+  ${(props:any) =>  props.overflowY && `
+    overflow-y: auto;
+  `}
 `;
 export default StyledGrid;
