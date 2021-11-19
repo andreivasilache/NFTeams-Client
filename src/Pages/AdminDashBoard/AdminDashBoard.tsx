@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
+// import { collection, getDocs, getFirestore } from '@firebase/firestore';
+// import { Wallet } from '@ethersproject/wallet';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { GridItem } from '../../Components/GridItem/GridItem';
+import HostedAssets from '../../Components/HostedAssets/HostedAssets';
 
 import useIPFSPinata from '../../Hooks/useIPFSPinata';
 import useStore from '../../Hooks/useStore';
 import { SmartContractsStore, SMART_CONTRACTS_ENUM } from '../../Store/SmartContracts.store';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import useCoins from '../../Hooks/useCoints';
+import UploadFiles from '../../Components/UploadFiles/UploadFiles';
+import AdminMainSection from '../../Components/AdminMainSection/AdminMainSection';
+import StyledAdminDashboard from './StyledAdminDashboard';
 import getAllUsers from '../../Shared/firebase/getAllUsers';
 
 const AdminDashBoard = () => {
@@ -76,10 +85,47 @@ const AdminDashBoard = () => {
     }
   };
 
+  const windowHeight = window.innerHeight;
   return (
     <WithAppLayout>
-      <div>
-        <div
+      <StyledAdminDashboard>
+        <Box sx={{ flexGrow: 1 }}>
+          {/* <AdminMainCenter className='admin-dashboard-background' /> */}
+          <Grid container rowSpacing={8} columnSpacing={3}>
+            <Grid item xs={12}>
+              <Grid container rowSpacing={10} columnSpacing={6}>
+                <Grid item xs={5}>
+                  <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
+                    <HostedAssets items={items} />
+                  </GridItem>
+                </Grid>
+                <Grid item xs={7}>
+                  <GridItem height={windowHeight * 0.32} hasBackground={false}>
+                    <UploadFiles
+                      fileName={fileName}
+                      description={fileDescription}
+                      setFileName={setFileName}
+                      setDescription={setFileDescription}
+                      setUploadFile={file => setUploadedFile(file)}
+                      setUploadType={setAssetCreationType}
+                      creationType={assetCreationType}
+                      selectedFile={uploadedFile}
+                      confirmUploadFile={addAssetToIPFS}
+                    />
+                  </GridItem>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <GridItem height={windowHeight * 0.52} hasBackground={false}>
+                <AdminMainSection />
+              </GridItem>
+            </Grid>
+          </Grid>
+        </Box>
+
+        <div>
+          {/* <div
           style={{
             padding: '10px',
             border: '1px solid white',
@@ -107,92 +153,93 @@ const AdminDashBoard = () => {
               Upload to IPFS
             </button>
           </div>
-        </div>
+        </div> */}
 
-        <div
-          style={{
-            padding: '10px',
-            border: '1px solid white',
-            marginTop: '10px',
-          }}
-        >
-          Hosted assets:
-          <div style={{ display: 'flex' }}>
+          <div
+            style={{
+              padding: '10px',
+              border: '1px solid white',
+              marginTop: '10px',
+            }}
+          >
+            Hosted assets:
             <div style={{ display: 'flex' }}>
-              {items.map((item: any) => (
-                <div key={item.ipfs_pin_hash}>
-                  {item.metadata.keyvalues.type === 'badge' && (
-                    <div
-                      style={{
-                        alignItems: 'center',
-                        marginRight: '10px',
-                      }}
-                    >
-                      <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
-                      <div>{item.metadata.keyvalues.name}</div>
-                      <div>{item.metadata.keyvalues.description}</div>
-                      <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
-                      <button type='button' onClick={() => mintNFT(item)}>
-                        Send!
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div style={{ display: 'flex' }}>
-              {items.map((item: any) => (
-                <div key={item.ipfs_pin_hash}>
-                  {item.metadata.keyvalues.type === 'NFT' && (
-                    <>
-                      <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
-                      <div>{item.metadata.keyvalues.name}</div>
-                      <div>{item.metadata.keyvalues.description}</div>
-                      <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
-                      <button type='button' onClick={() => mintNFT(item)}>
-                        Send!
-                      </button>
-                    </>
-                  )}
-                </div>
-              ))}
+              <div style={{ display: 'flex' }}>
+                {items.map((item: any) => (
+                  <div key={item.ipfs_pin_hash}>
+                    {item.metadata.keyvalues.type === 'badge' && (
+                      <div
+                        style={{
+                          alignItems: 'center',
+                          marginRight: '10px',
+                        }}
+                      >
+                        <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+                        <div>{item.metadata.keyvalues.name}</div>
+                        <div>{item.metadata.keyvalues.description}</div>
+                        <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
+                        <button type='button' onClick={() => mintNFT(item)}>
+                          Send!
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex' }}>
+                {items.map((item: any) => (
+                  <div key={item.ipfs_pin_hash}>
+                    {item.metadata.keyvalues.type === 'NFT' && (
+                      <>
+                        <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+                        <div>{item.metadata.keyvalues.name}</div>
+                        <div>{item.metadata.keyvalues.description}</div>
+                        <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
+                        <button type='button' onClick={() => mintNFT(item)}>
+                          Send!
+                        </button>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div
-          style={{
-            padding: '10px',
-            border: '1px solid white',
-            marginTop: '10px',
-          }}
-        >
-          Users:
-          {users.map((user: any) => (
-            <>
-              <div>{user.email}</div>
-              <div>{user.wallet}</div>
-            </>
-          ))}
-        </div>
+          <div
+            style={{
+              padding: '10px',
+              border: '1px solid white',
+              marginTop: '10px',
+            }}
+          >
+            Users:
+            {users.map((user: any) => (
+              <>
+                <div>{user.email}</div>
+                <div>{user.wallet}</div>
+              </>
+            ))}
+          </div>
 
-        <div
-          style={{
-            padding: '10px',
-            border: '1px solid white',
-            marginTop: '10px',
-          }}
-        >
-          Give Coins to user:
-          <div>Value:</div>
-          <input value={giveCoinsToUserValue} onChange={e => setGiveCoinsToUserValue(+e.target.value)} />
-          <div>address:</div>
-          <input value={giveCoinsToUserAddress} onChange={e => setGiveCoinsToUserAddress(e.target.value)} />
-          <button type='button' onClick={sendCoinsToWallet}>
-            Send
-          </button>
+          <div
+            style={{
+              padding: '10px',
+              border: '1px solid white',
+              marginTop: '10px',
+            }}
+          >
+            Give Coins to user:
+            <div>Value:</div>
+            <input value={giveCoinsToUserValue} onChange={e => setGiveCoinsToUserValue(+e.target.value)} />
+            <div>address:</div>
+            <input value={giveCoinsToUserAddress} onChange={e => setGiveCoinsToUserAddress(e.target.value)} />
+            <button type='button' onClick={sendCoinsToWallet}>
+              Send
+            </button>
+          </div>
         </div>
-      </div>
+      </StyledAdminDashboard>
     </WithAppLayout>
   );
 };
