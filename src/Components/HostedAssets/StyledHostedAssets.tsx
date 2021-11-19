@@ -28,7 +28,7 @@ const StyledHostedAssets = styled.div`
   .hosted-assets {
     &__content {
       position: absolute;
-      width: 98%;
+      width: 91%;
       height: 63%;
       top: 47px;
       left: 12px;
