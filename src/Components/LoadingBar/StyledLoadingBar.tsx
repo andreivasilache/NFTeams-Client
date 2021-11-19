@@ -1,14 +1,18 @@
 import styled from 'styled-components'
 
+interface Props {
+    width: string;
+  }
+
 const StyledLoadingBar = styled.div`
     width: 513px;
     height: 21px;
     border-radius: 14px;
     background-color: rgba(120, 99, 224, 0.3);
 `
-export const StyledLoadedBar = styled.div`
+export const StyledLoadedBar = styled.div<Props>`
     position: relative;
-    width: ${props => props.id };
+    width: ${props => props.width };
     height: 21px;
     border-radius: 14px;
     background: #7EFACD;

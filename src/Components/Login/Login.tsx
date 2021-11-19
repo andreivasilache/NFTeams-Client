@@ -23,8 +23,24 @@ export const Login = () =>{
     return(
         <StyledLogin>
             <AuthFields>
-              <WhiteTextField type='email' required InputLabelProps={{style: { color: '#fff' },}} onChange={e => setEmail(e.target.value)} value={email} id='email-login' label='Email' variant='standard' />
-              <WhiteTextField type='password' required InputLabelProps={{style: { color: '#fff' },}} onChange={e => setPassword(e.target.value)} value={password} id='password-login' label='Password' variant='standard' />
+              <WhiteTextField 
+                type='email' 
+                required 
+                InputLabelProps={{style: { color: '#fff' },}} 
+                onChange={e => setEmail(e.target.value)} 
+                value={email}  
+                label='Email' 
+                variant='standard' 
+              />
+              <WhiteTextField 
+                type='password' 
+                required 
+                InputLabelProps={{style: { color: '#fff' },}} 
+                onChange={e => setPassword(e.target.value)} 
+                value={password} 
+                label='Password'
+                variant='standard' 
+                />
             </AuthFields>
             <StyledPassword>
               <FormControlLabel className='checkbox-section' control={<Checkbox />} label="Remember me" />

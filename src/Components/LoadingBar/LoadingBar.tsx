@@ -11,7 +11,7 @@ export const LoadingBar = (prop:any) => {
 
     return(
         <StyledLoadingBar className='parent'>
-            <StyledLoadedBar id={x}>
+            <StyledLoadedBar width={x}>
                 <ProcentLoaded>{procent}%</ProcentLoaded>
             </StyledLoadedBar>
         </StyledLoadingBar>
