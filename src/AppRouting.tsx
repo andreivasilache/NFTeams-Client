@@ -20,6 +20,7 @@ import WalletComponent from './Pages/Wallet/Wallet';
 import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import { ROUTES } from './Shared/constants/Routes';
 import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
+import Market from './Pages/Market/Market';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -100,6 +101,7 @@ export const AppRouting = () => {
         <WithProtectedRoute path={ROUTES.adminDashboard} isAuthenticated={authState === true} Component={AdminDashBoard} />
         <WithProtectedRoute path={ROUTES.profile} isAuthenticated={authState === true} Component={Profile} />
         <WithProtectedRoute path={ROUTES.wallet} isAuthenticated={authState === true} Component={WalletComponent} />
+        <WithProtectedRoute path={ROUTES.marketPlace} isAuthenticated={authState === true} Component={Market} />
         <Redirect to={ROUTES.dashboard} />
       </Switch>
     </div>
