@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import InputDataDecoder from 'ethereum-input-data-decoder';
+import moment from 'moment';
 
 import { SmartContractsStore, SMART_CONTRACTS_ENUM } from '../../../Store/SmartContracts.store';
 import useAccountTransactions from '../../../Hooks/useAccountTransactions';
@@ -29,9 +30,9 @@ const TokensAndStats = () => {
       const to = decodedInput.inputs[0];
 
       parsedTransactions.push({
-        from: walletToAddressMap[transaction.from_address] || 'COMPANY',
+        from: walletToAddressMap[transaction.from] || 'COMPANY',
         to: to ? walletToAddressMap[`0x${to}`] : 'COMPANY',
-        date: transaction.block_timestamp,
+        timeStamp: transaction.timeStamp,
         redirectTo: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
       });
     });
@@ -56,14 +57,10 @@ const TokensAndStats = () => {
           </tr>
 
           {currentWalletHistory.map((transaction: any) => (
-            <tr key={transaction.date}>
+            <tr key={transaction.timeStamp}>
               <td>{transaction.from}</td>
               <td>{transaction.to}</td>
-              <td>
-                {new Intl.DateTimeFormat('en-US', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }).format(
-                  new Date(transaction.date),
-                )}
-              </td>
+              <td>{moment.unix(+transaction.timeStamp).format('DD/MM HH:mm')}</td>
               <td
                 onClick={() => {
                   window.open(transaction.redirectTo, '_blank')?.focus();
