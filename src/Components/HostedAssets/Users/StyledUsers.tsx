@@ -11,6 +11,7 @@ const StyledUsers = styled.div`
       height: 102px;
       overflow-y: auto;
       margin-right: 8px;
+      margin-left:10px
     }
 
     &__action {

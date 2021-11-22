@@ -7,9 +7,10 @@ import Users from './Users/Users';
 
 interface Props {
   items: any[];
+  users:any[];
 }
 
-const HostedAssets = ({ items = [] }: Props) => {
+const HostedAssets = ({ items = [], users=[] }: Props) => {
   const [isAssetsActive, setIsAssetsActive] = useState(true);
 
   return (
@@ -35,7 +36,7 @@ const HostedAssets = ({ items = [] }: Props) => {
           <AssetsComponent items={items} />
         </div>
         <div className='hosted-assets__users'>
-          <Users />
+          <Users users={users} />
         </div>
       </div>
     </StyledHostedAssets>

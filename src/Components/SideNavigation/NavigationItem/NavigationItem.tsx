@@ -9,8 +9,8 @@ interface Props {
 }
 
 const NavigationItem = ({ NavImage, label = '', onClickItem, isActive = false }: Props) => (
-  <StyledNavigationItem onClick={() => onClickItem()} color={isActive ? '#fff' : '#364659'}>
-    <NavImage backgroundColor={isActive ? '#fff' : undefined} />
+  <StyledNavigationItem onClick={() => onClickItem()} color={isActive ? '#7EFACD' : '#364659'} >
+    <NavImage backgroundColor={isActive ? '#7EFACD' : undefined} isActive={isActive}/>
     <span className='navigation-label'>{label}</span>
   </StyledNavigationItem>
 );

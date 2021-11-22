@@ -1,42 +1,39 @@
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { useState } from 'react';
+import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
 import CustomInput from '../../CustomImput/CustomInput';
 import CustomSquareButton from '../../CustomSquareButton/CustomSquareButton';
 import StyledUsers from './StyledUsers';
 
-const createStyles = makeStyles({
-  formControl: {
-    color: '#FFFFFF',
-    padding: '0',
-    marginTop: '0 !important',
-    marginBottom: '0 !important',
-  },
-  checkbox: {
-    border: '1px solid #929BC9',
-  },
-});
+interface Props{
+  users:any[]
+}
 
-const Users = () => {
-  const classes = createStyles();
+const Users = ({users=[]}:Props) => {
+  const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
+
+  const onSelectUser = (user:any) => {
+    const indexOfSelectedUser = selectedUsers.findIndex(selectedUser => selectedUser === user)
+    if(indexOfSelectedUser>-1){
+      setSelectedUsers(selectedUsers.filter(selectedUser => selectedUser!==user))
+      return;
+    }
+    setSelectedUsers([...selectedUsers, user]);
+  }
+
+  console.log(users)
+
   return (
     <StyledUsers>
       <CustomInput />
       <div className='users__list'>
-        <FormGroup>
-          <FormControlLabel
-            classes={{ root: classes.formControl }}
-            control={<Checkbox size='small' classes={{ root: classes.checkbox }} />}
-            label='Label'
-          />
-          <FormControlLabel classes={{ root: classes.formControl }} control={<Checkbox size='small' />} label='Disabled' />
-        </FormGroup>
+        {users.map(user => (
+          <CustomCheckbox key={user.name} isChecked={selectedUsers.findIndex(selected => selected === user)>-1} label={user.email} onToggle={() => onSelectUser(user)}/>
+        ))}
       </div>
       <div className='users__action'>
-        <CustomSquareButton handleClick={() => {}} text='Assign to user' />
+        <CustomSquareButton width='105px' handleClick={() => {}} text='Assign to user' />
       </div>
     </StyledUsers>
-  );
-};
+  )};
 
 export default Users;

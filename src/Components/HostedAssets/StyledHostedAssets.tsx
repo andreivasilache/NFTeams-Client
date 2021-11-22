@@ -4,7 +4,7 @@ const StyledHostedAssets = styled.div`
   width: calc(100% - 20px);
   margin-left: 39px;
   height: 100%;
-
+  z-index: 99999;
   position: relative;
 
   .hosted-assets__container {

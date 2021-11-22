@@ -96,7 +96,7 @@ const AdminDashBoard = () => {
               <Grid container rowSpacing={10} columnSpacing={6}>
                 <Grid item xs={5}>
                   <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
-                    <HostedAssets items={items} />
+                    <HostedAssets items={items} users={users} />
                   </GridItem>
                 </Grid>
                 <Grid item xs={7}>
