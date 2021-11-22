@@ -6,6 +6,7 @@ export class WalletStore {
   wallet?: Wallet;
   infuraProvider?: ethers.providers.InfuraProvider;
   privateKey?: string;
+  currentNumberOfCoins: number = 0;
 
   constructor() {
     makeAutoObservable(this);

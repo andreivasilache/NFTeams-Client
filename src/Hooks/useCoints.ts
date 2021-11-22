@@ -30,10 +30,16 @@ const useCoins = () => {
     await coinsContractMethods.current.sendCointsToAdress(address, formatValueToUint256);
   };
 
+  const withdrawUserCoins = async (address: string, numberOfCoins: number) => {
+    const formatValueToUint256 = ethers.utils.parseUnits(`${numberOfCoins}`, 18);
+    await coinsContractMethods.current.withdrawCoins(address, formatValueToUint256);
+  };
+
   return {
     accountCoins,
     loadCurrentAccountCoins,
     giveCoinsToAddress,
+    withdrawUserCoins,
   };
 };
 

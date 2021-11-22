@@ -20,16 +20,10 @@ export const StyledMarket = styled.div`
         border-bottom: 1px solid #7efacd;
       }
     }
-    &__add-items {
-      width: 733px;
-      height: 733px;
-      border: 1px solid #6979f8;
-      position: relative;
-    }
 
     &__items {
       margin-right: 58px;
-      width: 804px;
+      width: 750px;
       height: 733px;
       display: flex;
       flex-wrap: wrap;
@@ -65,6 +59,7 @@ export const StyledMarket = styled.div`
       position: absolute;
       left: 55px;
       top: 206px;
+      cursor: pointer;
     }
 
     &__title {

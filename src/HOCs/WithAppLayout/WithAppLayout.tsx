@@ -15,11 +15,11 @@ const StyledWithAppLayout = styled.div`
   }
 `;
 
-const WithAppLayout = ({ children }: { children: React.ReactElement }) => {
+const WithAppLayout = ({ children, loadAccountCoinsRef }: { children: React.ReactElement; loadAccountCoinsRef?: any }) => {
   const windowHeight = window.innerHeight;
   return (
     <StyledWithAppLayout>
-      <Header />
+      <Header loadAccountCoinsRef={loadAccountCoinsRef} />
       <div className='dashboard-container'>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container rowSpacing={10} columnSpacing={3}>

@@ -29,8 +29,8 @@ const TokensAndStats = () => {
       const to = decodedInput.inputs[0];
 
       parsedTransactions.push({
-        from: walletToAddressMap[transaction.from_address] || 'unknown',
-        to: to ? walletToAddressMap[`0x${to}`] : 'unknown',
+        from: walletToAddressMap[transaction.from_address] || 'COMPANY',
+        to: to ? walletToAddressMap[`0x${to}`] : 'COMPANY',
         date: transaction.block_timestamp,
         redirectTo: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
       });
@@ -59,7 +59,11 @@ const TokensAndStats = () => {
             <tr key={transaction.date}>
               <td>{transaction.from}</td>
               <td>{transaction.to}</td>
-              <td>{new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(new Date(transaction.date))}</td>
+              <td>
+                {new Intl.DateTimeFormat('en-US', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }).format(
+                  new Date(transaction.date),
+                )}
+              </td>
               <td
                 onClick={() => {
                   window.open(transaction.redirectTo, '_blank')?.focus();
