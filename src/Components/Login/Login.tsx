@@ -21,35 +21,35 @@ export const Login = () => {
     }
   };
 
-    return(
-        <StyledLogin>
-            <AuthFields>
-              <WhiteTextField 
-                type='email' 
-                required 
-                InputLabelProps={{style: { color: '#fff' },}} 
-                onChange={e => setEmail(e.target.value)} 
-                value={email}  
-                label='Email' 
-                variant='standard' 
-              />
-              <WhiteTextField 
-                type='password' 
-                required 
-                InputLabelProps={{style: { color: '#fff' },}} 
-                onChange={e => setPassword(e.target.value)} 
-                value={password} 
-                label='Password'
-                variant='standard' 
-                />
-            </AuthFields>
-            <StyledPassword>
-              <FormControlLabel className='checkbox-section' control={<Checkbox />} label="Remember me" />
-              <Button  variant="text">Fogot your password ?</Button>
-            </StyledPassword>
-            <Button type='submit' className='login-button' variant='contained' onSubmit={() => loginWithEmailAndPassword(email, password)}>
-                login
-            </Button>
-        </StyledLogin>
-    );
-}
+  return (
+    <StyledLogin>
+      <AuthFields>
+        <WhiteTextField
+          type='email'
+          required
+          InputLabelProps={{ style: { color: '#fff' } }}
+          onChange={e => setEmail(e.target.value)}
+          value={email}
+          label='Email'
+          variant='standard'
+        />
+        <WhiteTextField
+          type='password'
+          required
+          InputLabelProps={{ style: { color: '#fff' } }}
+          onChange={e => setPassword(e.target.value)}
+          value={password}
+          label='Password'
+          variant='standard'
+        />
+      </AuthFields>
+      <StyledPassword>
+        <FormControlLabel className='checkbox-section' control={<Checkbox />} label='Remember me' />
+        <Button variant='text'>Fogot your password ?</Button>
+      </StyledPassword>
+      <Button type='submit' className='login-button' variant='contained' onSubmit={() => loginWithEmailAndPassword(email, password)}>
+        login
+      </Button>
+    </StyledLogin>
+  );
+};
