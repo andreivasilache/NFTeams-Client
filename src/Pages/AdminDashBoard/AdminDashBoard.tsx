@@ -18,7 +18,6 @@ import getAllUsers from '../../Shared/firebase/getAllUsers';
 
 const AdminDashBoard = () => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
-  // const { wallet } = useStore('walletStore') as WalletStore;
   const { pinataClient, pinFileToIPFSViaAPI } = useIPFSPinata();
   const coinsSM = useCoins();
 
@@ -29,9 +28,6 @@ const AdminDashBoard = () => {
   const [fileDescription, setFileDescription] = useState('');
   const [uploadedFile, setUploadedFile] = useState<any>(null);
   const [users, setUsers] = useState([]);
-  // const [giveCoinsToUserValue, setGiveCoinsToUserValue] = useState(0);
-  // const [giveCoinsToUserAddress, setGiveCoinsToUserAddress] = useState('');
-  // const [giveNFTToAddress, setGiveNFTToAddress] = useState('');
 
   const loadUsers = async () => {
     const users = await getAllUsers();
@@ -68,8 +64,13 @@ const AdminDashBoard = () => {
     }
     if (users) {
       for (let i = 0; i < users?.length; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        await coinsSM.giveCoinsToAddress(users[i].wallet, value);
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await coinsSM.giveCoinsToAddress(users[i].wallet, value);
+          alert('sent!');
+        } catch (err) {
+          alert(err);
+        }
       }
     }
   };
@@ -89,7 +90,6 @@ const AdminDashBoard = () => {
           }),
         );
         console.log(res);
-        alert('Done!');
       } catch (err) {
         console.log(err);
       }

@@ -47,7 +47,7 @@ const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
               handleClick={() =>
                 mintNTF(
                   selectedItem,
-                  selectedUsers.map(user => user.email),
+                  selectedUsers.map(user => user.wallet),
                 )
               }
               text='Assign to user'
