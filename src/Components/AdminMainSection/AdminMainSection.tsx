@@ -43,7 +43,7 @@ const AdminMainSection = ({ displayConfirmation = false, item, users = [], handl
           setTokens={setTokensValue}
         />
         <div className='admin-main__add-tokens-actions'>
-          <CustomButton buttonText='SendCoin' handleClick={handleClickSend} />
+          <CustomButton buttonText='Send' handleClick={handleClickSend} />
         </div>
       </div>
 
