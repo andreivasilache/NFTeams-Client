@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StyledAdminMainSection from './StyledAdminMainSection';
-import { ReactComponent as AdminMainLeft } from '../../assets/svg/left-container.svg';
+import { ReactComponent as AdminMainLeftBackground } from '../../assets/svg/left-container.svg';
 import { ReactComponent as AdminMainRight } from '../../assets/svg/right-container.svg';
 import { ReactComponent as AdminMainCenter } from '../../assets/svg/main-content.svg';
-import { ReactComponent as PeopleWonBadgesIcon } from '../../assets/svg/people-won-badges.svg';
+import ConfirmAsset from '../ConfirmAsset/ConfirmAsset';
+import AddTokens from './AddTokens/AddTokens';
+import CustomButton from '../CustomButton/CustomButton';
 
-const AdminMainSection = () => (
+interface Props{
+  displayConfirmation:boolean;
+  item:any;
+  users:any[];
+  handleClickAway:() => void;
+  sendCoins:({value, users, address}:{value:number, users:any[], address:string}) => void;
+}
+
+const AdminMainSection = ({displayConfirmation = false, item, users=[], handleClickAway, sendCoins}:Props) => {
+    const [tokensValue, setTokensValue] = useState(0);
+    const [address, setAddress] = useState('');
+    const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
+
+    const handleClickSend = () => {
+      sendCoins({value:tokensValue, users:selectedUsers,address})
+      setSelectedUsers([])
+      setAddress('')
+    }
+
+  return (
   <StyledAdminMainSection>
-    <AdminMainLeft className='left-background' />
+    <AdminMainLeftBackground className='left-background' />
     <span className='admin-main__title'>COMAND CENTER</span>
-    <div className='admin-main__people-won'>
-      <PeopleWonBadgesIcon className='admin-main__people-won-background' />
-      <span className='admin-main__people-won-text'>9</span>
-      <span className='admin-main__people-won-info'>people won badges</span>
+    <span className='admin-main__tokens'> TOKENS </span>
+    <span className='admin-main__analytics'> ANALYTICS </span>
+    <div className='admin-main__add-tokens'>
+       <AddTokens selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} users={users} tokensNumber={tokensValue} address={address} setAddress={setAddress} setTokens={setTokensValue}/>
+       <div className='admin-main__add-tokens-actions'>
+          <CustomButton buttonText='SendCoin' handleClick={handleClickSend} />
+      </div>
     </div>
+
     <AdminMainCenter className='center-background' />
+    {displayConfirmation && <div className='confirm-asset'>
+      <ConfirmAsset item={item} handleClickAway ={handleClickAway} />
+    </div>}
     <AdminMainRight className='right-background' />
   </StyledAdminMainSection>
-);
+)};
 
 export default AdminMainSection;

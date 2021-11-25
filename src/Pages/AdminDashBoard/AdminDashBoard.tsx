@@ -23,15 +23,15 @@ const AdminDashBoard = () => {
   const coinsSM = useCoins();
 
   const [items, setItems] = useState([]);
-
+  const [displayConfirmation, setDisplayConfirmation] = useState(null)
   const [assetCreationType, setAssetCreationType] = useState<'badge' | 'NFT'>('badge');
   const [fileName, setFileName] = useState('');
   const [fileDescription, setFileDescription] = useState('');
   const [uploadedFile, setUploadedFile] = useState<any>(null);
   const [users, setUsers] = useState([]);
-  const [giveCoinsToUserValue, setGiveCoinsToUserValue] = useState(0);
-  const [giveCoinsToUserAddress, setGiveCoinsToUserAddress] = useState('');
-  const [giveNFTToAddress, setGiveNFTToAddress] = useState('');
+  // const [giveCoinsToUserValue, setGiveCoinsToUserValue] = useState(0);
+  // const [giveCoinsToUserAddress, setGiveCoinsToUserAddress] = useState('');
+  // const [giveNFTToAddress, setGiveNFTToAddress] = useState('');
 
   const loadUsers = async () => {
     const users = await getAllUsers();
@@ -57,32 +57,51 @@ const AdminDashBoard = () => {
     }
   };
 
-  const sendCoinsToWallet = async () => {
-    try {
-      await coinsSM.giveCoinsToAddress(giveCoinsToUserAddress, giveCoinsToUserValue);
-      alert('sent!');
-    } catch (err) {
-      alert(err);
+  const sendCoinsToWallet = async ({value, users, address}:{value:number, users?:any[], address?:string}) => {
+    console.log({value});
+    console.log({users});
+    console.log({address});
+
+    if(address){  
+      try {
+        await coinsSM.giveCoinsToAddress(address, value);
+        alert('sent!');
+      } catch (err) {
+        alert(err);
+      }
+    }
+    if(users){
+      for(let i=0;i<users?.length; i++){
+        // eslint-disable-next-line no-await-in-loop
+        await coinsSM.giveCoinsToAddress(users[i].wallet, value);
+      }
     }
   };
 
-  const mintNFT = async (item: any) => {
-    try {
-      const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardNFT(
-        giveNFTToAddress,
-        JSON.stringify({
-          imageURL: `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`,
-          metadata: {
-            ...item.metadata.keyvalues,
-            id: item.id,
-          },
-        }),
-      );
-      console.log(res);
-      alert('Done!');
-    } catch (err) {
-      console.log(err);
+  const mintNFT = async (item: any, giveNFTToAddresses:string[]) => {
+    for(let i=0; i< giveNFTToAddresses.length;i++){
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardNFT(
+          giveNFTToAddresses[i],
+          JSON.stringify({
+            imageURL: `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`,
+            metadata: {
+              ...item.metadata.keyvalues,
+              id: item.id,
+            },
+          }),
+        );
+        console.log(res);
+        alert('Done!');
+      } catch (err) {
+        console.log(err);
+      }
     }
+    setDisplayConfirmation(item);
+    setTimeout(() => {
+      setDisplayConfirmation(null)
+    }, 6000)
   };
 
   const windowHeight = window.innerHeight;
@@ -96,7 +115,7 @@ const AdminDashBoard = () => {
               <Grid container rowSpacing={10} columnSpacing={6}>
                 <Grid item xs={5}>
                   <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
-                    <HostedAssets items={items} users={users} />
+                    <HostedAssets items={items} users={users} mintNTF={mintNFT} />
                   </GridItem>
                 </Grid>
                 <Grid item xs={7}>
@@ -118,127 +137,16 @@ const AdminDashBoard = () => {
             </Grid>
             <Grid item xs={12}>
               <GridItem height={windowHeight * 0.52} hasBackground={false}>
-                <AdminMainSection />
+                <AdminMainSection 
+                  sendCoins={sendCoinsToWallet} 
+                  users={users} 
+                  displayConfirmation={!!displayConfirmation} 
+                  item={displayConfirmation} 
+                  handleClickAway={() => setDisplayConfirmation(null)} />
               </GridItem>
             </Grid>
           </Grid>
         </Box>
-
-        <div>
-          {/* <div
-          style={{
-            padding: '10px',
-            border: '1px solid white',
-          }}
-        >
-          <div>
-            <div>Title:</div>
-            <input value={fileName} onChange={e => setFileName(e.target.value)} />
-
-            <div>Description:</div>
-            <input value={fileDescription} onChange={e => setFileDescription(e.target.value)} />
-
-            <div>File:</div>
-            <input type='file' onChange={e => setUploadedFile(e.target.files![0])} />
-
-            <div>Type:</div>
-            <input type='radio' value='badge' checked={assetCreationType === 'badge'} onClick={() => setAssetCreationType('badge')} />
-            <span>badge</span>
-            <input type='radio' value='NFT' checked={assetCreationType === 'NFT'} onClick={() => setAssetCreationType('NFT')} />
-            <span>NFT</span>
-
-            <br />
-            <br />
-            <button type='button' onClick={addAssetToIPFS}>
-              Upload to IPFS
-            </button>
-          </div>
-        </div> */}
-
-          <div
-            style={{
-              padding: '10px',
-              border: '1px solid white',
-              marginTop: '10px',
-            }}
-          >
-            Hosted assets:
-            <div style={{ display: 'flex' }}>
-              <div style={{ display: 'flex' }}>
-                {items.map((item: any) => (
-                  <div key={item.ipfs_pin_hash}>
-                    {item.metadata.keyvalues.type === 'badge' && (
-                      <div
-                        style={{
-                          alignItems: 'center',
-                          marginRight: '10px',
-                        }}
-                      >
-                        <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
-                        <div>{item.metadata.keyvalues.name}</div>
-                        <div>{item.metadata.keyvalues.description}</div>
-                        <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
-                        <button type='button' onClick={() => mintNFT(item)}>
-                          Send!
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div style={{ display: 'flex' }}>
-                {items.map((item: any) => (
-                  <div key={item.ipfs_pin_hash}>
-                    {item.metadata.keyvalues.type === 'NFT' && (
-                      <>
-                        <img width='200px' height='200px' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
-                        <div>{item.metadata.keyvalues.name}</div>
-                        <div>{item.metadata.keyvalues.description}</div>
-                        <input value={giveNFTToAddress} onChange={e => setGiveNFTToAddress(e.target.value)} />
-                        <button type='button' onClick={() => mintNFT(item)}>
-                          Send!
-                        </button>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div
-            style={{
-              padding: '10px',
-              border: '1px solid white',
-              marginTop: '10px',
-            }}
-          >
-            Users:
-            {users.map((user: any) => (
-              <>
-                <div>{user.email}</div>
-                <div>{user.wallet}</div>
-              </>
-            ))}
-          </div>
-
-          <div
-            style={{
-              padding: '10px',
-              border: '1px solid white',
-              marginTop: '10px',
-            }}
-          >
-            Give Coins to user:
-            <div>Value:</div>
-            <input value={giveCoinsToUserValue} onChange={e => setGiveCoinsToUserValue(+e.target.value)} />
-            <div>address:</div>
-            <input value={giveCoinsToUserAddress} onChange={e => setGiveCoinsToUserAddress(e.target.value)} />
-            <button type='button' onClick={sendCoinsToWallet}>
-              Send
-            </button>
-          </div>
-        </div>
       </StyledAdminDashboard>
     </WithAppLayout>
   );

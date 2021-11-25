@@ -25,6 +25,7 @@ const StyledAdminMainSection = styled.div`
     position: absolute;
     right: 110px;
     height: 450px;
+    z-index:5;
   }
 
   .admin-main {
@@ -32,11 +33,46 @@ const StyledAdminMainSection = styled.div`
       z-index: 9999;
       position: absolute;
       left: 44%;
-      top: 25%;
+      top: 42%;
       color: #dd56ff;
       font-weight: bold;
       font-size: 24px;
       line-height: 16px;
+    }
+
+    &__tokens{
+      z-index: 9999;
+      position: absolute;
+      left: 17%;
+      top: calc(41% + 10px);
+      color: #dd56ff;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 16px;
+    }
+
+    &__add-tokens{
+      position:absolute;
+      z-index: 999;
+      width: 230px;
+      height: 390px;
+      top:50%;
+      left:155px;
+    }
+
+    &__analytics{
+      z-index: 9999;
+      position: absolute;
+      left: 75%;
+      top: calc(41% + 10px);
+      color: #dd56ff;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 16px;
+    }
+    &__add-tokens-actions{
+      margin-top:58px;
+      margin-left:110px
     }
 
     &__people-won {
@@ -65,6 +101,14 @@ const StyledAdminMainSection = styled.div`
       line-height: 24px;
       margin-left: 8px;
     }
+  }
+
+  .confirm-asset{
+    position: absolute;
+    margin: 0 auto;
+    margin-top: -82px;
+    z-index: 999999;
+    margin-left: 29%;
   }
 `;
 

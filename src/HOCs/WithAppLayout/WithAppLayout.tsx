@@ -10,7 +10,7 @@ import SideNavigation from '../../Components/SideNavigation/SideNavigation';
 const StyledWithAppLayout = styled.div`
   width: 100%;
   .dashboard-container {
-    padding: 12px;
+    padding: 12px 12px 0 12px;
     height: calc(100% - 25px);
   }
 `;

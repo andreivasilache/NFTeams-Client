@@ -7,16 +7,11 @@ const StyledUsers = styled.div`
 
   .users {
     &__list {
-      margin-top: 5px;
-      height: 102px;
+      margin-top: 18px;
+      height: 90px;
       overflow-y: auto;
-      margin-right: 8px;
-      margin-left:10px
-    }
-
-    &__action {
-      margin-top: 8px;
-      margin-left: 55px;
+      overflow-x:hidden;
+      margin-right: 10px;
     }
   }
 `;

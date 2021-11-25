@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import CustomCheckbox from '../../CustomCheckbox/CustomCheckbox';
-import CustomInput from '../../CustomImput/CustomInput';
-import CustomSquareButton from '../../CustomSquareButton/CustomSquareButton';
+import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
+import CustomInput from '../CustomImput/CustomInput';
+// import CustomSquareButton from '../CustomSquareButton/CustomSquareButton';
 import StyledUsers from './StyledUsers';
 
 interface Props{
-  users:any[]
+  users:any[];
+  selectedUsers:any[];
+  setSelectedUsers: (users:any[]) => void;
 }
 
-const Users = ({users=[]}:Props) => {
-  const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
+const Users = ({users=[],selectedUsers = [], setSelectedUsers}:Props) => {
+  const [filterValue, setFilterValue] = useState('')
 
   const onSelectUser = (user:any) => {
     const indexOfSelectedUser = selectedUsers.findIndex(selectedUser => selectedUser === user)
@@ -20,18 +22,13 @@ const Users = ({users=[]}:Props) => {
     setSelectedUsers([...selectedUsers, user]);
   }
 
-  console.log(users)
-
   return (
     <StyledUsers>
-      <CustomInput />
+      <CustomInput value={filterValue} onChange={setFilterValue} />
       <div className='users__list'>
-        {users.map(user => (
+        {users.filter(user => user.email.toLowerCase().indexOf(filterValue.toLowerCase())!==-1).map(user => (
           <CustomCheckbox key={user.name} isChecked={selectedUsers.findIndex(selected => selected === user)>-1} label={user.email} onToggle={() => onSelectUser(user)}/>
         ))}
-      </div>
-      <div className='users__action'>
-        <CustomSquareButton width='105px' handleClick={() => {}} text='Assign to user' />
       </div>
     </StyledUsers>
   )};

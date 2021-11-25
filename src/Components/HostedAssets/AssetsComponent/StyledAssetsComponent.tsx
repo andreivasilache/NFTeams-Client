@@ -12,12 +12,42 @@ const StyledAssetsComponent = styled.div`
     &__list {
       display: flex;
     }
+
+    &__container{
+      display: flex;
+      flex-flow:column;
+    }
+
+    &__name{
+      color: #7EFACD;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      width: 75px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &--active{
+        color: #DD56FF;
+      }
+    }
+
     &__pagination {
       color: white;
     }
     &__image {
       width: 76px;
       height: 76px;
+      cursor:pointer;
+
+      &--active{
+        border: 1px solid #DD56FF;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 8.52631px 3.41053px rgba(221, 86, 255, 0.72);
+        border-radius: 6px;
+      }
     }
 
     &__input-container {

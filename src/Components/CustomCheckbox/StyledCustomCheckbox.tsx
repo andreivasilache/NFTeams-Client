@@ -4,10 +4,10 @@ const StyledCustomCheckbox = styled.div`
   .checkbox {
     display: block;
     position: relative;
-    padding-left:35px;
+    padding-left:25px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     -webkit-user-select: none;
     -moz-user-select: none;
