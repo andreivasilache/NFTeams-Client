@@ -58,9 +58,6 @@ const AdminDashBoard = () => {
   };
 
   const sendCoinsToWallet = async ({ value, users, address }: { value: number; users?: any[]; address?: string }) => {
-    console.log({ value });
-    console.log({ users });
-    console.log({ address });
 
     if (address) {
       try {

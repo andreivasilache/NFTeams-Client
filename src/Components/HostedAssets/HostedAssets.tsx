@@ -17,8 +17,6 @@ const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
   const [selectedItem, setSelectedItem] = useState();
   const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
 
-  console.log(selectedItem);
-
   return (
     <StyledHostedAssets>
       <span className='title'>HOSTED ASSETS</span>

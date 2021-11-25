@@ -9,12 +9,9 @@ interface Props {
   overflowY?: boolean;
 }
 
-export const GridItem = ({ children, color = '', height, hasBackground = true, overflowY = true }: Props) => {
-  console.log({ overflowY });
-  return (
+export const GridItem = ({ children, color = '', height, hasBackground = true, overflowY = true }: Props) => (
     // @ts-ignore
     <StyledGrid hasBackground={hasBackground} overflowY={overflowY} borderColor={color} height={`${height}px`}>
       {children}
     </StyledGrid>
   );
-};
