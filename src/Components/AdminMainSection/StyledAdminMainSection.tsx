@@ -86,6 +86,12 @@ const StyledAdminMainSection = styled.div`
       /* width: 150px; */
     }
 
+    &__right-button {
+      position: absolute;
+      right: calc(10% + 6px);
+      bottom: 9%;
+    }
+
     &__people-won-text {
       position: absolute;
       color: #0a101b;

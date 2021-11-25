@@ -54,6 +54,9 @@ const AdminMainSection = ({ displayConfirmation = false, item, users = [], handl
         </div>
       )}
       <AdminMainRight className='right-background' />
+      <div className='admin-main__right-button'>
+        <CustomButton buttonText='Extract Report' handleClick={() => {}} />
+      </div>
     </StyledAdminMainSection>
   );
 };
