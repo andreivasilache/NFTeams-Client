@@ -8,7 +8,7 @@ import StyleRegister from './StyleRegister';
 export const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmedPassword, setC_Password] = useState('');
+  const [confirmedPassword, setCPassword] = useState('');
 
   const auth = getAuth();
   const registerWithEmailAndPassword = async (email: string, password: string) => {
@@ -34,7 +34,6 @@ export const Register = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setEmail(e.target.value)}
           value={email}
-          id='standard-basic'
           label='Email'
           variant='standard'
         />
@@ -44,7 +43,6 @@ export const Register = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setPassword(e.target.value)}
           value={password}
-          id='standard-basic'
           label='Password'
           variant='standard'
         />
@@ -52,9 +50,8 @@ export const Register = () => {
           required
           type='password'
           InputLabelProps={{ style: { color: '#fff' } }}
-          onChange={e => setC_Password(e.target.value)}
+          onChange={e => setCPassword(e.target.value)}
           value={confirmedPassword}
-          id='standard-basic'
           label='Confirm Password'
           variant='standard'
         />
