@@ -9,6 +9,7 @@ import WalletIcon from './NavIcons/Wallet/Walleticon';
 import HomeIcon from './NavIcons/HomeIcon/HomeIcon';
 import QuestsIcon from './NavIcons/Quests/Quests';
 import AdminIcon from './NavIcons/AdminIcon/AdminIcon';
+import { ROUTES } from '../../Shared/constants/Routes';
 
 const SideNavigation = () => {
   const history = useHistory();
@@ -38,8 +39,8 @@ const SideNavigation = () => {
       <NavigationItem
         NavImage={MarketplaceIcon}
         label='marketplace'
-        onClickItem={() => onNavigateTo('/marketplace')}
-        isActive={isActive('/marketplace')}
+        onClickItem={() => onNavigateTo(ROUTES.marketPlace)}
+        isActive={isActive(ROUTES.marketPlace)}
       />
 
       <NavigationItem

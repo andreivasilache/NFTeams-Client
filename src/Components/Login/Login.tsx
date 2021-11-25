@@ -30,7 +30,6 @@ export const Login = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setEmail(e.target.value)}
           value={email}
-          id='standard-basic'
           label='Email'
           variant='standard'
         />
@@ -40,18 +39,15 @@ export const Login = () => {
           InputLabelProps={{ style: { color: '#fff' } }}
           onChange={e => setPassword(e.target.value)}
           value={password}
-          id='standard-basic'
           label='Password'
           variant='standard'
         />
       </AuthFields>
       <StyledPassword>
         <FormControlLabel className='checkbox-section' control={<Checkbox />} label='Remember me' />
-        <Button size='small' variant='text'>
-          Fogot your password ?
-        </Button>
+        <Button variant='text'>Fogot your password ?</Button>
       </StyledPassword>
-      <Button className='login-button' variant='contained' onClick={() => loginWithEmailAndPassword(email, password)}>
+      <Button type='submit' className='login-button' variant='contained' onSubmit={() => loginWithEmailAndPassword(email, password)}>
         login
       </Button>
     </StyledLogin>

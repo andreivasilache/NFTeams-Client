@@ -22,7 +22,7 @@ const useStyle = makeStyles({
   },
 });
 
-const Header = () => {
+const Header = ({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any }) => {
   const classes = useStyle();
   const [searchValue, setSearchValue] = useState();
   const [user] = useAuthState(getAuth());
@@ -33,6 +33,12 @@ const Header = () => {
   useEffect(() => {
     loadCurrentAccountCoins();
   }, []);
+
+  useEffect(() => {
+    if (loadAccountCoinsRef?.current) {
+      loadAccountCoinsRef.current.loadCurrentAccountCoins = loadCurrentAccountCoins;
+    }
+  }, [loadAccountCoinsRef?.current]);
 
   return (
     <StyledHeader>
