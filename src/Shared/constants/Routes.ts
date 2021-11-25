@@ -4,4 +4,5 @@ export const ROUTES = {
   adminDashboard: '/admin-dashboard',
   profile: '/profile',
   wallet: '/wallet',
+  marketPlace: '/market',
 };
