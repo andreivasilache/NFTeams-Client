@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledCustomSquareButton = styled.button`
-  width: ${(props:any) => (props.customWidth || '82px')};
+  width: ${(props: any) => props.customWidth || '82px'};
   height: 26px;
   background-color: #dd56ff;
   position: relative;
@@ -13,12 +13,11 @@ const StyledCustomSquareButton = styled.button`
     left: -7px;
   }
 
-  .corner-bottom{
+  .corner-bottom {
     position: absolute;
     bottom: -5px;
     right: -2px;
   }
-
 `;
 
 export default StyledCustomSquareButton;

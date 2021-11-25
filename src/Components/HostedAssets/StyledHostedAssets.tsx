@@ -62,9 +62,9 @@ const StyledHostedAssets = styled.div`
       width: 36%;
     }
 
-    &__actions{
-      margin-left:85px;
-      margin-top:-54px
+    &__actions {
+      margin-left: 85px;
+      margin-top: -54px;
     }
   }
 `;

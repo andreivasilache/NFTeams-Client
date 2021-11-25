@@ -10,7 +10,7 @@ const StyledUsers = styled.div`
       margin-top: 18px;
       height: 90px;
       overflow-y: auto;
-      overflow-x:hidden;
+      overflow-x: hidden;
       margin-right: 10px;
     }
   }

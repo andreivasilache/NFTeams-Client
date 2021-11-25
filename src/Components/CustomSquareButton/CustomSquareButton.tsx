@@ -5,11 +5,11 @@ import { ReactComponent as CornerBottom } from '../../assets/svg/corner-bottom.s
 
 interface Props {
   text: string;
-  width?:string;
+  width?: string;
   handleClick: () => void;
 }
 
-const CustomSquareButton = ({ text = '', handleClick, width='82px' }: Props) => (
+const CustomSquareButton = ({ text = '', handleClick, width = '82px' }: Props) => (
   // @ts-ignore
   <StyledCustomSquareButton customWidth={width} onClick={handleClick}>
     {text}

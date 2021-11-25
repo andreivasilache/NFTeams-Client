@@ -25,7 +25,7 @@ const StyledAdminMainSection = styled.div`
     position: absolute;
     right: 110px;
     height: 450px;
-    z-index:5;
+    z-index: 5;
   }
 
   .admin-main {
@@ -40,7 +40,7 @@ const StyledAdminMainSection = styled.div`
       line-height: 16px;
     }
 
-    &__tokens{
+    &__tokens {
       z-index: 9999;
       position: absolute;
       left: 17%;
@@ -51,16 +51,16 @@ const StyledAdminMainSection = styled.div`
       line-height: 16px;
     }
 
-    &__add-tokens{
-      position:absolute;
+    &__add-tokens {
+      position: absolute;
       z-index: 999;
       width: 230px;
       height: 390px;
-      top:50%;
-      left:155px;
+      top: 50%;
+      left: 155px;
     }
 
-    &__analytics{
+    &__analytics {
       z-index: 9999;
       position: absolute;
       left: 75%;
@@ -70,9 +70,9 @@ const StyledAdminMainSection = styled.div`
       font-size: 24px;
       line-height: 16px;
     }
-    &__add-tokens-actions{
-      margin-top:58px;
-      margin-left:110px
+    &__add-tokens-actions {
+      margin-top: 58px;
+      margin-left: 110px;
     }
 
     &__people-won {
@@ -103,7 +103,7 @@ const StyledAdminMainSection = styled.div`
     }
   }
 
-  .confirm-asset{
+  .confirm-asset {
     position: absolute;
     margin: 0 auto;
     margin-top: -82px;

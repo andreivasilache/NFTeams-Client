@@ -4,7 +4,7 @@ const StyledCustomCheckbox = styled.div`
   .checkbox {
     display: block;
     position: relative;
-    padding-left:25px;
+    padding-left: 25px;
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 14px;
@@ -14,11 +14,10 @@ const StyledCustomCheckbox = styled.div`
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    
   }
 
-  .checkbox-checked{
-      color:#DD56FF
+  .checkbox-checked {
+    color: #dd56ff;
   }
 
   .checkbox input {
@@ -35,14 +34,14 @@ const StyledCustomCheckbox = styled.div`
     left: 0;
     height: 16px;
     width: 16px;
-    border: 1px solid #929BC9;
+    border: 1px solid #929bc9;
     border-radius: 3px;
-    background-color:#0A101B;
+    background-color: #0a101b;
     cursor: pointer;
   }
 
   .checkbox input:checked ~ .checkmark {
-    border: 1px solid #DD56FF;
+    border: 1px solid #dd56ff;
   }
   .checkmark:after {
     content: '';
@@ -60,13 +59,13 @@ const StyledCustomCheckbox = styled.div`
     top: 0;
     width: 5px;
     height: 10px;
-    color:#DD56FF;
-    border: solid #DD56FF;
+    color: #dd56ff;
+    border: solid #dd56ff;
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    }
+  }
 `;
 
 export default StyledCustomCheckbox;

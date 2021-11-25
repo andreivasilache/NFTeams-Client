@@ -23,7 +23,7 @@ const AdminDashBoard = () => {
   const coinsSM = useCoins();
 
   const [items, setItems] = useState([]);
-  const [displayConfirmation, setDisplayConfirmation] = useState(null)
+  const [displayConfirmation, setDisplayConfirmation] = useState(null);
   const [assetCreationType, setAssetCreationType] = useState<'badge' | 'NFT'>('badge');
   const [fileName, setFileName] = useState('');
   const [fileDescription, setFileDescription] = useState('');
@@ -57,12 +57,12 @@ const AdminDashBoard = () => {
     }
   };
 
-  const sendCoinsToWallet = async ({value, users, address}:{value:number, users?:any[], address?:string}) => {
-    console.log({value});
-    console.log({users});
-    console.log({address});
+  const sendCoinsToWallet = async ({ value, users, address }: { value: number; users?: any[]; address?: string }) => {
+    console.log({ value });
+    console.log({ users });
+    console.log({ address });
 
-    if(address){  
+    if (address) {
       try {
         await coinsSM.giveCoinsToAddress(address, value);
         alert('sent!');
@@ -70,16 +70,16 @@ const AdminDashBoard = () => {
         alert(err);
       }
     }
-    if(users){
-      for(let i=0;i<users?.length; i++){
+    if (users) {
+      for (let i = 0; i < users?.length; i++) {
         // eslint-disable-next-line no-await-in-loop
         await coinsSM.giveCoinsToAddress(users[i].wallet, value);
       }
     }
   };
 
-  const mintNFT = async (item: any, giveNFTToAddresses:string[]) => {
-    for(let i=0; i< giveNFTToAddresses.length;i++){
+  const mintNFT = async (item: any, giveNFTToAddresses: string[]) => {
+    for (let i = 0; i < giveNFTToAddresses.length; i++) {
       try {
         // eslint-disable-next-line no-await-in-loop
         const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardNFT(
@@ -100,8 +100,8 @@ const AdminDashBoard = () => {
     }
     setDisplayConfirmation(item);
     setTimeout(() => {
-      setDisplayConfirmation(null)
-    }, 6000)
+      setDisplayConfirmation(null);
+    }, 6000);
   };
 
   const windowHeight = window.innerHeight;
@@ -137,12 +137,13 @@ const AdminDashBoard = () => {
             </Grid>
             <Grid item xs={12}>
               <GridItem height={windowHeight * 0.52} hasBackground={false}>
-                <AdminMainSection 
-                  sendCoins={sendCoinsToWallet} 
-                  users={users} 
-                  displayConfirmation={!!displayConfirmation} 
-                  item={displayConfirmation} 
-                  handleClickAway={() => setDisplayConfirmation(null)} />
+                <AdminMainSection
+                  sendCoins={sendCoinsToWallet}
+                  users={users}
+                  displayConfirmation={!!displayConfirmation}
+                  item={displayConfirmation}
+                  handleClickAway={() => setDisplayConfirmation(null)}
+                />
               </GridItem>
             </Grid>
           </Grid>

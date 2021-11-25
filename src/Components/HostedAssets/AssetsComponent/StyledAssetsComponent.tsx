@@ -13,13 +13,13 @@ const StyledAssetsComponent = styled.div`
       display: flex;
     }
 
-    &__container{
+    &__container {
       display: flex;
-      flex-flow:column;
+      flex-flow: column;
     }
 
-    &__name{
-      color: #7EFACD;
+    &__name {
+      color: #7efacd;
       font-style: normal;
       font-weight: bold;
       font-size: 12px;
@@ -29,8 +29,8 @@ const StyledAssetsComponent = styled.div`
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      &--active{
-        color: #DD56FF;
+      &--active {
+        color: #dd56ff;
       }
     }
 
@@ -40,10 +40,10 @@ const StyledAssetsComponent = styled.div`
     &__image {
       width: 76px;
       height: 76px;
-      cursor:pointer;
+      cursor: pointer;
 
-      &--active{
-        border: 1px solid #DD56FF;
+      &--active {
+        border: 1px solid #dd56ff;
         box-sizing: border-box;
         box-shadow: 0px 0px 8.52631px 3.41053px rgba(221, 86, 255, 0.72);
         border-radius: 6px;

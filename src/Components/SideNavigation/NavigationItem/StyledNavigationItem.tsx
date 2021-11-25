@@ -9,8 +9,8 @@ const StyledNavigationItem = styled.div`
   flex-flow: column;
   cursor: pointer;
 
-  .nav-item-active{
-    filter: drop-shadow(0px 2px 4px #00FFD1);
+  .nav-item-active {
+    filter: drop-shadow(0px 2px 4px #00ffd1);
   }
 
   .navigation-label {

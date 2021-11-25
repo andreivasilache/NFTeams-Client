@@ -8,11 +8,11 @@ import CustomSquareButton from '../CustomSquareButton/CustomSquareButton';
 
 interface Props {
   items: any[];
-  users:any[];
-  mintNTF:(item: any, giveNFTToAddresses:string[]) => void
+  users: any[];
+  mintNTF: (item: any, giveNFTToAddresses: string[]) => void;
 }
 
-const HostedAssets = ({ items = [], users=[], mintNTF }: Props) => {
+const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
   const [isAssetsActive, setIsAssetsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState();
   const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
@@ -39,12 +39,21 @@ const HostedAssets = ({ items = [], users=[], mintNTF }: Props) => {
           </div>
         </div>
         <div className='hosted-assets__badges-list'>
-          <AssetsComponent items={items} selectItem={(item:any) => setSelectedItem(item)} selectedItem={selectedItem} />
+          <AssetsComponent items={items} selectItem={(item: any) => setSelectedItem(item)} selectedItem={selectedItem} />
         </div>
         <div className='hosted-assets__users'>
-          <Users users={users} selectedUsers={selectedUsers} setSelectedUsers = {setSelectedUsers} />
+          <Users users={users} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />
           <div className='hosted-assets__actions'>
-            <CustomSquareButton width='105px' handleClick={() => mintNTF(selectedItem, selectedUsers.map(user => user.email))} text='Assign to user' />
+            <CustomSquareButton
+              width='105px'
+              handleClick={() =>
+                mintNTF(
+                  selectedItem,
+                  selectedUsers.map(user => user.email),
+                )
+              }
+              text='Assign to user'
+            />
           </div>
         </div>
       </div>

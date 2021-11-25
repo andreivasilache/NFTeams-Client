@@ -2,11 +2,18 @@ import React from 'react';
 
 interface Props {
   backgroundColor?: string;
-  isActive:boolean;
+  isActive: boolean;
 }
 
-const HomeIcon = ({ backgroundColor = '#364659', isActive=false }: Props) => (
-  <svg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg' filter={`${isActive? 'drop-shadow(0px 2px 4px #00FFD1)':''}`} >
+const HomeIcon = ({ backgroundColor = '#364659', isActive = false }: Props) => (
+  <svg
+    width='28'
+    height='28'
+    viewBox='0 0 28 28'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    filter={`${isActive ? 'drop-shadow(0px 2px 4px #00FFD1)' : ''}`}
+  >
     <path d='M5.34741 11.9159V5.5H11.7633L8.64616 8.64648L5.34741 11.9159Z' fill={backgroundColor} stroke={backgroundColor} />
     <mask id='path-2-inside-1_143:680' fill='white'>
       <path d='M22.3134 5.83898V12.2839H15.8685V5.83898H22.3134ZM23.1524 5H15.0295V13.1229H23.1524V5Z' />
