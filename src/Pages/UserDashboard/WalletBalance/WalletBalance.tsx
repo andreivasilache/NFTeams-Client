@@ -27,11 +27,6 @@ const WalletBalance = () => {
 
   return (
     <StyledWalletBalance>
-      {/* <div className='wallet__header'>
-        <div className='wallet__title'>WALLET BALANCE</div>
-        <div className='wallet__view-more'> View more</div>
-      </div> */}
-
       <CustomCardHeader title='Wallet balance' viewMoreClick={() => {}} />
       <div className='wallet__details'>
         <div className='wallet__balance'>{accountCoins}</div>

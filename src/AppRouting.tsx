@@ -21,6 +21,7 @@ import AdminDashBoard from './Pages/AdminDashBoard/AdminDashBoard';
 import { ROUTES } from './Shared/constants/Routes';
 import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
 import Market from './Pages/Market/Market';
+import { CurrentFirebaseUserStore } from './Store/CurrentFirebaseUser.store';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -39,6 +40,8 @@ export const AppRouting = () => {
   const [isAppInitializing, setIsAppInitializing] = useState(true);
   const walletStore = useStore('walletStore') as WalletStore;
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+  const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+
   const initUserWallet = async (user: any) => {
     // todo: refactor this.
     const db = getFirestore();
@@ -68,6 +71,8 @@ export const AppRouting = () => {
       await initNewWalletForCurrentUser();
     }
     await smartContractsStore.init(walletRef as any, infuraProviderRef as any);
+    await currentFirebaseUser.initFirebase(user.uid);
+    currentFirebaseUser.getCurrentUserData();
     setIsAppInitializing(false);
   };
 
