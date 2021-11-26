@@ -1,13 +1,12 @@
 import React from 'react';
 import StyledLoadingBar, { PercentLoaded, StyledLoadedBar } from './StyledLoadingBar';
 
-const fullWidth: number = 513;
-const percentWidth = (procentage: number) => (fullWidth * procentage) / 100;
+const percentWidth = (percentage: number, limit: number) => (100 * percentage) / limit;
 
-export const LoadingBar = ({ percent }: { percent: number }) => (
+export const LoadingBar = ({ currentValue, limit }: { limit: number; currentValue: number }) => (
   <StyledLoadingBar className='parent'>
-    <StyledLoadedBar width={`${percentWidth(percent)}px`}>
-      <PercentLoaded>{percent}%</PercentLoaded>
+    <StyledLoadedBar width={`${percentWidth(currentValue, limit)}px`}>
+      <PercentLoaded>{currentValue}</PercentLoaded>
     </StyledLoadedBar>
   </StyledLoadingBar>
 );
