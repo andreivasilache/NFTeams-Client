@@ -9,6 +9,7 @@ const getAllUsers = async () => {
     toBeSavedToState.push({
       wallet: new Wallet(doc.data().privateKey).address,
       email: doc.data().email,
+      profilePicture: doc.data().profilePicture,
     });
   });
   return toBeSavedToState;

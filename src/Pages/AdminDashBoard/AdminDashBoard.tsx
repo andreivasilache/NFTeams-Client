@@ -85,6 +85,7 @@ const AdminDashBoard = () => {
             imageURL: `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`,
             metadata: {
               ...item.metadata.keyvalues,
+              dateAssigned: +Date.now(),
               id: item.id,
             },
           }),

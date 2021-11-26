@@ -51,8 +51,13 @@ export const AppRouting = () => {
     let walletRef;
     let infuraProviderRef;
     const initNewWalletForCurrentUser = async () => {
-      const { privateKey } = Wallet.createRandom();
-      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), { privateKey, email: user.email, company: 'ASSIST' });
+      const { privateKey, address } = Wallet.createRandom();
+      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), {
+        privateKey,
+        publicAddress: address,
+        email: user.email,
+        company: 'ASSIST',
+      });
       const walletInstance = walletStore.initWalletStore(privateKey);
       walletRef = walletInstance.wallet;
       infuraProviderRef = walletInstance.infuraProvider;
