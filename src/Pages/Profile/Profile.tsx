@@ -72,11 +72,12 @@ const nfts = useAccountNFTS(wallet!.address);
       <StyledProfile>
         <Avatar>
           <img src={avatarPodium} />
+          <img className='avatar' src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL} />
         </Avatar>
 
         <Info>
-          <Name>Outtadisearth</Name>
-          <SubName>Creature of the sea and land. Alien fo sho! Rase? Vermaid.</SubName>
+          <Name>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.name}</Name>
+          <SubName>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.description}</SubName>
           <Text>
             <img src={profileElement} />
 
