@@ -3,14 +3,14 @@ import styled from 'styled-components';
 const StyledUploadFiles = styled.div`
   position: relative;
   height: 100%;
-  width: calc(100% - 115px);
+  width: calc(100% - 70px);
   z-index: 999;
 
   .upload-files {
     &__img {
       position: absolute;
       top: 0;
-      left: 0;
+      left: 46px;
     }
 
     &__title {
@@ -19,7 +19,7 @@ const StyledUploadFiles = styled.div`
       align-items: center;
       justify-content: space-between;
       margin-top: 53px;
-      margin-left: 225px;
+      margin-left: 271px;
       width: 185px;
     }
 
@@ -29,7 +29,7 @@ const StyledUploadFiles = styled.div`
       align-items: center;
       justify-content: space-between;
       margin-top: 93px;
-      margin-left: 183px;
+      margin-left: 229px;
       /* width: px */
     }
 
@@ -86,7 +86,7 @@ const StyledUploadFiles = styled.div`
     &__type-selection {
       top: 65%;
       position: absolute;
-      left: 375px;
+      left: 421px;
     }
 
     &__type-selection-title {

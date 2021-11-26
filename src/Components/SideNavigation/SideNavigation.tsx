@@ -8,6 +8,7 @@ import CommunitiesIcon from './NavIcons/Comunities/CommunitiesIcon';
 import WalletIcon from './NavIcons/Wallet/Walleticon';
 import HomeIcon from './NavIcons/HomeIcon/HomeIcon';
 import QuestsIcon from './NavIcons/Quests/Quests';
+import AdminIcon from './NavIcons/AdminIcon/AdminIcon';
 import { ROUTES } from '../../Shared/constants/Routes';
 
 const SideNavigation = () => {
@@ -59,7 +60,7 @@ const SideNavigation = () => {
       <NavigationItem NavImage={QuestsIcon} label='quests' onClickItem={() => onNavigateTo('/quests')} isActive={isActive('/quests')} />
 
       <NavigationItem
-        NavImage={QuestsIcon}
+        NavImage={AdminIcon}
         label='admin'
         onClickItem={() => onNavigateTo('/admin-dashboard')}
         isActive={isActive('/admin-dashboard')}

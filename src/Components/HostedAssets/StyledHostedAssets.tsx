@@ -4,11 +4,11 @@ const StyledHostedAssets = styled.div`
   width: calc(100% - 20px);
   margin-left: 39px;
   height: 100%;
-
+  z-index: 99999;
   position: relative;
 
   .hosted-assets__container {
-    width: 595px;
+    width: 640px;
     /* height: 100%; */
     min-height: 100%;
   }
@@ -21,14 +21,14 @@ const StyledHostedAssets = styled.div`
     font-weight: bold;
     font-size: 24px;
     line-height: 16px;
-    left: 160px;
+    left: 185px;
     top: 10px;
   }
 
   .hosted-assets {
     &__content {
       position: absolute;
-      width: 91%;
+      width: 600px;
       height: 63%;
       top: 47px;
       left: 12px;
@@ -36,8 +36,7 @@ const StyledHostedAssets = styled.div`
     }
 
     &__badges-list {
-      width: calc(70% - 80px);
-      margin-right: 19px;
+      width: calc(67% - 80px);
     }
 
     &__tabs {
@@ -60,7 +59,12 @@ const StyledHostedAssets = styled.div`
     }
 
     &__users {
-      width: 30%;
+      width: 36%;
+    }
+
+    &__actions {
+      margin-left: 85px;
+      margin-top: -54px;
     }
   }
 `;

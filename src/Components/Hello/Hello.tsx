@@ -7,7 +7,6 @@ const Hello = () => {
   const getMessage = () => {
     const date = new Date();
     const hours = dayjs(date).hour();
-    console.log(hours);
 
     if (hours < 12) {
       return 'Good Morning';
