@@ -31,7 +31,7 @@ const Users = ({ users = [], selectedUsers = [], setSelectedUsers }: Props) => {
           .map(user => (
             <CustomCheckbox
               key={user.name}
-              isChecked={selectedUsers.findIndex(selected => selected === user) > -1}
+              isChecked={selectedUsers.includes(user)}
               label={user.email}
               onToggle={() => onSelectUser(user)}
             />
