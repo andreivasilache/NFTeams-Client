@@ -4,12 +4,14 @@ const StyledProfilePreview = styled.div`
   margin: 0px 32px;
   margin-top: 24px;
 
+  position: relative;
+
   .image {
     margin-top: 30px;
-    width: 100%;
-    max-height: auto;
-    max-width: auto;
+    width: 383px;
+    height: 441px;
     margin-bottom: 50px;
+    margin-left: 28px;
   }
 
   .description {
