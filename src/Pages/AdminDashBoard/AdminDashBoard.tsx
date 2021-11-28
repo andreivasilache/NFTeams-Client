@@ -96,9 +96,6 @@ const AdminDashBoard = () => {
       }
     }
     setDisplayConfirmation(item);
-    setTimeout(() => {
-      setDisplayConfirmation(null);
-    }, 6000);
   };
 
   const windowHeight = window.innerHeight;
@@ -112,7 +109,7 @@ const AdminDashBoard = () => {
               <Grid container rowSpacing={10} columnSpacing={6}>
                 <Grid item xs={5}>
                   <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
-                    <HostedAssets items={items} users={users} mintNTF={mintNFT} />
+                    <HostedAssets items={items} users={users} mintNTF={mintNFT} setActiveItem={item => setDisplayConfirmation(item)} />
                   </GridItem>
                 </Grid>
                 <Grid item xs={7}>
