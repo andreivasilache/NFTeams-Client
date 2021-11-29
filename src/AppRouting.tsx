@@ -102,15 +102,15 @@ export const AppRouting = () => {
     }
   }, [JSON.stringify(user)]);
 
-  if (isAppInitializing && window.location.pathname !== ROUTES.auth) {
+  if (authState !== false && isAppInitializing && window.location.pathname !== ROUTES.auth) {
     return <div>Loading...</div>;
   }
   return (
     <div className='app-container'>
       <Switch>
+        <Route exact path={ROUTES.auth} component={Auth} />
         <WithProtectedRoute Component={UserDashboard} isAuthenticated={authState === true} path={ROUTES.dashboard} />
         {/* <Route exact path={ROUTES.dashboard} component={UserDashboard} /> */}
-        <Route exact path={ROUTES.auth} component={Auth} />
         <WithProtectedRoute path={ROUTES.adminDashboard} isAuthenticated={authState === true} Component={AdminDashBoard} />
         <WithProtectedRoute path={ROUTES.profile} isAuthenticated={authState === true} Component={Profile} />
         <WithProtectedRoute path={ROUTES.wallet} isAuthenticated={authState === true} Component={WalletComponent} />

@@ -56,6 +56,11 @@ const StyledHeader = styled.div`
       width: 160px;
       justify-content: space-between;
     }
+    &__profile-picture {
+      width: 48px;
+      height: 48px;
+      border-radius: 71px;
+    }
   }
 `;
 

@@ -15,7 +15,6 @@ export const Login = () => {
   const loginWithEmailAndPassword = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.reload();
     } catch (err: any) {
       alert(err.code);
     }
@@ -47,7 +46,7 @@ export const Login = () => {
         <FormControlLabel className='checkbox-section' control={<Checkbox />} label='Remember me' />
         <Button variant='text'>Fogot your password ?</Button>
       </StyledPassword>
-      <Button type='submit' className='login-button' variant='contained' onSubmit={() => loginWithEmailAndPassword(email, password)}>
+      <Button type='button' className='login-button' variant='contained' onClick={() => loginWithEmailAndPassword(email, password)}>
         login
       </Button>
     </StyledLogin>
