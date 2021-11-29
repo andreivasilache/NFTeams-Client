@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { FIRESTORE_COLLECTION_KEYS } from '../Shared/constants/FireStoreTableKeys';
 
 export class CurrentFirebaseUserStore {
-  public db: any;
+  private db: any;
   public userID: any;
   public currentUserData: any;
 

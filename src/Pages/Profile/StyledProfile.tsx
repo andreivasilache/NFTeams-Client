@@ -10,10 +10,20 @@ const StyledProfile = styled.div`
 `;
 
 export const Avatar = styled.div`
+  position: relative;
   width: 50%;
   height: 100%;
 
   border-radius: 8px;
+
+  .avatar {
+    width: 340px;
+    height: 600px;
+    position: absolute;
+    bottom: 100px;
+    left: 179px;
+    bottom: 0px;
+  }
 `;
 
 export const Info = styled.div`

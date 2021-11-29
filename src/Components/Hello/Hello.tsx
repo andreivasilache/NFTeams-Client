@@ -23,8 +23,7 @@ const Hello = () => {
       <img src={helloImg} alt='hello' className='img' />
       <div className='message'>
         <div className='message message__title'>
-          <span>{getMessage()},</span>
-          <span>BUI</span>
+          <span>{getMessage()}</span>
         </div>
         <div className='message message__date'>{dayjs(new Date()).format('dddd, DD MMM YYYY')}</div>
       </div>

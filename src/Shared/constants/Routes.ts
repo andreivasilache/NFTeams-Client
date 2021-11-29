@@ -4,5 +4,6 @@ export const ROUTES = {
   adminDashboard: '/admin-dashboard',
   profile: '/profile',
   wallet: '/wallet',
+  quests: '/quests',
   marketPlace: '/market',
 };

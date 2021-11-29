@@ -22,6 +22,7 @@ import { ROUTES } from './Shared/constants/Routes';
 import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
 import Market from './Pages/Market/Market';
 import { CurrentFirebaseUserStore } from './Store/CurrentFirebaseUser.store';
+import QuestsStore from './Store/Quests.store';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -41,6 +42,7 @@ export const AppRouting = () => {
   const walletStore = useStore('walletStore') as WalletStore;
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
   const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+  const questsStore = useStore('questsStore') as QuestsStore;
 
   const initUserWallet = async (user: any) => {
     // todo: refactor this.
@@ -51,8 +53,13 @@ export const AppRouting = () => {
     let walletRef;
     let infuraProviderRef;
     const initNewWalletForCurrentUser = async () => {
-      const { privateKey } = Wallet.createRandom();
-      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), { privateKey, email: user.email, company: 'ASSIST' });
+      const { privateKey, address } = Wallet.createRandom();
+      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), {
+        privateKey,
+        publicAddress: address,
+        email: user.email,
+        company: 'ASSIST',
+      });
       const walletInstance = walletStore.initWalletStore(privateKey);
       walletRef = walletInstance.wallet;
       infuraProviderRef = walletInstance.infuraProvider;
@@ -72,7 +79,8 @@ export const AppRouting = () => {
     }
     await smartContractsStore.init(walletRef as any, infuraProviderRef as any);
     await currentFirebaseUser.initFirebase(user.uid);
-    currentFirebaseUser.getCurrentUserData();
+    await currentFirebaseUser.getCurrentUserData();
+    await questsStore.initStore();
     setIsAppInitializing(false);
   };
 
