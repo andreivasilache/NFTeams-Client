@@ -52,7 +52,7 @@ export const Profile = observer(() => {
       setBadges(filteredBadges);
     });
   }, []);
-  
+
   return (
     <WithAppLayout>
       <StyledProfile>
