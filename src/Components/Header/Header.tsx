@@ -4,6 +4,7 @@ import { LinearProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from '@firebase/auth';
+import { observer } from 'mobx-react-lite';
 
 import StyledHeader from './StyledHeader';
 import logo from '../../assets/png/logo.png';
@@ -12,6 +13,8 @@ import { ReactComponent as MoneyIcon } from '../../assets/svg/finance.svg';
 import { ReactComponent as BellIcon } from '../../assets/svg/bell.svg';
 import { ReactComponent as SearchIcon } from '../../assets/svg/search-icon.svg';
 import useCoins from '../../Hooks/useCoints';
+import useStore from '../../Hooks/useStore';
+import { CurrentFirebaseUserStore } from '../../Store/CurrentFirebaseUser.store';
 
 const useStyle = makeStyles({
   barColorPrimary: {
@@ -22,7 +25,9 @@ const useStyle = makeStyles({
   },
 });
 
-const Header = ({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any }) => {
+const Header = observer(({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any }) => {
+  const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+
   const classes = useStyle();
   const [searchValue, setSearchValue] = useState();
   const [user] = useAuthState(getAuth());
@@ -67,10 +72,14 @@ const Header = ({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any }) => {
         </div>
         <BellIcon />
         <span className='right-panel__welcome'>Hi again, {user?.email || ''}!</span>
-        <img src={profile} alt='profile logo' />
+        <img
+          className='right-panel__profile-picture'
+          src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL || profile}
+          alt='profile logo'
+        />
       </div>
     </StyledHeader>
   );
-};
+});
 
 export default Header;
