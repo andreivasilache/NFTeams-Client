@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { ethers } from 'ethers';
 // import useAccountNFTS from '../../Hooks/useAccountNFTS';
 // import useStore from '../../Hooks/useStore';
 // import { WalletStore } from '../../Store/Wallet.store';
+import { observer } from 'mobx-react-lite';
+
 import StyledProfile, {
   Avatar,
   StyledBlock,
@@ -17,9 +19,10 @@ import StyledProfile, {
   Name,
   SubName,
   StylingElement,
+  StyledPopup,
 } from './StyledProfile';
 // import InfoListElement from './InfoList/InfoList';
-import avatarPodium from '../../assets/svg/avatarPodium.svg';
+import avatarPodium from '../../assets/png/avatarPodium.png';
 import profileElement from '../../assets/svg/profileElement.svg';
 import profileElement2 from '../../assets/svg/profileElement2.svg';
 
@@ -30,34 +33,37 @@ import karmaIcon from '../../assets/png/karmaIcon.png';
 
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import { LoadingBar } from '../../Components/LoadingBar/LoadingBar';
-import { badges } from '../../__mocks__/profileBadges';
+import useStore from '../../Hooks/useStore';
+import { CurrentFirebaseUserStore } from '../../Store/CurrentFirebaseUser.store';
+import { SmartContractsStore } from '../../Store/SmartContracts.store';
 
-export const Profile = () => {
-  /* const [balance, setBalance] = useState<any>(0);
-  const { wallet } = useStore('walletStore') as WalletStore;
-const nfts = useAccountNFTS(wallet!.address);
-  
-  const loadBalance = async () => {
-    const balanceRes = await wallet!.getBalance();
-    const formattedBalance = ethers.utils.formatEther(balanceRes);
+export const Profile = observer(() => {
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
 
-    setBalance(formattedBalance);
-  };
-  */
+  const [badges, setBadges] = useState([]);
+
+  const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+  const { skills } = currentFirebaseUser?.currentUserData || {};
+  const fakeSkillsLimit = ((skills?.coding || 0) + (skills?.connection || 0) + (skills?.wellness || 0) + (skills?.karma || 0)) / 4;
+
   useEffect(() => {
-    // loadBalance();
+    smartContractsStore.getNFTSOfWallet().then(assets => {
+      const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
+      setBadges(filteredBadges);
+    });
   }, []);
 
   return (
     <WithAppLayout>
       <StyledProfile>
         <Avatar>
-          <img src={avatarPodium} />
+          <img width='100%' height='95%' src={avatarPodium} />
+          <img className='avatar' src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL} />
         </Avatar>
 
         <Info>
-          <Name>Outtadisearth</Name>
-          <SubName>Creature of the sea and land. Alien fo sho! Rase? Vermaid.</SubName>
+          <Name>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.name}</Name>
+          <SubName>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.description}</SubName>
           <Text>
             <img src={profileElement} />
 
@@ -77,32 +83,32 @@ const nfts = useAccountNFTS(wallet!.address);
           </Text>
           <SkilsWrapper>
             <Skill>
-              <img src={codeIcon} />
-              <LoadingBar percent={36} />
+              <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='right center' />
+              <LoadingBar currentValue={skills?.coding || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={socialIcon} />
-              <LoadingBar percent={63} />
+              <StyledPopup content='Social' trigger={<img src={socialIcon} />} position='right center' />
+              <LoadingBar currentValue={skills?.connection || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={healthIcon} />
-              <LoadingBar percent={93} />
+              <StyledPopup content='Health' trigger={<img src={healthIcon} />} position='right center' />
+              <LoadingBar currentValue={skills?.wellness || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={karmaIcon} />
-              <LoadingBar percent={99} />
+              <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='right center' />
+              <LoadingBar currentValue={skills?.karma || 0} limit={fakeSkillsLimit} />
             </Skill>
           </SkilsWrapper>
         </Info>
 
         <BadgesWrapper>
           <Badges>
-            {badges.map(badge => (
-              <img src={badge.imgUrl} key={badge.imgUrl} />
+            {badges.map((badge: any) => (
+              <img src={badge?.imageURL} key={badge?.imageURL} />
             ))}
           </Badges>
         </BadgesWrapper>
       </StyledProfile>
     </WithAppLayout>
   );
-};
+});

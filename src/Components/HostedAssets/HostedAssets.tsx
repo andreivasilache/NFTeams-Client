@@ -10,9 +10,10 @@ interface Props {
   items: any[];
   users: any[];
   mintNTF: (item: any, giveNFTToAddresses: string[]) => void;
+  setActiveItem: (item: any) => void;
 }
 
-const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
+const HostedAssets = ({ items = [], users = [], mintNTF, setActiveItem }: Props) => {
   const [isAssetsActive, setIsAssetsActive] = useState(true);
   const [selectedItem, setSelectedItem] = useState();
   const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
@@ -37,7 +38,15 @@ const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
           </div>
         </div>
         <div className='hosted-assets__badges-list'>
-          <AssetsComponent items={items} selectItem={(item: any) => setSelectedItem(item)} selectedItem={selectedItem} isAssetsSelected={isAssetsActive} />
+          <AssetsComponent
+            items={items}
+            selectItem={(item: any) => {
+              setSelectedItem(item);
+              setActiveItem(item);
+            }}
+            isAssetsSelected
+            selectedItem={selectedItem}
+          />
         </div>
         <div className='hosted-assets__users'>
           <Users users={users} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />

@@ -1,62 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomCardHeader from '../../../Components/CardHeader/CardHeader';
 import LeaderBoardItem from '../../../Components/LeaderBoardItem/LeaderBoardItem';
 import StyledLeaderBoards from './StyledLeaderBoards';
-import img1 from '../../../assets/png/img1.png';
-import img2 from '../../../assets/png/img2.png';
-import img3 from '../../../assets/png/img3.png';
-import img4 from '../../../assets/png/img4.png';
-
-const leaders = [
-  {
-    imgSrc: img1,
-    name: 'Andrei Ungurean',
-    items: 658,
-  },
-  {
-    imgSrc: img2,
-    name: 'Andrei Vasilache',
-    items: 652,
-  },
-  {
-    imgSrc: img3,
-    name: 'Andreea Alexandra',
-    items: 485,
-  },
-  {
-    imgSrc: img4,
-    name: 'Iulian Pranici',
-    items: 355,
-  },
-
-  {
-    imgSrc: img1,
-    name: 'Cosmin Ailoaie',
-    items: 298,
-  },
-  {
-    imgSrc: img2,
-    name: 'Cristi Vrabie',
-    items: 198,
-  },
-];
+import mockProfileImage from '../../../assets/png/img4.png';
+import getAllUsers from '../../../Shared/firebase/getAllUsers';
+import { SmartContractsStore } from '../../../Store/SmartContracts.store';
+import useStore from '../../../Hooks/useStore';
 
 const LeaderBoardsPreview = () => {
+  const [users, setUsers] = useState<any>([]);
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+
+  const loadAccountsAssets = async () => {
+    const users = await getAllUsers();
+    const promises: any = [];
+
+    users.forEach((user: any) => promises.push(smartContractsStore.getNFTSOfWallet(user.wallet)));
+    const response = await Promise.all(promises);
+    users.forEach((user: any, index: number) => {
+      user.nfts = response[index];
+    });
+
+    users.sort((a: any, b: any) => b.nfts.length - a.nfts.length);
+
+    setUsers(users);
+  };
+
+  useEffect(() => {
+    loadAccountsAssets();
+  }, []);
+
   const onFollowClick = (leader: any) => {
     console.log(leader);
   };
 
   return (
     <StyledLeaderBoards>
-      <CustomCardHeader title='leaderboards' viewMoreClick={() => {}} />
+      <CustomCardHeader title='leaderboards' viewMoreRoute='' />
       <div className='list'>
-        {leaders.map(leader => (
+        {users.map((user: any) => (
           <LeaderBoardItem
-            key={leader.name}
-            imgSrc={leader.imgSrc}
-            name={leader.name}
-            items={leader.items}
-            onFollowClick={() => onFollowClick(leader)}
+            key={user?.email || ''}
+            imgSrc={user?.profilePicture?.imageURL || mockProfileImage}
+            name={user?.email || ''}
+            items={user?.nfts?.length || '0'}
+            onFollowClick={() => onFollowClick(user)}
           />
         ))}
       </div>

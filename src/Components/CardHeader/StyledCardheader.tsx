@@ -17,6 +17,7 @@ const StyledCardHeader = styled.div`
       font-weight: 600;
       color: var(--theming-font-color-secondary);
       letter-spacing: 0.5px;
+      cursor: pointer;
     }
   }
 `;

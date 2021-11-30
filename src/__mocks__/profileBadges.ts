@@ -8,20 +8,26 @@ import profilePotion from '../assets/png/profilePotion.png';
 export const badges = [
   {
     imgUrl: profileCrown,
+    title: 'Emperor',
   },
   {
     imgUrl: profileTrophy,
+    title: 'TropheeKing',
   },
   {
     imgUrl: profileCoin,
+    title: 'Coin Sir',
   },
   {
     imgUrl: profileDonuts,
+    title: 'The Sweetest',
   },
   {
     imgUrl: profileDonut,
+    title: 'The Sweet',
   },
   {
     imgUrl: profilePotion,
+    title: 'Magic Man',
   },
 ];

@@ -22,6 +22,8 @@ import { ROUTES } from './Shared/constants/Routes';
 import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
 import Market from './Pages/Market/Market';
 import { CurrentFirebaseUserStore } from './Store/CurrentFirebaseUser.store';
+import { Quests } from './Pages/Quests/Quests';
+import QuestsStore from './Store/Quests.store';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -41,6 +43,7 @@ export const AppRouting = () => {
   const walletStore = useStore('walletStore') as WalletStore;
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
   const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+  const questsStore = useStore('questsStore') as QuestsStore;
 
   const initUserWallet = async (user: any) => {
     // todo: refactor this.
@@ -51,8 +54,13 @@ export const AppRouting = () => {
     let walletRef;
     let infuraProviderRef;
     const initNewWalletForCurrentUser = async () => {
-      const { privateKey } = Wallet.createRandom();
-      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), { privateKey, email: user.email, company: 'ASSIST' });
+      const { privateKey, address } = Wallet.createRandom();
+      await setDoc(doc(db, FIRESTORE_COLLECTION_KEYS.USERS, user.uid), {
+        privateKey,
+        publicAddress: address,
+        email: user.email,
+        company: 'ASSIST',
+      });
       const walletInstance = walletStore.initWalletStore(privateKey);
       walletRef = walletInstance.wallet;
       infuraProviderRef = walletInstance.infuraProvider;
@@ -72,7 +80,8 @@ export const AppRouting = () => {
     }
     await smartContractsStore.init(walletRef as any, infuraProviderRef as any);
     await currentFirebaseUser.initFirebase(user.uid);
-    currentFirebaseUser.getCurrentUserData();
+    await currentFirebaseUser.getCurrentUserData();
+    await questsStore.initStore();
     setIsAppInitializing(false);
   };
 
@@ -94,18 +103,19 @@ export const AppRouting = () => {
     }
   }, [JSON.stringify(user)]);
 
-  if (isAppInitializing && window.location.pathname !== ROUTES.auth) {
+  if (authState !== false && isAppInitializing && window.location.pathname !== ROUTES.auth) {
     return <div>Loading...</div>;
   }
   return (
     <div className='app-container'>
       <Switch>
+        <Route exact path={ROUTES.auth} component={Auth} />
         <WithProtectedRoute Component={UserDashboard} isAuthenticated={authState === true} path={ROUTES.dashboard} />
         {/* <Route exact path={ROUTES.dashboard} component={UserDashboard} /> */}
-        <Route exact path={ROUTES.auth} component={Auth} />
         <WithProtectedRoute path={ROUTES.adminDashboard} isAuthenticated={authState === true} Component={AdminDashBoard} />
         <WithProtectedRoute path={ROUTES.profile} isAuthenticated={authState === true} Component={Profile} />
         <WithProtectedRoute path={ROUTES.wallet} isAuthenticated={authState === true} Component={WalletComponent} />
+        <WithProtectedRoute path={ROUTES.quests} isAuthenticated={authState === true} Component={Quests} />
         <WithProtectedRoute path={ROUTES.marketPlace} isAuthenticated={authState === true} Component={Market} />
         <Redirect to={ROUTES.dashboard} />
       </Switch>

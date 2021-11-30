@@ -28,6 +28,26 @@ const StyledWalletBalance = styled.div`
       color: #929bc9;
       margin-top: 2px;
     }
+    &__newest-achievements {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+  }
+
+  .newest-achievement {
+    &__image {
+      width: 161px;
+      height: 205px;
+    }
+    &__name {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 24px;
+
+      color: #e4e4e4;
+    }
   }
 `;
 
