@@ -39,6 +39,8 @@ const WalletBalance = () => {
   };
 
   useEffect(() => {
+    if (!wallet?.address) window.location.reload();
+
     loadBalance();
     loadCurrentAccountCoins();
     loadLastNFTS();

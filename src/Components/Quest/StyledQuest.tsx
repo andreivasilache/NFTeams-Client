@@ -11,6 +11,8 @@ const StyledQuest = styled.div`
     font-size: 20px;
     line-height: 16px;
     margin-left: 20px;
+    display: flex;
+    align-items: baseline;
   }
   .questCheck {
     margin-left: 53.23px;
@@ -19,6 +21,21 @@ const StyledQuest = styled.div`
   }
   .questCheck > img {
     cursor: pointer;
+  }
+
+  .join-quest {
+    position: absolute;
+    left: 232px;
+    top: 36px;
+    padding: 0px;
+
+    color: #5f47d4;
+    margin-top: 2rem;
+    background-color: #7efacd;
+  }
+
+  .join-quest:hover {
+    background-color: #7efacd;
   }
 `;
 
@@ -83,17 +100,19 @@ export const QuestText = styled.div`
   }
 `;
 export const StyledPrize = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 16px;
+  && {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
 
-  color: #7efacd;
-  width: 76.78px;
-  margin-left: 82px;
+    color: #7efacd;
+    width: 76.78px;
+    margin-left: 82px;
+  }
 `;
 export const QuestButton = styled.div`
   cursor: pointer;

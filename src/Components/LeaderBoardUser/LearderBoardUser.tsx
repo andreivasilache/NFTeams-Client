@@ -10,9 +10,9 @@ interface props {
 
 const LeaderBoardUser = ({ image, name, skils, activity }: props) => (
   <StyledBoard>
-    <img src={image} />
+    <img width='50' height='50' src={image} />
     <LeaderInfo>
-      <div>{name}</div>
+      <div className='name'>{name}</div>
       <div className='skilsText'>{skils}</div>
       <div>{activity}</div>
     </LeaderInfo>

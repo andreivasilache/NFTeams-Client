@@ -15,7 +15,6 @@ export const LeaderInfo = styled.div`
   margin-left: 16px;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   font-family: SF Pro Display;
@@ -29,6 +28,9 @@ export const LeaderInfo = styled.div`
     text-transform: uppercase;
 
     color: #586e89;
+  }
+  .name {
+    width: 300px;
   }
 `;
 
