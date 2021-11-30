@@ -6,16 +6,19 @@ import { ReactComponent as AdminMainCenter } from '../../assets/svg/main-content
 import ConfirmAsset from '../ConfirmAsset/ConfirmAsset';
 import AddTokens from './AddTokens/AddTokens';
 import CustomButton from '../CustomButton/CustomButton';
+import CustomSquareButton from '../CustomSquareButton/CustomSquareButton';
 
 interface Props {
   displayConfirmation: boolean;
+  displayApproval:boolean;
   item: any;
   users: any[];
   handleClickAway: () => void;
   sendCoins: ({ value, users, address }: { value: number; users: any[]; address: string }) => void;
+  approve: () => void;
 }
 
-const AdminMainSection = ({ displayConfirmation = false, item, users = [], handleClickAway, sendCoins }: Props) => {
+const AdminMainSection = ({displayApproval, displayConfirmation = false, item, users = [], handleClickAway, sendCoins, approve }: Props) => {
   const [tokensValue, setTokensValue] = useState(0);
   const [address, setAddress] = useState('');
   const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
@@ -50,7 +53,19 @@ const AdminMainSection = ({ displayConfirmation = false, item, users = [], handl
       <AdminMainCenter className='center-background' />
       {displayConfirmation && (
         <div className='confirm-asset'>
-          <ConfirmAsset item={item} handleClickAway={handleClickAway} />
+          <ConfirmAsset handleClickAway={handleClickAway}>
+              <span className='confirm-asset__name'>{item.metadata.name}</span>
+              <img className='confirm-asset__image' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+          </ConfirmAsset>
+        </div>
+      )}
+
+      {displayApproval && (
+        <div className='confirm-asset'>
+          <ConfirmAsset handleClickAway={handleClickAway}>
+            <div>test</div>
+            <CustomSquareButton text='Confirm' handleClick={approve} />
+          </ConfirmAsset>
         </div>
       )}
       <AdminMainRight className='right-background' />

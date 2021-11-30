@@ -37,7 +37,7 @@ const HostedAssets = ({ items = [], users = [], mintNTF }: Props) => {
           </div>
         </div>
         <div className='hosted-assets__badges-list'>
-          <AssetsComponent items={items} selectItem={(item: any) => setSelectedItem(item)} selectedItem={selectedItem} />
+          <AssetsComponent items={items} selectItem={(item: any) => setSelectedItem(item)} selectedItem={selectedItem} isAssetsSelected={isAssetsActive} />
         </div>
         <div className='hosted-assets__users'>
           <Users users={users} selectedUsers={selectedUsers} setSelectedUsers={setSelectedUsers} />

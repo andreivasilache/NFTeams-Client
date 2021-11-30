@@ -9,16 +9,17 @@ interface Props {
   items: any[];
   selectItem: (item: any) => void;
   selectedItem: any;
+  isAssetsSelected:boolean;
 }
 
 const createStyles = makeStyles({
   pagination: {
-    color: 'white',
+    color: 'white !important',
     borderRadius: '50%',
   },
 
   paginationItem: {
-    color: 'white',
+    color: 'white !important',
   },
 
   selectedItem: {
@@ -27,14 +28,16 @@ const createStyles = makeStyles({
   },
 });
 
-const AssetsComponent = ({ items = [], selectItem, selectedItem }: Props) => {
+const AssetsComponent = ({ items = [], selectItem, selectedItem, isAssetsSelected }: Props) => {
   const classes = createStyles();
   const [page, setPage] = useState(1);
   const [filterValue, setFilterValue] = useState('');
   const PER_PAGE = 3;
 
-  const count = Math.ceil(items.length / PER_PAGE);
-  const _DATA = usePagination(items, PER_PAGE);
+  const filteredItems = items.filter(item =>(isAssetsSelected && item.metadata.keyvalues.type==='NFT') || (!isAssetsSelected && item.metadata.keyvalues.type!=='NFT'))
+
+  const count = Math.ceil(filteredItems.length / PER_PAGE);
+  const _DATA = usePagination(filteredItems, PER_PAGE);
 
   const handleChange = (e: any, p: number) => {
     setPage(p);

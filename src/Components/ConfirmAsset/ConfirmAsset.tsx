@@ -4,16 +4,16 @@ import StyledConfirmAsset from './StyledConfirmAsset';
 import { ReactComponent as ConfirmAssetBackground } from '../../assets/svg/asset-modal-background.svg';
 
 interface Props {
-  item: any;
+  // item: any;
   handleClickAway: () => void;
+  children:any
 }
 
-const ConfirmAsset = ({ item, handleClickAway }: Props) => (
+const ConfirmAsset = ({ handleClickAway, children }: Props) => (
   <ClickAwayListener onClickAway={handleClickAway}>
     <StyledConfirmAsset>
       <ConfirmAssetBackground />
-      <span className='confirm-asset__name'>{item.metadata.name}</span>
-      <img className='confirm-asset__image' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+      {children}
     </StyledConfirmAsset>
   </ClickAwayListener>
 );

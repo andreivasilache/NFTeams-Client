@@ -23,6 +23,7 @@ const AdminDashBoard = () => {
 
   const [items, setItems] = useState([]);
   const [displayConfirmation, setDisplayConfirmation] = useState(null);
+  const [displayApproval, setDisplayApproval] = useState<any | null>(null);
   const [assetCreationType, setAssetCreationType] = useState<'badge' | 'NFT'>('badge');
   const [fileName, setFileName] = useState('');
   const [fileDescription, setFileDescription] = useState('');
@@ -100,6 +101,22 @@ const AdminDashBoard = () => {
     }, 6000);
   };
 
+  const handleHideModals = () => {
+    setDisplayConfirmation(null);
+    setDisplayApproval(null);
+  }
+
+  const handleApprove = () => {
+    if(!displayApproval){
+      return;
+    }
+    console.log(displayApproval)
+    // displayApproval();
+    mintNFT(displayApproval.item, displayApproval.giveNFTToAddresses);
+    displayApproval(null);
+
+  }
+
   const windowHeight = window.innerHeight;
   return (
     <WithAppLayout>
@@ -111,7 +128,7 @@ const AdminDashBoard = () => {
               <Grid container rowSpacing={10} columnSpacing={6}>
                 <Grid item xs={5}>
                   <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
-                    <HostedAssets items={items} users={users} mintNTF={mintNFT} />
+                    <HostedAssets items={items} users={users} mintNTF={(item: any, giveNFTToAddresses: string[]) => setDisplayApproval({item, giveNFTToAddresses})} />
                   </GridItem>
                 </Grid>
                 <Grid item xs={7}>
@@ -138,7 +155,9 @@ const AdminDashBoard = () => {
                   users={users}
                   displayConfirmation={!!displayConfirmation}
                   item={displayConfirmation}
-                  handleClickAway={() => setDisplayConfirmation(null)}
+                  handleClickAway={() => handleHideModals()}
+                  displayApproval={displayApproval!==null}
+                  approve={handleApprove}
                 />
               </GridItem>
             </Grid>
