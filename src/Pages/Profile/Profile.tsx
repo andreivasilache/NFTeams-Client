@@ -52,24 +52,7 @@ export const Profile = observer(() => {
       setBadges(filteredBadges);
     });
   }, []);
-
-export const Profile = () => {
-
-  /* const [balance, setBalance] = useState<any>(0);
-  const { wallet } = useStore('walletStore') as WalletStore;
-const nfts = useAccountNFTS(wallet!.address);
   
-  const loadBalance = async () => {
-    const balanceRes = await wallet!.getBalance();
-    const formattedBalance = ethers.utils.formatEther(balanceRes);
-
-    setBalance(formattedBalance);
-  };
-  */
-  useEffect(() => {
-    // loadBalance();
-  }, []);
-
   return (
     <WithAppLayout>
       <StyledProfile>

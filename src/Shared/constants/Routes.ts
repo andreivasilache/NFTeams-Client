@@ -5,6 +5,5 @@ export const ROUTES = {
   quests: '/quests',
   profile: '/profile',
   wallet: '/wallet',
-  quests: '/quests',
   marketPlace: '/market',
 };
