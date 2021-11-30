@@ -25,15 +25,15 @@ const SideNavigation = () => {
       <NavigationItem
         NavImage={HomeIcon}
         label='home'
-        onClickItem={() => onNavigateTo('/user-dashboard')}
-        isActive={isActive('/user-dashboard')}
+        onClickItem={() => onNavigateTo(ROUTES.dashboard)}
+        isActive={isActive(ROUTES.dashboard)}
       />
 
       <NavigationItem
         NavImage={ProfileIcon}
         label='my profile'
-        onClickItem={() => onNavigateTo('/profile')}
-        isActive={isActive('/profile')}
+        onClickItem={() => onNavigateTo(ROUTES.profile)}
+        isActive={isActive(ROUTES.profile)}
       />
 
       <NavigationItem
@@ -52,18 +52,23 @@ const SideNavigation = () => {
 
       <NavigationItem
         NavImage={WalletIcon}
-        label='collections'
-        onClickItem={() => onNavigateTo('/wallet')}
-        isActive={isActive('/wallet')}
+        label='wallet'
+        onClickItem={() => onNavigateTo(ROUTES.wallet)}
+        isActive={isActive(ROUTES.wallet)}
       />
 
-      <NavigationItem NavImage={QuestsIcon} label='quests' onClickItem={() => onNavigateTo('/quests')} isActive={isActive('/quests')} />
+      <NavigationItem 
+        NavImage={QuestsIcon} 
+        label='quests' 
+        onClickItem={() => onNavigateTo(ROUTES.quests)} 
+        isActive={isActive(ROUTES.quests)} 
+      />
 
       <NavigationItem
         NavImage={AdminIcon}
         label='admin'
-        onClickItem={() => onNavigateTo('/admin-dashboard')}
-        isActive={isActive('/admin-dashboard')}
+        onClickItem={() => onNavigateTo(ROUTES.adminDashboard)}
+        isActive={isActive(ROUTES.adminDashboard)}
       />
     </StyledSideNavigation>
   );

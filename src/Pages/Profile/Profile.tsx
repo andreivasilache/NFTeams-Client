@@ -17,9 +17,10 @@ import StyledProfile, {
   Name,
   SubName,
   StylingElement,
+  StyledPopup,
 } from './StyledProfile';
 // import InfoListElement from './InfoList/InfoList';
-import avatarPodium from '../../assets/svg/avatarPodium.svg';
+import avatarPodium from '../../assets/png/avatarPodium.png';
 import profileElement from '../../assets/svg/profileElement.svg';
 import profileElement2 from '../../assets/svg/profileElement2.svg';
 
@@ -31,6 +32,7 @@ import karmaIcon from '../../assets/png/karmaIcon.png';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import { LoadingBar } from '../../Components/LoadingBar/LoadingBar';
 import { badges } from '../../__mocks__/profileBadges';
+
 
 export const Profile = () => {
   /* const [balance, setBalance] = useState<any>(0);
@@ -52,7 +54,7 @@ const nfts = useAccountNFTS(wallet!.address);
     <WithAppLayout>
       <StyledProfile>
         <Avatar>
-          <img src={avatarPodium} />
+          <img width='100%' height='95%' src={avatarPodium} />
         </Avatar>
 
         <Info>
@@ -77,19 +79,19 @@ const nfts = useAccountNFTS(wallet!.address);
           </Text>
           <SkilsWrapper>
             <Skill>
-              <img src={codeIcon} />
+              <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='right center' />
               <LoadingBar percent={36} />
             </Skill>
             <Skill>
-              <img src={socialIcon} />
+              <StyledPopup content='Social' trigger={<img src={socialIcon} />} position='right center' />
               <LoadingBar percent={63} />
             </Skill>
             <Skill>
-              <img src={healthIcon} />
+              <StyledPopup content='Health' trigger={<img src={healthIcon} />} position='right center' />
               <LoadingBar percent={93} />
             </Skill>
             <Skill>
-              <img src={karmaIcon} />
+              <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='right center' />
               <LoadingBar percent={99} />
             </Skill>
           </SkilsWrapper>

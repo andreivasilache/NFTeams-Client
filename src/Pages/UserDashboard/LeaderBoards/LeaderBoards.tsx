@@ -48,7 +48,7 @@ const LeaderBoardsPreview = () => {
 
   return (
     <StyledLeaderBoards>
-      <CustomCardHeader title='leaderboards' viewMoreClick={() => {}} />
+      <CustomCardHeader title='leaderboards' viewMoreRoute='' />
       <div className='list'>
         {leaders.map(leader => (
           <LeaderBoardItem
