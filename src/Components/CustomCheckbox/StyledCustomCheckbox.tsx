@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StyledCustomCheckbox = styled.div`
   .checkbox {
+    height: 20px;
     display: block;
     position: relative;
     padding-left: 25px;
@@ -14,6 +15,13 @@ const StyledCustomCheckbox = styled.div`
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+
+    &__label {
+      max-width: 172px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 
   .checkbox-checked {

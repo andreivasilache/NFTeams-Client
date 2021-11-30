@@ -115,6 +115,49 @@ const StyledAdminMainSection = styled.div`
     margin-top: -82px;
     z-index: 999999;
     margin-left: 29%;
+
+    &__image {
+      position: absolute;
+      left: 45px;
+      top: 131px;
+      width: 385px;
+      height: 385px;
+
+      &--confirmation {
+        left: 140px;
+        top: 150px;
+        width: 185px;
+        height: 189px;
+      }
+    }
+
+    &__confirm-button {
+      bottom: 60px;
+      position: absolute;
+      left: 300px;
+    }
+
+    &__information {
+      position: absolute;
+      top: 380px;
+      font-size: 18px;
+      color: black;
+      width: 340px;
+      left: 70px;
+      font-weight: bold;
+    }
+
+    &__name {
+      position: absolute;
+      top: 27px;
+      left: 26px;
+      color: #7efacd;
+      font-weight: normal;
+      font-size: 32px;
+      line-height: 48px;
+      width: 235px;
+      text-align: center;
+    }
   }
 `;
 

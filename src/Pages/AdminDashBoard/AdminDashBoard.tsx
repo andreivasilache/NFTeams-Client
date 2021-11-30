@@ -23,6 +23,9 @@ const AdminDashBoard = () => {
 
   const [items, setItems] = useState([]);
   const [displayConfirmation, setDisplayConfirmation] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
+  const [confirmTokensSend, setConfirmTokensSend] = useState(false);
+  const [displayApproval, setDisplayApproval] = useState<any | null>(null);
   const [assetCreationType, setAssetCreationType] = useState<'badge' | 'NFT'>('badge');
   const [fileName, setFileName] = useState('');
   const [fileDescription, setFileDescription] = useState('');
@@ -57,7 +60,7 @@ const AdminDashBoard = () => {
     if (address) {
       try {
         await coinsSM.giveCoinsToAddress(address, value);
-        alert('sent!');
+        setConfirmTokensSend(true);
       } catch (err) {
         alert(err);
       }
@@ -67,7 +70,10 @@ const AdminDashBoard = () => {
         try {
           // eslint-disable-next-line no-await-in-loop
           await coinsSM.giveCoinsToAddress(users[i].wallet, value);
-          alert('sent!');
+          setConfirmTokensSend(true);
+          setTimeout(() => {
+            setConfirmTokensSend(false);
+          }, 5000);
         } catch (err) {
           alert(err);
         }
@@ -96,6 +102,26 @@ const AdminDashBoard = () => {
       }
     }
     setDisplayConfirmation(item);
+    setTimeout(() => {
+      setDisplayConfirmation(null);
+    }, 5000);
+  };
+
+  const handleHideModals = () => {
+    setDisplayConfirmation(null);
+    setDisplayApproval(null);
+    setConfirmTokensSend(false);
+    setActiveItem(null);
+  };
+
+  const handleApproveMintNFT = () => {
+    if (!displayApproval) {
+      return;
+    }
+    console.log('approve:', displayApproval);
+
+    mintNFT(displayApproval.item, displayApproval.giveNFTToAddresses);
+    setDisplayApproval(null);
   };
 
   const windowHeight = window.innerHeight;
@@ -109,7 +135,12 @@ const AdminDashBoard = () => {
               <Grid container rowSpacing={10} columnSpacing={6}>
                 <Grid item xs={5}>
                   <GridItem height={windowHeight * 0.32} hasBackground={false} overflowY={false}>
-                    <HostedAssets items={items} users={users} mintNTF={mintNFT} setActiveItem={item => setDisplayConfirmation(item)} />
+                    <HostedAssets
+                      items={items}
+                      users={users}
+                      mintNTF={(item: any, giveNFTToAddresses: string[]) => setDisplayApproval({ item, giveNFTToAddresses })}
+                      setActiveItem={setActiveItem}
+                    />
                   </GridItem>
                 </Grid>
                 <Grid item xs={7}>
@@ -135,8 +166,11 @@ const AdminDashBoard = () => {
                   sendCoins={sendCoinsToWallet}
                   users={users}
                   displayConfirmation={!!displayConfirmation}
-                  item={displayConfirmation}
-                  handleClickAway={() => setDisplayConfirmation(null)}
+                  item={displayConfirmation || displayApproval?.item || activeItem}
+                  confirmTokensSend={confirmTokensSend}
+                  handleClickAway={() => handleHideModals()}
+                  displayApproval={displayApproval !== null}
+                  approve={handleApproveMintNFT}
                 />
               </GridItem>
             </Grid>
