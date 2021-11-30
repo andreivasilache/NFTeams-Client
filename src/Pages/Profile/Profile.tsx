@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { ethers } from 'ethers';
 // import useAccountNFTS from '../../Hooks/useAccountNFTS';
 // import useStore from '../../Hooks/useStore';
 // import { WalletStore } from '../../Store/Wallet.store';
+import { observer } from 'mobx-react-lite';
+
 import StyledProfile, {
   Avatar,
   StyledBlock,
@@ -31,10 +33,28 @@ import karmaIcon from '../../assets/png/karmaIcon.png';
 
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import { LoadingBar } from '../../Components/LoadingBar/LoadingBar';
-import { badges } from '../../__mocks__/profileBadges';
+import useStore from '../../Hooks/useStore';
+import { CurrentFirebaseUserStore } from '../../Store/CurrentFirebaseUser.store';
+import { SmartContractsStore } from '../../Store/SmartContracts.store';
 
+export const Profile = observer(() => {
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+
+  const [badges, setBadges] = useState([]);
+
+  const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+  const { skills } = currentFirebaseUser?.currentUserData || {};
+  const fakeSkillsLimit = ((skills?.coding || 0) + (skills?.connection || 0) + (skills?.wellness || 0) + (skills?.karma || 0)) / 4;
+
+  useEffect(() => {
+    smartContractsStore.getNFTSOfWallet().then(assets => {
+      const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
+      setBadges(filteredBadges);
+    });
+  }, []);
 
 export const Profile = () => {
+
   /* const [balance, setBalance] = useState<any>(0);
   const { wallet } = useStore('walletStore') as WalletStore;
 const nfts = useAccountNFTS(wallet!.address);
@@ -55,11 +75,12 @@ const nfts = useAccountNFTS(wallet!.address);
       <StyledProfile>
         <Avatar>
           <img width='100%' height='95%' src={avatarPodium} />
+          <img className='avatar' src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL} />
         </Avatar>
 
         <Info>
-          <Name>Outtadisearth</Name>
-          <SubName>Creature of the sea and land. Alien fo sho! Rase? Vermaid.</SubName>
+          <Name>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.name}</Name>
+          <SubName>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.description}</SubName>
           <Text>
             <img src={profileElement} />
 
@@ -80,31 +101,31 @@ const nfts = useAccountNFTS(wallet!.address);
           <SkilsWrapper>
             <Skill>
               <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='right center' />
-              <LoadingBar percent={36} />
+              <LoadingBar currentValue={skills?.coding || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
               <StyledPopup content='Social' trigger={<img src={socialIcon} />} position='right center' />
-              <LoadingBar percent={63} />
+              <LoadingBar currentValue={skills?.connection || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
               <StyledPopup content='Health' trigger={<img src={healthIcon} />} position='right center' />
-              <LoadingBar percent={93} />
+              <LoadingBar currentValue={skills?.wellness || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
               <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='right center' />
-              <LoadingBar percent={99} />
+              <LoadingBar currentValue={skills?.karma || 0} limit={fakeSkillsLimit} />
             </Skill>
           </SkilsWrapper>
         </Info>
 
         <BadgesWrapper>
           <Badges>
-            {badges.map(badge => (
-              <img src={badge.imgUrl} key={badge.imgUrl} />
+            {badges.map((badge: any) => (
+              <img src={badge?.imageURL} key={badge?.imageURL} />
             ))}
           </Badges>
         </BadgesWrapper>
       </StyledProfile>
     </WithAppLayout>
   );
-};
+});

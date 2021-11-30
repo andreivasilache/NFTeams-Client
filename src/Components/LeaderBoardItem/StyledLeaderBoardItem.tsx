@@ -12,6 +12,8 @@ const StyledLeaderBoardItem = styled.div`
     &__image {
       border-radius: 50%;
       margin-right: 10px;
+      width: 28px;
+      height: 28px;
     }
 
     &__name {
