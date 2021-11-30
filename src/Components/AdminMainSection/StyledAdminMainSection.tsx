@@ -121,7 +121,30 @@ const StyledAdminMainSection = styled.div`
       left: 45px;
       top: 131px;
       width: 385px;
-      height: 389px;
+      height: 385px;
+
+      &--confirmation {
+        left: 140px;
+        top: 150px;
+        width: 185px;
+        height: 189px;
+      }
+    }
+
+    &__confirm-button {
+      bottom: 60px;
+      position: absolute;
+      left: 300px;
+    }
+
+    &__information {
+      position: absolute;
+      top: 380px;
+      font-size: 18px;
+      color: black;
+      width: 340px;
+      left: 70px;
+      font-weight: bold;
     }
 
     &__name {

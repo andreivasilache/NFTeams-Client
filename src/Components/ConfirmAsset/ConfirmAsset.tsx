@@ -6,7 +6,7 @@ import { ReactComponent as ConfirmAssetBackground } from '../../assets/svg/asset
 interface Props {
   // item: any;
   handleClickAway: () => void;
-  children:any
+  children: any;
 }
 
 const ConfirmAsset = ({ handleClickAway, children }: Props) => (

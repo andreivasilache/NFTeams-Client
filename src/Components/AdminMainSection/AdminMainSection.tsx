@@ -7,10 +7,12 @@ import ConfirmAsset from '../ConfirmAsset/ConfirmAsset';
 import AddTokens from './AddTokens/AddTokens';
 import CustomButton from '../CustomButton/CustomButton';
 import CustomSquareButton from '../CustomSquareButton/CustomSquareButton';
+import coinImg from '../../assets/png/coinIcon.png';
 
 interface Props {
   displayConfirmation: boolean;
-  displayApproval:boolean;
+  displayApproval: boolean;
+  confirmTokensSend: boolean;
   item: any;
   users: any[];
   handleClickAway: () => void;
@@ -18,15 +20,26 @@ interface Props {
   approve: () => void;
 }
 
-const AdminMainSection = ({displayApproval, displayConfirmation = false, item, users = [], handleClickAway, sendCoins, approve }: Props) => {
+const AdminMainSection = ({
+  displayApproval,
+  displayConfirmation = false,
+  item,
+  users = [],
+  confirmTokensSend = false,
+  handleClickAway,
+  sendCoins,
+  approve,
+}: Props) => {
   const [tokensValue, setTokensValue] = useState(0);
   const [address, setAddress] = useState('');
   const [selectedUsers, setSelectedUsers] = useState<any[]>([]);
+  const [isApproveSendTokens, setIsApproveSendTokens] = useState(false);
 
   const handleClickSend = () => {
     sendCoins({ value: tokensValue, users: selectedUsers, address });
     setSelectedUsers([]);
     setAddress('');
+    setIsApproveSendTokens(false);
   };
 
   return (
@@ -46,25 +59,39 @@ const AdminMainSection = ({displayApproval, displayConfirmation = false, item, u
           setTokens={setTokensValue}
         />
         <div className='admin-main__add-tokens-actions'>
-          <CustomButton buttonText='Send' handleClick={handleClickSend} />
+          <CustomButton buttonText='Send' handleClick={() => setIsApproveSendTokens(true)} />
         </div>
       </div>
 
       <AdminMainCenter className='center-background' />
-      {displayConfirmation && (
+      {(displayConfirmation || confirmTokensSend || item) && (
         <div className='confirm-asset'>
           <ConfirmAsset handleClickAway={handleClickAway}>
-              <span className='confirm-asset__name'>{item.metadata.name}</span>
-              <img className='confirm-asset__image' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+            <span className='confirm-asset__name'>{confirmTokensSend || displayConfirmation ? 'Success!' : item.metadata.name}</span>
+            <img
+              className='confirm-asset__image'
+              src={confirmTokensSend ? coinImg : `https://gateway.pinata.cloud/ipfs/${item?.ipfs_pin_hash}`}
+            />
           </ConfirmAsset>
         </div>
       )}
 
-      {displayApproval && (
+      {(displayApproval || isApproveSendTokens) && (
         <div className='confirm-asset'>
-          <ConfirmAsset handleClickAway={handleClickAway}>
-            <div>test</div>
-            <CustomSquareButton text='Confirm' handleClick={approve} />
+          <ConfirmAsset handleClickAway={isApproveSendTokens ? () => setIsApproveSendTokens(false) : handleClickAway}>
+            <span className='confirm-asset__name'>Confirm</span>
+            <img
+              className='confirm-asset__image confirm-asset__image--confirmation'
+              src={isApproveSendTokens ? coinImg : `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`}
+            />
+
+            <div className='confirm-asset__information'>
+              {displayApproval && `Please confirm you want to assign this ${item.metadata.keyvalues.type} to selected users!`}
+              {isApproveSendTokens && `Please confirm you want to send ${tokensValue} tokens to selected users!`}
+            </div>
+            <div className='confirm-asset__confirm-button'>
+              <CustomSquareButton text='Confirm' handleClick={isApproveSendTokens ? handleClickSend : approve} />
+            </div>
           </ConfirmAsset>
         </div>
       )}

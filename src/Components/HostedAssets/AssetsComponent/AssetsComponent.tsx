@@ -9,7 +9,7 @@ interface Props {
   items: any[];
   selectItem: (item: any) => void;
   selectedItem: any;
-  isAssetsSelected:boolean;
+  isAssetsSelected: boolean;
 }
 
 const createStyles = makeStyles({
@@ -34,7 +34,9 @@ const AssetsComponent = ({ items = [], selectItem, selectedItem, isAssetsSelecte
   const [filterValue, setFilterValue] = useState('');
   const PER_PAGE = 3;
 
-  const filteredItems = items.filter(item =>(isAssetsSelected && item.metadata.keyvalues.type==='NFT') || (!isAssetsSelected && item.metadata.keyvalues.type!=='NFT'))
+  const filteredItems = items.filter(
+    item => (isAssetsSelected && item.metadata.keyvalues.type === 'NFT') || (!isAssetsSelected && item.metadata.keyvalues.type !== 'NFT'),
+  );
 
   const count = Math.ceil(filteredItems.length / PER_PAGE);
   const _DATA = usePagination(filteredItems, PER_PAGE);

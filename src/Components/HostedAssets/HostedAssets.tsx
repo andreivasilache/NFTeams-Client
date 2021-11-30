@@ -44,7 +44,7 @@ const HostedAssets = ({ items = [], users = [], mintNTF, setActiveItem }: Props)
               setSelectedItem(item);
               setActiveItem(item);
             }}
-            isAssetsSelected
+            isAssetsSelected={isAssetsActive}
             selectedItem={selectedItem}
           />
         </div>

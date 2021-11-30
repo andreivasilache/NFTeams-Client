@@ -16,7 +16,7 @@ const StyledCustomCheckbox = styled.div`
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 
-    &__label{
+    &__label {
       max-width: 172px;
       text-overflow: ellipsis;
       white-space: nowrap;
