@@ -19,9 +19,10 @@ import StyledProfile, {
   Name,
   SubName,
   StylingElement,
+  StyledPopup,
 } from './StyledProfile';
 // import InfoListElement from './InfoList/InfoList';
-import avatarPodium from '../../assets/svg/avatarPodium.svg';
+import avatarPodium from '../../assets/png/avatarPodium.png';
 import profileElement from '../../assets/svg/profileElement.svg';
 import profileElement2 from '../../assets/svg/profileElement2.svg';
 
@@ -52,26 +53,11 @@ export const Profile = observer(() => {
     });
   }, []);
 
-  /* const [balance, setBalance] = useState<any>(0);
-  const { wallet } = useStore('walletStore') as WalletStore;
-const nfts = useAccountNFTS(wallet!.address);
-  
-  const loadBalance = async () => {
-    const balanceRes = await wallet!.getBalance();
-    const formattedBalance = ethers.utils.formatEther(balanceRes);
-
-    setBalance(formattedBalance);
-  };
-  */
-  useEffect(() => {
-    // loadBalance();
-  }, []);
-
   return (
     <WithAppLayout>
       <StyledProfile>
         <Avatar>
-          <img src={avatarPodium} />
+          <img width='100%' height='95%' src={avatarPodium} />
           <img className='avatar' src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL} />
         </Avatar>
 
@@ -97,19 +83,19 @@ const nfts = useAccountNFTS(wallet!.address);
           </Text>
           <SkilsWrapper>
             <Skill>
-              <img src={codeIcon} />
+              <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='right center' />
               <LoadingBar currentValue={skills?.coding || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={socialIcon} />
+              <StyledPopup content='Social' trigger={<img src={socialIcon} />} position='right center' />
               <LoadingBar currentValue={skills?.connection || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={healthIcon} />
+              <StyledPopup content='Health' trigger={<img src={healthIcon} />} position='right center' />
               <LoadingBar currentValue={skills?.wellness || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <img src={karmaIcon} />
+              <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='right center' />
               <LoadingBar currentValue={skills?.karma || 0} limit={fakeSkillsLimit} />
             </Skill>
           </SkilsWrapper>

@@ -46,7 +46,7 @@ const WalletBalance = () => {
 
   return (
     <StyledWalletBalance>
-      <CustomCardHeader title='Wallet balance' viewMoreClick={() => {}} />
+      <CustomCardHeader title='Wallet balance' viewMoreRoute='/wallet' />
       <div className='wallet__details'>
         <div className='wallet__balance'>{accountCoins}</div>
         <div className='wallet__balance-eth'>ETH: {balance}</div>

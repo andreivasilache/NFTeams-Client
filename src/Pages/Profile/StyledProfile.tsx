@@ -1,3 +1,4 @@
+import { Popup } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const StyledProfile = styled.div`
@@ -15,6 +16,9 @@ export const Avatar = styled.div`
   height: 100%;
 
   border-radius: 8px;
+  background-color: #07090c;
+  display: flex;
+  align-items: center;
 
   .avatar {
     width: 340px;
@@ -116,6 +120,16 @@ export const Badges = styled.div`
   flex-flow: column-reverse;
   align-items: center;
   justify-content: space-around;
+`;
+
+export const StyledPopup = styled(Popup)`
+  font-family: 'SF Pro Display';
+  font-size: 20px;
+  background-color: #221e1e;
+  color: #7efacd;
+  margin-left: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
 `;
 
 export default StyledProfile;

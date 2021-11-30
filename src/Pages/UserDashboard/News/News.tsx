@@ -43,7 +43,7 @@ const news = [
 
 const NewsPreview = () => (
   <StyledNews>
-    <CustomCardHeader title='news' viewMoreClick={() => {}} />
+    <CustomCardHeader title='news' viewMoreRoute='/communities' />
     <div className='list'>
       {news.map(el => (
         <NewsFeedItem

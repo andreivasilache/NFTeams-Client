@@ -22,6 +22,7 @@ import { ROUTES } from './Shared/constants/Routes';
 import { WithProtectedRoute } from './HOCs/WithAppLayout/WithProtectedRoute';
 import Market from './Pages/Market/Market';
 import { CurrentFirebaseUserStore } from './Store/CurrentFirebaseUser.store';
+import { Quests } from './Pages/Quests/Quests';
 import QuestsStore from './Store/Quests.store';
 
 const firebaseConfig = {
@@ -114,6 +115,7 @@ export const AppRouting = () => {
         <WithProtectedRoute path={ROUTES.adminDashboard} isAuthenticated={authState === true} Component={AdminDashBoard} />
         <WithProtectedRoute path={ROUTES.profile} isAuthenticated={authState === true} Component={Profile} />
         <WithProtectedRoute path={ROUTES.wallet} isAuthenticated={authState === true} Component={WalletComponent} />
+        <WithProtectedRoute path={ROUTES.quests} isAuthenticated={authState === true} Component={Quests} />
         <WithProtectedRoute path={ROUTES.marketPlace} isAuthenticated={authState === true} Component={Market} />
         <Redirect to={ROUTES.dashboard} />
       </Switch>
