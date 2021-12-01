@@ -27,7 +27,13 @@ const useCoins = () => {
   const giveCoinsToAddress = async (address: string, numberOfCoins: number) => {
     // todo: fix typo of smart contract
     const formatValueToUint256 = ethers.utils.parseUnits(`${numberOfCoins}`, 18);
-    await coinsContractMethods.current.sendCointsToAdress(address, formatValueToUint256);
+    return coinsContractMethods.current.sendCoinsToAdress(address, formatValueToUint256);
+  };
+
+  const giveCoinsToAddresses = async (address: string, numberOfCoins: number) => {
+    // todo: fix typo of smart contract
+    const formatValueToUint256 = ethers.utils.parseUnits(`${numberOfCoins}`, 18);
+    return coinsContractMethods.current.sendCoinsToAdresses(address, formatValueToUint256);
   };
 
   const withdrawUserCoins = async (address: string, numberOfCoins: number) => {
@@ -39,6 +45,7 @@ const useCoins = () => {
     accountCoins,
     loadCurrentAccountCoins,
     giveCoinsToAddress,
+    giveCoinsToAddresses,
     withdrawUserCoins,
   };
 };

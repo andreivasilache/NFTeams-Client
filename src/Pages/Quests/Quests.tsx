@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Grid } from '@mui/material';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from '@firebase/auth';
@@ -17,6 +17,9 @@ import useStore from '../../Hooks/useStore';
 import QuestsStore from '../../Store/Quests.store';
 import getAllUsers from '../../Shared/firebase/getAllUsers';
 import CreateQuest from '../../Components/Modals/ActionModal/CreateQuest';
+import SetWinnersOfQuest from '../../Components/Modals/SetWinnersOfQuest/SetWinnersOfQuest';
+import useCoins from '../../Hooks/useCoints';
+import { SmartContractsStore, SMART_CONTRACTS_ENUM } from '../../Store/SmartContracts.store';
 
 const filters = [
   {
@@ -32,14 +35,22 @@ const filters = [
 export const Quests = observer(() => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
-  const { quests, toggleUserQuestStatus } = useStore('questsStore') as QuestsStore;
+  const { quests, toggleUserQuestStatus, rewardPlayers } = useStore('questsStore') as QuestsStore;
+  const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+
   const [leaderBoardUsers, setLeaderBoardUsers] = useState([]);
   const [isAddingQuest, setIsAddingQuest] = useState(false);
+  const [currentSelectingWinnersQuest, setCurrentSelectingWinnersQuest] = useState<any>(null);
+  const userEmailRef = useRef<any>({});
+  const { giveCoinsToAddresses } = useCoins();
 
   const [user] = useAuthState(getAuth());
 
   const loadLeaderBoard = async () => {
     const users: any = await getAllUsers();
+    users.forEach((user: any) => {
+      userEmailRef.current[user.email] = { id: user.id, wallet: user.wallet };
+    });
 
     users.sort((a: any, b: any) => b.numberOfWonQuests - a.numberOfWonQuests);
     setLeaderBoardUsers(users);
@@ -53,6 +64,22 @@ export const Quests = observer(() => {
     <WithAppLayout>
       <StyledQuests>
         <CreateQuest isModalOpen={isAddingQuest} onCloseModal={() => setIsAddingQuest(false)} />
+        <SetWinnersOfQuest
+          currentQuest={currentSelectingWinnersQuest}
+          isModalOpen={Boolean(currentSelectingWinnersQuest)}
+          onCloseModal={() => setCurrentSelectingWinnersQuest(null)}
+          onQuestEnd={winners =>
+            rewardPlayers({
+              winnersEmails: winners,
+              quest: currentSelectingWinnersQuest,
+              userEmailToDataMap: userEmailRef.current,
+              giveCoinsToAddressInstance: giveCoinsToAddresses,
+              awardNFTInstance: smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets,
+            }).then(() => {
+              loadLeaderBoard();
+            })
+          }
+        />
         <Grid container columns={10} columnSpacing={3}>
           <ItemGrid item xs={6}>
             <QuestsItem height={windowHeight - 64}>
@@ -93,6 +120,7 @@ export const Quests = observer(() => {
                   toggleUserStatusOfQuest={isParticipating =>
                     toggleUserQuestStatus(quest.id, user.email, quest.participants || [], isParticipating)
                   }
+                  onFinish={() => setCurrentSelectingWinnersQuest(quest)}
                 >
                   <QuestPoints>
                     {quest?.skillsAward?.coding && <Points icon={icons.code} points={quest?.skillsAward?.coding} />}
@@ -120,8 +148,8 @@ export const Quests = observer(() => {
                   key={user.email}
                   image={user?.profilePicture?.imageURL || LeaderPhoto}
                   name={user.email}
-                  skils={user.numberOfWonQuests}
-                  activity=''
+                  skils=''
+                  activity={user.numberOfWonQuests}
                 />
               ))}
             </LeadboardsItem>
