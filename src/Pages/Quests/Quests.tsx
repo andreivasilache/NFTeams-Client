@@ -13,13 +13,10 @@ import { leadFilters } from '../../__mocks__/leaderboardsFilters';
 import LeaderBoardUser from '../../Components/LeaderBoardUser/LearderBoardUser';
 import LeaderPhoto from '../../assets/png/leaderboardDemo.png';
 import questFilter from '../../assets/svg/questFilter.svg';
-<<<<<<< HEAD
 import useStore from '../../Hooks/useStore';
 import QuestsStore from '../../Store/Quests.store';
 import getAllUsers from '../../Shared/firebase/getAllUsers';
-=======
 import CreateQuest from '../../Components/Modals/ActionModal/CreateQuest';
->>>>>>> a4b4ec680d5b4bf81fd588ed61a94462f8be4fb8
 
 const filters = [
   {
@@ -35,9 +32,10 @@ const filters = [
 export const Quests = observer(() => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
-<<<<<<< HEAD
   const { quests, toggleUserQuestStatus } = useStore('questsStore') as QuestsStore;
   const [leaderBoardUsers, setLeaderBoardUsers] = useState([]);
+  const [isAddingQuest, setIsAddingQuest] = useState(false);
+
   const [user] = useAuthState(getAuth());
 
   const loadLeaderBoard = async () => {
@@ -50,10 +48,6 @@ export const Quests = observer(() => {
   useEffect(() => {
     loadLeaderBoard();
   }, []);
-=======
-  const questSummary = 'Description text Description text Description text Description text Description text Description text';
-  const [isAddingQuest, setIsAddingQuest] = useState(false);
->>>>>>> a4b4ec680d5b4bf81fd588ed61a94462f8be4fb8
 
   return (
     <WithAppLayout>
