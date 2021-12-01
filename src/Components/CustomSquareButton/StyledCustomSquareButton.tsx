@@ -18,6 +18,18 @@ const StyledCustomSquareButton = styled.button`
     bottom: -5px;
     right: -2px;
   }
+
+  .corner-top-right {
+    position: absolute;
+    right: -3px;
+    top: -5px;
+  }
+
+  .corner-bottom-left {
+    position: absolute;
+    bottom: -4px;
+    left: -3px;
+  }
 `;
 
 export default StyledCustomSquareButton;
