@@ -9,6 +9,7 @@ import { leadFilters } from '../../__mocks__/leaderboardsFilters';
 import LeaderBoardUser from '../../Components/LeaderBoardUser/LearderBoardUser';
 import LeaderPhoto from '../../assets/png/leaderboardDemo.png';
 import questFilter from '../../assets/svg/questFilter.svg';
+import CreateQuest from '../../Components/Modals/ActionModal/CreateQuest';
 
 const filters = [
   {
@@ -25,17 +26,19 @@ export const Quests = () => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
   const questSummary = 'Description text Description text Description text Description text Description text Description text';
+  const [isAddingQuest, setIsAddingQuest] = useState(false);
 
   return (
     <WithAppLayout>
       <StyledQuests>
+        <CreateQuest isModalOpen={isAddingQuest} onCloseModal={() => setIsAddingQuest(false)} />
         <Grid container columns={10} columnSpacing={3}>
           <ItemGrid item xs={6}>
             <QuestsItem height={windowHeight - 64}>
               <div className='questsText'>Quests</div>
               <QuestButton>
                 <img src={ButtonStyle} alt='' />
-                <button type='button' className='buttonStyle'>
+                <button type='button' className='buttonStyle' onClick={() => setIsAddingQuest(true)}>
                   Create
                 </button>
               </QuestButton>

@@ -5,7 +5,13 @@ import { CurrentFirebaseUserStore } from '../../../Store/CurrentFirebaseUser.sto
 import { SmartContractsStore } from '../../../Store/SmartContracts.store';
 import StyledNFTs from './StyledNFTs';
 
-const NFTs = () => {
+interface Props {
+  setSelectedNft: (nft: any) => void;
+  selectedNft: any;
+  setImageRef: Function;
+}
+
+const NFTs = ({ setSelectedNft, selectedNft, setImageRef }: Props) => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
   const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
 
@@ -32,6 +38,9 @@ const NFTs = () => {
             imgUrl={nft?.imageURL}
             name={nft?.metadata?.name}
             makeProfilePicture={() => setAsProfilePicture(nft)}
+            onNFTClick={() => setSelectedNft(nft)}
+            isActive={nft === selectedNft}
+            setImageRef={setImageRef}
           />
         ))}
       </div>
