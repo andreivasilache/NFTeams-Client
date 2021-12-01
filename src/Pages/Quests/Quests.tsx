@@ -13,9 +13,13 @@ import { leadFilters } from '../../__mocks__/leaderboardsFilters';
 import LeaderBoardUser from '../../Components/LeaderBoardUser/LearderBoardUser';
 import LeaderPhoto from '../../assets/png/leaderboardDemo.png';
 import questFilter from '../../assets/svg/questFilter.svg';
+<<<<<<< HEAD
 import useStore from '../../Hooks/useStore';
 import QuestsStore from '../../Store/Quests.store';
 import getAllUsers from '../../Shared/firebase/getAllUsers';
+=======
+import CreateQuest from '../../Components/Modals/ActionModal/CreateQuest';
+>>>>>>> a4b4ec680d5b4bf81fd588ed61a94462f8be4fb8
 
 const filters = [
   {
@@ -31,6 +35,7 @@ const filters = [
 export const Quests = observer(() => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
+<<<<<<< HEAD
   const { quests, toggleUserQuestStatus } = useStore('questsStore') as QuestsStore;
   const [leaderBoardUsers, setLeaderBoardUsers] = useState([]);
   const [user] = useAuthState(getAuth());
@@ -45,17 +50,22 @@ export const Quests = observer(() => {
   useEffect(() => {
     loadLeaderBoard();
   }, []);
+=======
+  const questSummary = 'Description text Description text Description text Description text Description text Description text';
+  const [isAddingQuest, setIsAddingQuest] = useState(false);
+>>>>>>> a4b4ec680d5b4bf81fd588ed61a94462f8be4fb8
 
   return (
     <WithAppLayout>
       <StyledQuests>
+        <CreateQuest isModalOpen={isAddingQuest} onCloseModal={() => setIsAddingQuest(false)} />
         <Grid container columns={10} columnSpacing={3}>
           <ItemGrid item xs={6}>
             <QuestsItem height={windowHeight - 64}>
               <div className='questsText'>Quests</div>
               <QuestButton>
                 <img src={ButtonStyle} alt='' />
-                <button type='button' className='buttonStyle'>
+                <button type='button' className='buttonStyle' onClick={() => setIsAddingQuest(true)}>
                   Create
                 </button>
               </QuestButton>

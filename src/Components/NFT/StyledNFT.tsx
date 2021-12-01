@@ -14,6 +14,11 @@ const StyledNFT = styled.div`
       height: 287px;
       margin-top: -100px;
       margin-left: -20px;
+      cursor: pointer;
+      &--active {
+        z-index: 9999999;
+        position: absolute;
+      }
     }
 
     &__set-as-profile {
