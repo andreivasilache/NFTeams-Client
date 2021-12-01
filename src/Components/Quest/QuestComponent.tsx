@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+
 // import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 import StyledQuest, {
   QuestButton,
@@ -16,10 +18,9 @@ import questEdit from '../../assets/png/edit.png';
 import coinImg from '../../assets/png/coinIcon.png';
 import finishQuest from '../../assets/png/finishTask.png';
 
-import { badges } from '../../__mocks__/profileBadges';
 // import CustomCheckbox from '../CustomCheckbox/CustomCheckbox';
 
-interface Iprop {
+interface QuestProps {
   questName: string;
   questDescription: string;
   questParticipants: number;
@@ -29,6 +30,12 @@ interface Iprop {
   onDelete?: Function;
   onEdit?: Function;
   onFinish?: Function;
+  awardItem?: {
+    title: string;
+    imgSrc: string;
+  };
+  isParticipantOfQuest: boolean;
+  toggleUserStatusOfQuest: (isParticipating: boolean) => void;
 }
 
 const Quest = ({
@@ -38,20 +45,37 @@ const Quest = ({
   questDescription,
   questFocus,
   questParticipants,
+  awardItem,
   onFinish = () => console.log('test'),
   onDelete = () => console.log('test'),
   onEdit = () => console.log('test'),
-}: Iprop) => (
+  isParticipantOfQuest,
+  toggleUserStatusOfQuest,
+}: QuestProps) => (
   <StyledQuest>
     <div>
       <QuestParticipants>{questParticipants} Participants</QuestParticipants>
+      <Button
+        size='small'
+        type='button'
+        className='join-quest'
+        variant='contained'
+        onClick={() => toggleUserStatusOfQuest(isParticipantOfQuest)}
+      >
+        {isParticipantOfQuest ? 'Join' : 'Cancel'}
+      </Button>
       <img src={questDesignEl1} />
       <QuestTitile>{questName}</QuestTitile>
       <QuestDescription>{questDescription}</QuestDescription>
     </div>
+
     <div className='coins'>
-      {coinsWon ? <img src={coinImg} /> : ''}
-      {coinsWon}
+      {!!coinsWon && (
+        <>
+          <img src={coinImg} />
+          <div>{coinsWon}</div>
+        </>
+      )}
     </div>
     {children}
     <QuestLog2 src={questDesignEl2} />
@@ -67,8 +91,12 @@ const Quest = ({
       </div>
     </QuestText>
     <StyledPrize>
-      <img width='76.78px' height='75.88px' src={badges[4].imgUrl} alt='' />
-      {badges[1].title}
+      {awardItem && (
+        <>
+          <img width='76.78px' height='75.88px' src={awardItem.imgSrc} alt='' />
+          {awardItem.title}
+        </>
+      )}
     </StyledPrize>
     <div className='questCheck'>
       <img src={finishQuest} onClick={() => onFinish()} />

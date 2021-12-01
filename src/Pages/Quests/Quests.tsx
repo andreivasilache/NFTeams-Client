@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from '@firebase/auth';
+import { observer } from 'mobx-react-lite';
+
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import Quest from '../../Components/Quest/QuestComponent';
 import StyledQuests, { ItemGrid, LeadboardsFilters, LeadboardsItem, QuestButton, QuestPoints, QuestsItem } from './StyledQuests';
@@ -9,6 +13,9 @@ import { leadFilters } from '../../__mocks__/leaderboardsFilters';
 import LeaderBoardUser from '../../Components/LeaderBoardUser/LearderBoardUser';
 import LeaderPhoto from '../../assets/png/leaderboardDemo.png';
 import questFilter from '../../assets/svg/questFilter.svg';
+import useStore from '../../Hooks/useStore';
+import QuestsStore from '../../Store/Quests.store';
+import getAllUsers from '../../Shared/firebase/getAllUsers';
 import CreateQuest from '../../Components/Modals/ActionModal/CreateQuest';
 
 const filters = [
@@ -22,11 +29,25 @@ const filters = [
   },
 ];
 
-export const Quests = () => {
+export const Quests = observer(() => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
-  const questSummary = 'Description text Description text Description text Description text Description text Description text';
+  const { quests, toggleUserQuestStatus } = useStore('questsStore') as QuestsStore;
+  const [leaderBoardUsers, setLeaderBoardUsers] = useState([]);
   const [isAddingQuest, setIsAddingQuest] = useState(false);
+
+  const [user] = useAuthState(getAuth());
+
+  const loadLeaderBoard = async () => {
+    const users: any = await getAllUsers();
+
+    users.sort((a: any, b: any) => b.numberOfWonQuests - a.numberOfWonQuests);
+    setLeaderBoardUsers(users);
+  };
+
+  useEffect(() => {
+    loadLeaderBoard();
+  }, []);
 
   return (
     <WithAppLayout>
@@ -56,19 +77,31 @@ export const Quests = () => {
                 <img src={questFilter} />
               </div>
 
-              <Quest
-                questName='Bim Competition 2021'
-                questParticipants={20}
-                questDescription={questSummary}
-                questFocus='Karma'
-                coinsWon={21}
-              >
-                <QuestPoints>
-                  <Points icon={icons.health} points={5} />
-                  <Points icon={icons.code} points={3} />
-                  <Points icon={icons.social} points={1} />
-                </QuestPoints>
-              </Quest>
+              {quests.map((quest: any) => (
+                <Quest
+                  key={quest.title}
+                  questName={quest.title}
+                  questParticipants={quest.participants?.length || 0}
+                  questDescription={quest.description}
+                  questFocus={quest.mainLabel}
+                  coinsWon={quest.coins}
+                  awardItem={{
+                    title: quest.awardItem.metadata.keyvalues.name,
+                    imgSrc: `https://gateway.pinata.cloud/ipfs/${quest.awardItem.ipfs_pin_hash}`,
+                  }}
+                  isParticipantOfQuest={!(quest?.participants).includes(user.email)}
+                  toggleUserStatusOfQuest={isParticipating =>
+                    toggleUserQuestStatus(quest.id, user.email, quest.participants || [], isParticipating)
+                  }
+                >
+                  <QuestPoints>
+                    {quest?.skillsAward?.coding && <Points icon={icons.code} points={quest?.skillsAward?.coding} />}
+                    {quest?.skillsAward?.wellness && <Points icon={icons.health} points={quest?.skillsAward?.wellness} />}
+                    {quest?.skillsAward?.connection && <Points icon={icons.social} points={quest?.skillsAward?.connection} />}
+                    {quest?.skillsAward?.karma && <Points icon={icons.karma} points={quest?.skillsAward?.karma} />}
+                  </QuestPoints>
+                </Quest>
+              ))}
             </QuestsItem>
           </ItemGrid>
 
@@ -82,11 +115,19 @@ export const Quests = () => {
                 ))}
               </LeadboardsFilters>
 
-              <LeaderBoardUser image={LeaderPhoto} name='Alena Mango' skils='433 codding' activity='Daily likes' />
+              {leaderBoardUsers.map((user: any) => (
+                <LeaderBoardUser
+                  key={user.email}
+                  image={user?.profilePicture?.imageURL || LeaderPhoto}
+                  name={user.email}
+                  skils={user.numberOfWonQuests}
+                  activity=''
+                />
+              ))}
             </LeadboardsItem>
           </ItemGrid>
         </Grid>
       </StyledQuests>
     </WithAppLayout>
   );
-};
+});

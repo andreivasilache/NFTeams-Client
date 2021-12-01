@@ -44,6 +44,13 @@ const AdminDashBoard = () => {
       })
       .then((res: any) => {
         setItems(res.rows);
+
+        // use this to manually add an item to the quests.
+        // const mockQuest = () => {
+        //   questStore.createQuest(res.rows[0]);
+        // };
+
+        // (window as any).createQuest = mockQuest;
       });
     loadUsers();
   }, []);
