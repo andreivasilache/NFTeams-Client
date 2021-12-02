@@ -10,7 +10,8 @@ const getAllUsers = async () => {
       wallet: new Wallet(doc.data().privateKey).address,
       email: doc.data().email,
       profilePicture: doc.data().profilePicture,
-      numberOfWonQuests: doc.data()?.wonQuests || 0,
+      numberOfWonQuests: doc.data()?.numberOfWonQuests || 0,
+      id: doc.id,
     });
   });
   return toBeSavedToState;

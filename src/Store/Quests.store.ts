@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, getFirestore, updateDoc } from '@firebase/firestore';
+import { addDoc, collection, doc, getDocs, getFirestore, increment, updateDoc } from '@firebase/firestore';
 import { makeAutoObservable } from 'mobx';
 import { FIRESTORE_COLLECTION_KEYS } from '../Shared/constants/FireStoreTableKeys';
 
@@ -50,5 +50,55 @@ export default class QuestsStore {
       participants: shouldJoin ? [...currentQuestParticipants, userEmail] : currentQuestParticipants.filter(email => email !== userEmail),
     } as any);
     this.initQuests();
+  };
+
+  public rewardPlayers = async ({
+    winnersEmails,
+    quest,
+    userEmailToDataMap,
+    giveCoinsToAddressesInstance,
+    awardNFTWalletsInstance,
+  }: {
+    winnersEmails: string[];
+    quest: any;
+    userEmailToDataMap: any;
+    giveCoinsToAddressesInstance: any;
+    awardNFTWalletsInstance: any;
+  }) => {
+    const promises: any[] = [];
+    winnersEmails.forEach(winner => {
+      // FieldValue
+      if (quest?.skillsAward) {
+        promises.push(
+          updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.USERS, userEmailToDataMap[winner].id), {
+            'skills.coding': increment(quest?.skillsAward?.coding || 0),
+            'skills.connection': increment(quest?.skillsAward?.connection || 0),
+            'skills.karma': increment(quest?.skillsAward?.karma || 0),
+            'skills.wellness': increment(quest?.skillsAward?.wellness || 0),
+            numberOfWonQuests: increment(1),
+          } as any),
+        );
+      }
+    });
+
+    const winnersWallets = winnersEmails.map(winner => userEmailToDataMap[winner].wallet);
+
+    const res = await giveCoinsToAddressesInstance(winnersWallets, quest?.coins);
+
+    await res.wait();
+
+    await awardNFTWalletsInstance(
+      winnersWallets,
+      JSON.stringify({
+        imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
+        metadata: {
+          ...quest?.awardItem.metadata.keyvalues,
+          dateAssigned: +Date.now(),
+          id: quest?.awardItem.id,
+        },
+      }),
+    );
+
+    await Promise.all(promises);
   };
 }
