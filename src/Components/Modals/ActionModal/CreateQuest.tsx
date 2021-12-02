@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FormControl, MenuItem, Select } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+// import { FormControl, MenuItem, Select } from '@mui/material';
 import WithModal from '../../../HOCs/WithModal/WithModal';
 import StyledCreateQuests from './StyledCreateQuests';
 import codeIcon from '../../../assets/png/codeIcon.png';
@@ -8,6 +8,8 @@ import socialIcon from '../../../assets/png/socialIcon.png';
 import healthIcon from '../../../assets/png/healthIcon.png';
 import karmaIcon from '../../../assets/png/karmaIcon.png';
 import CustomSquareButton from '../../CustomSquareButton/CustomSquareButton';
+import { ReactComponent as DropDownIcon } from '../../../assets/svg/dropDownIcon.svg';
+import useIPFSPinata from '../../../Hooks/useIPFSPinata';
 
 const statsIcons = {
   tokens: coinIcon,
@@ -23,8 +25,12 @@ interface Props {
 }
 
 const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
+  const { pinataClient } = useIPFSPinata();
+  const [selectedBadge, setSelectedBadge] = useState<any>(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [selectActive, setSelectActive] = useState(false);
+  const [items, setItems] = useState([]);
   const [statsValue, setStatsValue] = useState({
     tokens: 0,
     coding: 0,
@@ -32,6 +38,16 @@ const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
     health: 0,
     karma: 0,
   });
+
+  useEffect(() => {
+    pinataClient
+      .pinList({
+        status: 'pinned',
+      })
+      .then((res: any) => {
+        setItems(res.rows);
+      });
+  }, []);
 
   console.log(setStatsValue);
 
@@ -43,6 +59,13 @@ const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
 
   // @ts-ignore
   const updateStatValue = (item: any, value) => setStatsValue({ ...statsValue, [item]: parseInt(value, 10) });
+
+  console.log(items);
+
+  const handleSelect = (item: any) => {
+    setSelectActive(false);
+    setSelectedBadge(item);
+  };
 
   return (
     <WithModal isModalOpen={isModalOpen} onCloseModal={onCloseModal} modalType='action'>
@@ -75,25 +98,24 @@ const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
               </div>
             ))}
           </div>
-          <div className='quests-modal__input-container'>
-            <FormControl fullWidth size='small'>
-              <Select
-                id='select option'
-                placeholder='Select award badge'
-                classes={{ root: 'quests-modal__select' }}
-                MenuProps={{
-                  classes: {
-                    root: 'quests-modal__menu',
-                  },
-                }}
-              >
-                <MenuItem classes={{ root: 'quests-modal__menu-item' }} value={10}>
-                  Ten
-                </MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
+          <div className='quests-modal__input-container quests-modal__input-container--select'>
+            <input
+              value={selectedBadge?.metadata?.keyvalues?.name || ''}
+              className='quests-modal__select-input'
+              placeholder='Select award badge'
+              onClick={() => setSelectActive(!selectActive)}
+            />
+            <DropDownIcon className={`quests-modal__drop-down-icon ${selectActive ? 'quests-modal__drop-down-icon--active' : ''}`} />
+            <div className={`quests-modal__select-options ${selectActive ? 'quests-modal__select-options--active' : ''}`}>
+              {items
+                .filter((item: any) => item.metadata.keyvalues.type === 'badge')
+                .map((item: any) => (
+                  <div className='quests-modal__option' key={item.ipfs_pin_hash} onClick={() => handleSelect(item)}>
+                    <span> {item.metadata.keyvalues.name}</span>
+                    <img className='quests-modal__option-image' src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`} />
+                  </div>
+                ))}
+            </div>
           </div>
           <div className='quests-modal__actions'>
             <CustomSquareButton text='Save quest' handleClick={() => {}} width='107px' isWithTopRight />

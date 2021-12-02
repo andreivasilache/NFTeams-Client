@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledCreateQuests = styled.div`
+  position: relative;
   .quests-modal {
     &__title {
       margin-top: 45px;
@@ -24,7 +25,9 @@ const StyledCreateQuests = styled.div`
     &__input-container {
       width: 100%;
       margin: 15px 0;
-      z-index: 999999999999999999999999999999999999;
+      &--select {
+        margin: 0;
+      }
     }
 
     &__input-title {
@@ -84,7 +87,67 @@ const StyledCreateQuests = styled.div`
     &__actions {
       display: flex;
       justify-content: flex-end;
-      margin-top: 132px;
+      margin-top: 155px;
+    }
+
+    &__select-input {
+      border: 1px solid #6979f8;
+      box-sizing: border-box;
+      border-radius: 8px;
+      width: 100%;
+      background-color: transparent;
+      height: 32px;
+      padding: 0 10px;
+      color: #e4e4e4;
+      outline: none;
+      cursor: pointer;
+      &::placeholder {
+        color: #e4e4e4;
+      }
+    }
+    &__drop-down-icon {
+      position: absolute;
+      right: 110px;
+      margin-top: 15px;
+      &--active {
+        transform: rotate(180deg);
+      }
+    }
+
+    &__select-options {
+      border: 1px solid #6979f8;
+      box-sizing: border-box;
+      border-radius: 8px;
+      width: 100%;
+      margin-top: 5px;
+      height: 136px;
+      overflow-y: auto;
+      position: absolute;
+      width: 480px;
+      display: none;
+
+      &--active {
+        display: block;
+      }
+    }
+
+    &__option {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+      height: 68px;
+      align-items: center;
+      cursor: pointer;
+      margin: 10px 0;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    &__option-image {
+      height: 100%;
+      margin-right: 10px;
     }
   }
 `;
