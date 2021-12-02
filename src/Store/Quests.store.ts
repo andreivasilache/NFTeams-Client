@@ -27,18 +27,19 @@ export default class QuestsStore {
     console.warn(this.quests);
   };
 
-  public createQuest = async (awardItem: any) => {
+  public createQuest = async ({ description, title, skillsAward, coins, awardItem }: any) => {
     const toBeCreated = {
-      description: 'Internal event, may the best person win! https://www.hackerrank.com/innovative-codecraft-december21',
-      title: 'Innovative Codecraft December',
+      description,
+      title,
       participants: [],
       skillsAward: {
-        coding: 15,
-        connection: 5,
-        karma: 10,
+        coding: 0,
+        connection: 0,
+        karma: 0,
+        wellness: 0,
+        ...skillsAward,
       },
-      mainLabel: 'Coding',
-      coins: 30,
+      coins,
       awardItem,
     };
 
@@ -98,6 +99,8 @@ export default class QuestsStore {
         },
       }),
     );
+
+    await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS, quest.id), { isFinished: true });
 
     await Promise.all(promises);
   };

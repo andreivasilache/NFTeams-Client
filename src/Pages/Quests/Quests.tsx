@@ -35,7 +35,7 @@ const filters = [
 export const Quests = observer(() => {
   const windowHeight = window.innerHeight - 120;
   const [activeFilter, setActiveFilter] = useState<'past' | 'active'>('active');
-  const { quests, toggleUserQuestStatus, rewardPlayers } = useStore('questsStore') as QuestsStore;
+  const { quests, initQuests, toggleUserQuestStatus, rewardPlayers, createQuest } = useStore('questsStore') as QuestsStore;
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
 
   const [leaderBoardUsers, setLeaderBoardUsers] = useState([]);
@@ -63,7 +63,15 @@ export const Quests = observer(() => {
   return (
     <WithAppLayout>
       <StyledQuests>
-        <CreateQuest isModalOpen={isAddingQuest} onCloseModal={() => setIsAddingQuest(false)} />
+        <CreateQuest
+          isModalOpen={isAddingQuest}
+          onCloseModal={() => setIsAddingQuest(false)}
+          onCreateModal={payload =>
+            createQuest(payload).then(() => {
+              initQuests();
+            })
+          }
+        />
         <SetWinnersOfQuest
           currentQuest={currentSelectingWinnersQuest}
           isModalOpen={Boolean(currentSelectingWinnersQuest)}
@@ -104,32 +112,35 @@ export const Quests = observer(() => {
                 <img src={questFilter} />
               </div>
 
-              {quests.map((quest: any) => (
-                <Quest
-                  key={quest.title}
-                  questName={quest.title}
-                  questParticipants={quest.participants?.length || 0}
-                  questDescription={quest.description}
-                  questFocus={quest.mainLabel}
-                  coinsWon={quest.coins}
-                  awardItem={{
-                    title: quest.awardItem.metadata.keyvalues.name,
-                    imgSrc: `https://gateway.pinata.cloud/ipfs/${quest.awardItem.ipfs_pin_hash}`,
-                  }}
-                  isParticipantOfQuest={!(quest?.participants).includes(user.email)}
-                  toggleUserStatusOfQuest={isParticipating =>
-                    toggleUserQuestStatus(quest.id, user.email, quest.participants || [], isParticipating)
-                  }
-                  onFinish={() => setCurrentSelectingWinnersQuest(quest)}
-                >
-                  <QuestPoints>
-                    {quest?.skillsAward?.coding && <Points icon={icons.code} points={quest?.skillsAward?.coding} />}
-                    {quest?.skillsAward?.wellness && <Points icon={icons.health} points={quest?.skillsAward?.wellness} />}
-                    {quest?.skillsAward?.connection && <Points icon={icons.social} points={quest?.skillsAward?.connection} />}
-                    {quest?.skillsAward?.karma && <Points icon={icons.karma} points={quest?.skillsAward?.karma} />}
-                  </QuestPoints>
-                </Quest>
-              ))}
+              {quests
+                .filter((quest: any) => (activeFilter === 'active' && !quest.isFinished) || (activeFilter === 'past' && quest.isFinished))
+                .map((quest: any) => (
+                  <Quest
+                    isQuestPast={activeFilter === 'past'}
+                    key={quest.title}
+                    questName={quest.title}
+                    questParticipants={quest.participants?.length || 0}
+                    questDescription={quest.description}
+                    questFocus={quest.mainLabel}
+                    coinsWon={quest.coins}
+                    awardItem={{
+                      title: quest.awardItem.metadata.keyvalues.name,
+                      imgSrc: `https://gateway.pinata.cloud/ipfs/${quest.awardItem.ipfs_pin_hash}`,
+                    }}
+                    isParticipantOfQuest={!(quest?.participants).includes(user.email)}
+                    toggleUserStatusOfQuest={isParticipating =>
+                      toggleUserQuestStatus(quest.id, user.email, quest.participants || [], isParticipating)
+                    }
+                    onFinish={() => setCurrentSelectingWinnersQuest(quest)}
+                  >
+                    <QuestPoints>
+                      {(quest?.skillsAward?.coding && <Points icon={icons.code} points={quest?.skillsAward?.coding} />) || ''}
+                      {(quest?.skillsAward?.wellness && <Points icon={icons.health} points={quest?.skillsAward?.wellness} />) || ''}
+                      {(quest?.skillsAward?.connection && <Points icon={icons.social} points={quest?.skillsAward?.connection} />) || ''}
+                      {(quest?.skillsAward?.karma && <Points icon={icons.karma} points={quest?.skillsAward?.karma} />) || ''}
+                    </QuestPoints>
+                  </Quest>
+                ))}
             </QuestsItem>
           </ItemGrid>
 

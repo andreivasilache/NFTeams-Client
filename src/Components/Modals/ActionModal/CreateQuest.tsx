@@ -22,9 +22,10 @@ const statsIcons = {
 interface Props {
   isModalOpen: boolean;
   onCloseModal: () => void;
+  onCreateModal: (payload: any) => void;
 }
 
-const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
+const CreateQuest = ({ isModalOpen = false, onCloseModal, onCreateModal }: Props) => {
   const { pinataClient } = useIPFSPinata();
   const [selectedBadge, setSelectedBadge] = useState<any>(null);
   const [title, setTitle] = useState('');
@@ -118,7 +119,25 @@ const CreateQuest = ({ isModalOpen = false, onCloseModal }: Props) => {
             </div>
           </div>
           <div className='quests-modal__actions'>
-            <CustomSquareButton text='Save quest' handleClick={() => {}} width='107px' isWithTopRight />
+            <CustomSquareButton
+              text='Save quest'
+              handleClick={() =>
+                onCreateModal({
+                  description,
+                  title,
+                  skillsAward: {
+                    coding: statsValue.coding,
+                    connection: statsValue.social,
+                    wellness: statsValue.health,
+                    karma: statsValue.karma,
+                  },
+                  coins: statsValue.tokens,
+                  awardItem: selectedBadge,
+                })
+              }
+              width='107px'
+              isWithTopRight
+            />
           </div>
         </div>
       </StyledCreateQuests>
