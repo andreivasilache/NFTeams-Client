@@ -73,8 +73,8 @@ export const Quests = observer(() => {
               winnersEmails: winners,
               quest: currentSelectingWinnersQuest,
               userEmailToDataMap: userEmailRef.current,
-              giveCoinsToAddressInstance: giveCoinsToAddresses,
-              awardNFTInstance: smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets,
+              giveCoinsToAddressesInstance: giveCoinsToAddresses,
+              awardNFTWalletsInstance: smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets,
             }).then(() => {
               loadLeaderBoard();
             })

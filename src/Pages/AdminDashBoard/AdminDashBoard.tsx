@@ -73,40 +73,37 @@ const AdminDashBoard = () => {
       }
     }
     if (users) {
-      for (let i = 0; i < users?.length; i++) {
-        try {
-          // eslint-disable-next-line no-await-in-loop
-          await coinsSM.giveCoinsToAddress(users[i].wallet, value);
-          setConfirmTokensSend(true);
-          setTimeout(() => {
-            setConfirmTokensSend(false);
-          }, 5000);
-        } catch (err) {
-          alert(err);
-        }
+      const wallets = users.map(user => user.wallet);
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        await coinsSM.giveCoinsToAddresses(wallets, value);
+        setConfirmTokensSend(true);
+        setTimeout(() => {
+          setConfirmTokensSend(false);
+        }, 5000);
+      } catch (err) {
+        alert(err);
       }
     }
   };
 
   const mintNFT = async (item: any, giveNFTToAddresses: string[]) => {
-    for (let i = 0; i < giveNFTToAddresses.length; i++) {
-      try {
-        // eslint-disable-next-line no-await-in-loop
-        const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardNFT(
-          giveNFTToAddresses[i],
-          JSON.stringify({
-            imageURL: `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`,
-            metadata: {
-              ...item.metadata.keyvalues,
-              dateAssigned: +Date.now(),
-              id: item.id,
-            },
-          }),
-        );
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets(
+        giveNFTToAddresses,
+        JSON.stringify({
+          imageURL: `https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`,
+          metadata: {
+            ...item.metadata.keyvalues,
+            dateAssigned: +Date.now(),
+            id: item.id,
+          },
+        }),
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
     }
     setDisplayConfirmation(item);
     setTimeout(() => {

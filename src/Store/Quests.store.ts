@@ -56,14 +56,14 @@ export default class QuestsStore {
     winnersEmails,
     quest,
     userEmailToDataMap,
-    giveCoinsToAddressInstance,
-    awardNFTInstance,
+    giveCoinsToAddressesInstance,
+    awardNFTWalletsInstance,
   }: {
     winnersEmails: string[];
     quest: any;
     userEmailToDataMap: any;
-    giveCoinsToAddressInstance: any;
-    awardNFTInstance: any;
+    giveCoinsToAddressesInstance: any;
+    awardNFTWalletsInstance: any;
   }) => {
     const promises: any[] = [];
     winnersEmails.forEach(winner => {
@@ -81,58 +81,24 @@ export default class QuestsStore {
       }
     });
 
-    winnersEmails.forEach(winner => {
-      if (quest?.coins) {
-        promises.push(
-          new Promise(() =>
-            giveCoinsToAddressInstance(userEmailToDataMap[winner].wallet, quest?.coins).then((res: any) =>
-              res.wait().then(() => Promise.resolve()),
-            ),
-          ),
-        );
-      }
+    const winnersWallets = winnersEmails.map(winner => userEmailToDataMap[winner].wallet);
 
-      if (quest?.awardItem) {
-        promises.push(
-          new Promise(() =>
-            awardNFTInstance(
-              userEmailToDataMap[winner].wallet,
-              JSON.stringify({
-                imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
-                metadata: {
-                  ...quest?.awardItem.metadata.keyvalues,
-                  dateAssigned: +Date.now(),
-                  id: quest?.awardItem.id,
-                },
-              }),
-            ).then((res: any) => res.wait().then(() => Promise.resolve())),
-          ),
-        );
-      }
-    });
+    const res = await giveCoinsToAddressesInstance(winnersWallets, quest?.coins);
 
-    // if (quest?.coins) {
-    //
-    // }
+    await res.wait();
 
-    // if (quest?.awardItem) {
-    //   promises.push(
-    //     awardNFTInstance(
-    //       userEmailToDataMap[winner].wallet,
-    //       JSON.stringify({
-    //         imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
-    //         metadata: {
-    //           ...quest?.awardItem.metadata.keyvalues,
-    //           dateAssigned: +Date.now(),
-    //           id: quest?.awardItem.id,
-    //         },
-    //       }),
-    //     ),
-    //   );
-    // }
+    await awardNFTWalletsInstance(
+      winnersWallets,
+      JSON.stringify({
+        imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
+        metadata: {
+          ...quest?.awardItem.metadata.keyvalues,
+          dateAssigned: +Date.now(),
+          id: quest?.awardItem.id,
+        },
+      }),
+    );
 
-    Promise.all(promises).then(() => {
-      alert('Done');
-    });
+    await Promise.all(promises);
   };
 }
