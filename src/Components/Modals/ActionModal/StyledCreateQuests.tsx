@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledCreateQuests = styled.div`
-    position: relative;
+  position: relative;
   .quests-modal {
     &__title {
       margin-top: 45px;
@@ -25,10 +25,9 @@ const StyledCreateQuests = styled.div`
     &__input-container {
       width: 100%;
       margin: 15px 0;
-      &--select{
-        margin:0
+      &--select {
+        margin: 0;
       }
-
     }
 
     &__input-title {
@@ -91,32 +90,32 @@ const StyledCreateQuests = styled.div`
       margin-top: 155px;
     }
 
-    &__select-input{
-      border: 1px solid #6979F8;
+    &__select-input {
+      border: 1px solid #6979f8;
       box-sizing: border-box;
       border-radius: 8px;
       width: 100%;
       background-color: transparent;
       height: 32px;
       padding: 0 10px;
-      color:#E4E4E4;
+      color: #e4e4e4;
       outline: none;
       cursor: pointer;
-      &::placeholder{
-        color:#E4E4E4
+      &::placeholder {
+        color: #e4e4e4;
       }
     }
-    &__drop-down-icon{
+    &__drop-down-icon {
       position: absolute;
       right: 110px;
-      margin-top:15px;
-      &--active{
+      margin-top: 15px;
+      &--active {
         transform: rotate(180deg);
       }
     }
 
-    &__select-options{
-      border: 1px solid #6979F8;
+    &__select-options {
+      border: 1px solid #6979f8;
       box-sizing: border-box;
       border-radius: 8px;
       width: 100%;
@@ -127,28 +126,28 @@ const StyledCreateQuests = styled.div`
       width: 480px;
       display: none;
 
-      &--active{
+      &--active {
         display: block;
       }
     }
 
-    &__option{
+    &__option {
       display: flex;
       justify-content: space-between;
       padding: 0 10px;
       height: 68px;
-      align-items:center;
+      align-items: center;
       cursor: pointer;
       margin: 10px 0;
 
-      &:hover{
-        background-color: rgba(0,0,0,0.3);
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.3);
       }
     }
 
-    &__option-image{
+    &__option-image {
       height: 100%;
-      margin-right:10px
+      margin-right: 10px;
     }
   }
 `;
