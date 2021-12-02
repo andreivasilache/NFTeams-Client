@@ -35,11 +35,13 @@ interface QuestProps {
     imgSrc: string;
   };
   isParticipantOfQuest: boolean;
+  isQuestPast: boolean;
   toggleUserStatusOfQuest: (isParticipating: boolean) => void;
 }
 
 const Quest = ({
   coinsWon,
+  isQuestPast,
   children,
   questName,
   questDescription,
@@ -55,15 +57,18 @@ const Quest = ({
   <StyledQuest>
     <div>
       <QuestParticipants>{questParticipants} Participants</QuestParticipants>
-      <Button
-        size='small'
-        type='button'
-        className='join-quest'
-        variant='contained'
-        onClick={() => toggleUserStatusOfQuest(isParticipantOfQuest)}
-      >
-        {isParticipantOfQuest ? 'Join' : 'Cancel'}
-      </Button>
+      {!isQuestPast && (
+        <Button
+          size='small'
+          type='button'
+          className='join-quest'
+          variant='contained'
+          onClick={() => toggleUserStatusOfQuest(isParticipantOfQuest)}
+        >
+          {isParticipantOfQuest ? 'Join' : 'Cancel'}
+        </Button>
+      )}
+
       <img src={questDesignEl1} />
       <QuestTitile>{questName}</QuestTitile>
       <QuestDescription>{questDescription}</QuestDescription>
@@ -98,9 +103,7 @@ const Quest = ({
         </>
       )}
     </StyledPrize>
-    <div className='questCheck'>
-      <img src={finishQuest} onClick={() => onFinish()} />
-    </div>
+    <div className='questCheck'>{!isQuestPast && <img src={finishQuest} onClick={() => onFinish()} />}</div>
   </StyledQuest>
 );
 
