@@ -45,7 +45,7 @@ const AdminMainSection = ({
   return (
     <StyledAdminMainSection>
       <AdminMainLeftBackground className='left-background' />
-      <span className='admin-main__title'>COMAND CENTER</span>
+      <span className='admin-main__title'>COMMAND CENTER</span>
       <span className='admin-main__tokens'> TOKENS </span>
       <span className='admin-main__analytics'> ANALYTICS </span>
       <div className='admin-main__add-tokens'>

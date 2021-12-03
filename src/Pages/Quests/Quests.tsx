@@ -77,7 +77,7 @@ export const Quests = observer(() => {
           currentQuest={currentSelectingWinnersQuest}
           isModalOpen={Boolean(currentSelectingWinnersQuest)}
           onCloseModal={() => setCurrentSelectingWinnersQuest(null)}
-          onQuestEnd={winners =>
+          onQuestEnd={winners => {
             rewardPlayers({
               winnersEmails: winners,
               quest: currentSelectingWinnersQuest,
@@ -86,8 +86,9 @@ export const Quests = observer(() => {
               awardNFTWalletsInstance: smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets,
             }).then(() => {
               loadLeaderBoard();
-            })
-          }
+            });
+            setCurrentSelectingWinnersQuest(null);
+          }}
         />
         <Grid container columns={10} columnSpacing={3}>
           <ItemGrid item xs={6}>
