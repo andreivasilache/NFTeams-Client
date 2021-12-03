@@ -20,7 +20,7 @@ const UserDashboard = () => {
             <Grid item xs={4}>
               <Grid container rowSpacing={2} columnSpacing={3}>
                 <Grid item xs={12}>
-                  <GridItem height={100} color='#7EFACD'>
+                  <GridItem height={100} color='#7EFACD' overflowY={false}>
                     <Hello />
                   </GridItem>
                 </Grid>

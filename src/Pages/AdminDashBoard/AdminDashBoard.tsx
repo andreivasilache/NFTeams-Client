@@ -56,11 +56,32 @@ const AdminDashBoard = () => {
     loadUsers();
   }, []);
 
-  const addAssetToIPFS = () => {
+  const addAssetToIPFS = async () => {
+    const id = toast.loading('Please wait, uploading the file to IPFS.');
+
     if (assetCreationType && fileName && fileDescription && uploadedFile) {
-      pinFileToIPFSViaAPI(uploadedFile, {
-        keyvalues: { type: assetCreationType, company: 'ASSIST', name: fileName, description: fileDescription },
-      });
+      try {
+        await pinFileToIPFSViaAPI(uploadedFile, {
+          keyvalues: { type: assetCreationType, company: 'ASSIST', name: fileName, description: fileDescription },
+        });
+        toast.update(id, {
+          render: 'File uploaded.',
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
+      } catch (err) {
+        toast.update(id, {
+          render: 'Unknown error',
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
+      }
     }
   };
 

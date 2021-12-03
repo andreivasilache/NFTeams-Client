@@ -51,7 +51,7 @@ const WalletBalance = () => {
       <CustomCardHeader title='Wallet balance' viewMoreRoute='/wallet' />
       <div className='wallet__details'>
         <div className='wallet__balance'>{accountCoins}</div>
-        <div className='wallet__balance-eth'>ETH: {balance}</div>
+        <div className='wallet__balance-eth'>MATIC: {balance}</div>
         <div className='wallet__address'>{wallet!.address}</div>
       </div>
 

@@ -50,12 +50,12 @@ const Header = observer(({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any })
       <div className='left-panel'>
         <img className='left-panel__logo' src={logo} alt='logo' />
         <div className='left-panel__info'>
-          <span className='left-panel__text'>percent xxx</span>
+          <span className='left-panel__text'>Progress</span>
           <Box sx={{ width: '150px' }}>
             <LinearProgress
               variant='determinate'
               color='primary'
-              value={20}
+              value={65}
               classes={{ barColorPrimary: classes.barColorPrimary, colorPrimary: classes.colorPrimary }}
             />
           </Box>
@@ -67,7 +67,7 @@ const Header = observer(({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any })
       </div>
       <div className='right-panel'>
         <div className='right-panel__search'>
-          <span>Search dat thing</span>
+          <span>Search</span>
           <SearchIcon />
         </div>
         <BellIcon />

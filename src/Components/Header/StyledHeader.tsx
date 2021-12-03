@@ -53,7 +53,7 @@ const StyledHeader = styled.div`
       border-right: 1px solid #6979f8;
       display: flex;
       align-items: center;
-      width: 160px;
+      width: 85px;
       justify-content: space-between;
     }
     &__profile-picture {

@@ -9,7 +9,7 @@ interface Props {
 
 const CustomInput = ({ value, onChange }: Props) => (
   <StyledCustomInput>
-    <input type='text' value={value} onChange={(e: any) => onChange(e.target.value)} className='input' placeholder='type smth' />
+    <input type='text' value={value} onChange={(e: any) => onChange(e.target.value)} className='input' placeholder='Search' />
 
     <img className='img' src={searchImg} alt='searc' />
   </StyledCustomInput>
