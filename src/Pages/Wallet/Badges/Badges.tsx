@@ -4,7 +4,13 @@ import useStore from '../../../Hooks/useStore';
 import { SmartContractsStore } from '../../../Store/SmartContracts.store';
 import StyledBadges from './StyledBadges';
 
-const Badges = () => {
+interface Props {
+  setImageRef: Function;
+  setSelectedBadge: (badge: any) => void;
+  selectedBadge: any;
+}
+
+const Badges = ({ setImageRef, setSelectedBadge, selectedBadge }: Props) => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
   const [badges, setBadges] = useState([]);
 
@@ -20,7 +26,14 @@ const Badges = () => {
       <div className='info'>Your badges</div>
       <div className='badges'>
         {badges.map((badge: any) => (
-          <BadgeItem key={badge?.metadata?.id} imgUrl={badge.imageURL} title={badge?.metadata?.title} />
+          <BadgeItem
+            isActive={selectedBadge === badge}
+            setImageRef={setImageRef}
+            onBadgeClick={() => setSelectedBadge(badge)}
+            key={badge?.metadata?.id}
+            imgUrl={badge.imageURL}
+            title={badge?.metadata?.title}
+          />
         ))}
       </div>
     </StyledBadges>

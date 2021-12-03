@@ -15,6 +15,11 @@ const StyledBadgeItem = styled.div`
       text-align: center;
       margin-top: -5px;
     }
+
+    &--active {
+      z-index: 9999999;
+      position: absolute;
+    }
   }
 `;
 

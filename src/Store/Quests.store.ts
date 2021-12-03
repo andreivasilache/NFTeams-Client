@@ -99,49 +99,60 @@ export default class QuestsStore {
   }) => {
     const promises: any[] = [];
     const id = toast.loading('Adding rewards to players...');
-    winnersEmails.forEach(winner => {
-      // FieldValue
-      if (quest?.skillsAward) {
-        promises.push(
-          updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.USERS, userEmailToDataMap[winner].id), {
-            'skills.coding': increment(quest?.skillsAward?.coding || 0),
-            'skills.connection': increment(quest?.skillsAward?.connection || 0),
-            'skills.karma': increment(quest?.skillsAward?.karma || 0),
-            'skills.wellness': increment(quest?.skillsAward?.wellness || 0),
-            numberOfWonQuests: increment(1),
-          } as any),
-        );
-      }
-    });
+    try {
+      winnersEmails.forEach(winner => {
+        // FieldValue
+        if (quest?.skillsAward) {
+          promises.push(
+            updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.USERS, userEmailToDataMap[winner].id), {
+              'skills.coding': increment(quest?.skillsAward?.coding || 0),
+              'skills.connection': increment(quest?.skillsAward?.connection || 0),
+              'skills.karma': increment(quest?.skillsAward?.karma || 0),
+              'skills.wellness': increment(quest?.skillsAward?.wellness || 0),
+              numberOfWonQuests: increment(1),
+            } as any),
+          );
+        }
+      });
 
-    const winnersWallets = winnersEmails.map(winner => userEmailToDataMap[winner].wallet);
+      const winnersWallets = winnersEmails.map(winner => userEmailToDataMap[winner].wallet);
 
-    const res = await giveCoinsToAddressesInstance(winnersWallets, quest?.coins);
+      const res = await giveCoinsToAddressesInstance(winnersWallets, quest?.coins);
 
-    await res.wait();
+      await res.wait();
 
-    await awardNFTWalletsInstance(
-      winnersWallets,
-      JSON.stringify({
-        imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
-        metadata: {
-          ...quest?.awardItem.metadata.keyvalues,
-          dateAssigned: +Date.now(),
-          id: quest?.awardItem.id,
-        },
-      }),
-    );
+      await awardNFTWalletsInstance(
+        winnersWallets,
+        JSON.stringify({
+          imageURL: `https://gateway.pinata.cloud/ipfs/${quest?.awardItem.ipfs_pin_hash}`,
+          metadata: {
+            ...quest?.awardItem.metadata.keyvalues,
+            dateAssigned: +Date.now(),
+            id: quest?.awardItem.id,
+          },
+        }),
+      );
 
-    await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS, quest.id), { isFinished: true });
+      await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS, quest.id), { isFinished: true });
 
-    await Promise.all(promises);
-    toast.update(id, {
-      render: 'All selected users were rewarded!',
-      type: 'success',
-      isLoading: false,
-      autoClose: 5000,
-      closeOnClick: true,
-      closeButton: true,
-    });
+      await Promise.all(promises);
+      toast.update(id, {
+        render: 'All selected users were rewarded!',
+        type: 'success',
+        isLoading: false,
+        autoClose: 5000,
+        closeOnClick: true,
+        closeButton: true,
+      });
+    } catch (err: any) {
+      toast.update(id, {
+        render: err.message || 'Something went wrong rewarding users',
+        type: 'error',
+        isLoading: false,
+        autoClose: 5000,
+        closeOnClick: true,
+        closeButton: true,
+      });
+    }
   };
 }

@@ -33,7 +33,7 @@ const StyledAdminMainSection = styled.div`
       z-index: 9999;
       position: absolute;
       left: 44%;
-      top: 42%;
+      top: 44%;
       color: #dd56ff;
       font-weight: bold;
       font-size: 24px;
@@ -44,7 +44,7 @@ const StyledAdminMainSection = styled.div`
       z-index: 9999;
       position: absolute;
       left: 17%;
-      top: calc(41% + 10px);
+      top: 43%;
       color: #dd56ff;
       font-weight: bold;
       font-size: 24px;
@@ -64,7 +64,7 @@ const StyledAdminMainSection = styled.div`
       z-index: 9999;
       position: absolute;
       left: 75%;
-      top: calc(41% + 10px);
+      top: 43%;
       color: #dd56ff;
       font-weight: bold;
       font-size: 24px;
@@ -88,8 +88,8 @@ const StyledAdminMainSection = styled.div`
 
     &__right-button {
       position: absolute;
-      right: calc(10% + 6px);
-      bottom: 9%;
+      right: calc(10% + 10px);
+      bottom: 7%;
     }
 
     &__people-won-text {

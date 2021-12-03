@@ -65,7 +65,7 @@ const AssetsComponent = ({ items = [], selectItem, selectedItem, isAssetsSelecte
                   height='200px'
                   src={`https://gateway.pinata.cloud/ipfs/${item.ipfs_pin_hash}`}
                 />
-                <div className={`asset__name ${item === selectedItem ? 'asset__name--active' : ''}`}>{item.metadata.name}</div>
+                <div className={`asset__name ${item === selectedItem ? 'asset__name--active' : ''}`}>{item.metadata.keyvalues.name}</div>
               </div>
             </ListItem>
           ))}

@@ -1,5 +1,6 @@
 import { collection, getDocs, getFirestore } from '@firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 import { FIRESTORE_COLLECTION_KEYS } from '../../Shared/constants/FireStoreTableKeys';
 import { StyledMarket } from './StyledMarket';
@@ -90,9 +91,18 @@ const Market = () => {
                     className='item__redeem'
                     src={RedeemItem}
                     onClick={() => {
+                      const id = toast.loading('Purchasing selected item...');
                       withdrawUserCoins(wallet?.address as string, item.price).then(() => {
                         setTimeout(() => {
                           headerCoinsRef.current?.loadCurrentAccountCoins?.();
+                          toast.update(id, {
+                            render: 'Item was successfully redeemed!',
+                            type: 'success',
+                            isLoading: false,
+                            autoClose: 5000,
+                            closeOnClick: true,
+                            closeButton: true,
+                          });
                         }, 2000);
                       });
                     }}

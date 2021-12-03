@@ -125,7 +125,7 @@ const AdminDashBoard = () => {
   };
 
   const mintNFT = async (item: any, giveNFTToAddresses: string[]) => {
-    const id = toast.loading('Please wait, adding tokens to user...');
+    const id = toast.loading('Please wait, adding NFT to user...');
 
     try {
       // eslint-disable-next-line no-await-in-loop
@@ -149,6 +149,10 @@ const AdminDashBoard = () => {
         closeOnClick: true,
         closeButton: true,
       });
+      setDisplayConfirmation(item);
+      setTimeout(() => {
+        setDisplayConfirmation(null);
+      }, 5000);
     } catch (err: any) {
       toast.update(id, {
         render: err.message || 'There was an error while trying to send NFT to users!',
@@ -159,10 +163,6 @@ const AdminDashBoard = () => {
         closeButton: true,
       });
     }
-    setDisplayConfirmation(item);
-    setTimeout(() => {
-      setDisplayConfirmation(null);
-    }, 5000);
   };
 
   const handleHideModals = () => {
