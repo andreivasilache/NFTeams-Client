@@ -30,4 +30,12 @@ export class CurrentFirebaseUserStore {
     await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.USERS, this.userID), { ...metadata } as any);
     this.getCurrentUserData();
   }
+
+  public async getUserDataByID(id: string) {
+    console.warn(this);
+
+    const docRef = doc(getFirestore(), FIRESTORE_COLLECTION_KEYS.USERS, id);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  }
 }

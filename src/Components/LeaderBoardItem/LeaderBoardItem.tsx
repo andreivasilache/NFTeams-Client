@@ -6,11 +6,12 @@ interface Props {
   name: string;
   items: number;
   onFollowClick: Function;
+  onEmailClick: () => void;
 }
 
-const LeaderBoardItem = ({ imgSrc = '', name = '', items = 0, onFollowClick }: Props) => (
+const LeaderBoardItem = ({ imgSrc = '', name = '', items = 0, onFollowClick, onEmailClick }: Props) => (
   <StyledLeaderBoardItem>
-    <div className='account-info'>
+    <div className='account-info' onClick={() => onEmailClick()}>
       <img src={imgSrc} alt='img' className='account-info__image' />
       <span className='account-info__name'>{name}</span>
     </div>
