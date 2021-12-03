@@ -113,13 +113,23 @@ export const BadgesWrapper = styled.div`
 `;
 
 export const Badges = styled.div`
-  height: calc(6 * 112.14px + 6 * 8.86px);
+  height: 700px;
   padding-left: 44px;
 
   display: flex;
   flex-flow: column-reverse;
   align-items: center;
   justify-content: space-around;
+  overflow-y: auto;
+  padding-bottom: 90px;
+
+  .badge {
+    width: 112px;
+    height: 112px;
+    border: 1px solid #6979f8;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
 `;
 
 export const StyledPopup = styled(Popup)`

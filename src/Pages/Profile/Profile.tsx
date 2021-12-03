@@ -53,6 +53,7 @@ export const Profile = observer(() => {
   useEffect(() => {
     smartContractsStore.getNFTSOfWallet(queryWallet || undefined).then(assets => {
       const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
+      filteredBadges.sort((a: any, b: any) => (a?.metadata?.name || '').localeCompare(b?.metadata?.name || ''));
       setBadges(filteredBadges);
     });
 
@@ -117,7 +118,7 @@ export const Profile = observer(() => {
         <BadgesWrapper>
           <Badges>
             {badges.map((badge: any) => (
-              <img src={badge?.imageURL} key={badge?.imageURL} />
+              <img className='badge' src={badge?.imageURL} key={badge?.imageURL} />
             ))}
           </Badges>
         </BadgesWrapper>

@@ -17,6 +17,7 @@ const Badges = ({ setImageRef, setSelectedBadge, selectedBadge }: Props) => {
   useEffect(() => {
     smartContractsStore.getNFTSOfWallet().then(assets => {
       const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
+      filteredBadges.sort((a: any, b: any) => (a?.metadata?.name || '').localeCompare(b?.metadata?.name || ''));
       setBadges(filteredBadges);
     });
   }, []);

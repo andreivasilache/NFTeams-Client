@@ -6,6 +6,11 @@ const StyledBadgeItem = styled.div`
   max-width: 130px;
 
   .badge {
+    width: 112px;
+    height: 112px;
+    border: 1px solid #6979f8;
+    border-radius: 8px;
+    margin-top: 10px;
     &__title {
       width: 100%;
       font-weight: 600;
