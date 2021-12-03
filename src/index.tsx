@@ -11,17 +11,17 @@ import { StoreProvider } from './Store/StoreProvider';
 ReactDOM.render(
   <React.StrictMode>
     <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='dark'
-      />
+      position='bottom-center'
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme='dark'
+    />
     <StoreProvider>
       <Router>
         <App />

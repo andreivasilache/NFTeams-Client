@@ -65,16 +65,30 @@ const AdminDashBoard = () => {
   };
 
   const sendCoinsToWallet = async ({ value, users, address }: { value: number; users?: any[]; address?: string }) => {
-    const id = toast.loading("Please wait, adding tokens to user...")
+    const id = toast.loading('Please wait, adding tokens to user...');
 
     if (address) {
       try {
         const coinsAdd = await coinsSM.giveCoinsToAddress(address, value);
-        await coinsAdd.wait()
+        await coinsAdd.wait();
         setConfirmTokensSend(true);
-        toast.update(id, { render: "Tokens added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
-      } catch (err:any) {
-        toast.update(id, { render: err.message || "There was an error while trying to send tokens to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+        toast.update(id, {
+          render: 'Tokens added successfully',
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
+      } catch (err: any) {
+        toast.update(id, {
+          render: err.message || 'There was an error while trying to send tokens to users!',
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
       }
     }
     if (users) {
@@ -83,22 +97,35 @@ const AdminDashBoard = () => {
         // eslint-disable-next-line no-await-in-loop
         const coinsAdd = await coinsSM.giveCoinsToAddresses(wallets, value);
 
-        await coinsAdd.wait()
+        await coinsAdd.wait();
 
         setConfirmTokensSend(true);
         setTimeout(() => {
           setConfirmTokensSend(false);
         }, 5000);
-        toast.update(id, { render: "Tokens added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
-      } catch (err:any) {
-        console.log(err.message)
-        toast.update(id, { render: err.message || "There was an error while trying to send tokens to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+        toast.update(id, {
+          render: 'Tokens added successfully',
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
+      } catch (err: any) {
+        toast.update(id, {
+          render: err.message || 'There was an error while trying to send tokens to users!',
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeOnClick: true,
+          closeButton: true,
+        });
       }
     }
   };
 
   const mintNFT = async (item: any, giveNFTToAddresses: string[]) => {
-    const id = toast.loading("Please wait, adding tokens to user...")
+    const id = toast.loading('Please wait, adding tokens to user...');
 
     try {
       // eslint-disable-next-line no-await-in-loop
@@ -114,10 +141,23 @@ const AdminDashBoard = () => {
         }),
       );
       await res.wait();
-      toast.update(id, { render: "NFT added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
-
-    } catch (err:any) {
-      toast.update(id, { render: err.message || "There was an error while trying to send NFT to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+      toast.update(id, {
+        render: 'NFT added successfully',
+        type: 'success',
+        isLoading: false,
+        autoClose: 5000,
+        closeOnClick: true,
+        closeButton: true,
+      });
+    } catch (err: any) {
+      toast.update(id, {
+        render: err.message || 'There was an error while trying to send NFT to users!',
+        type: 'error',
+        isLoading: false,
+        autoClose: 5000,
+        closeOnClick: true,
+        closeButton: true,
+      });
     }
     setDisplayConfirmation(item);
     setTimeout(() => {
