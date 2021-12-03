@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+
 import CustomCardHeader from '../../../Components/CardHeader/CardHeader';
 import LeaderBoardItem from '../../../Components/LeaderBoardItem/LeaderBoardItem';
 import StyledLeaderBoards from './StyledLeaderBoards';
@@ -6,10 +8,12 @@ import mockProfileImage from '../../../assets/png/img4.png';
 import getAllUsers from '../../../Shared/firebase/getAllUsers';
 import { SmartContractsStore } from '../../../Store/SmartContracts.store';
 import useStore from '../../../Hooks/useStore';
+import { ROUTES } from '../../../Shared/constants/Routes';
 
 const LeaderBoardsPreview = () => {
   const [users, setUsers] = useState<any>([]);
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+  const history = useHistory();
 
   const loadAccountsAssets = async () => {
     const users = await getAllUsers();
@@ -45,6 +49,7 @@ const LeaderBoardsPreview = () => {
             name={user?.email || ''}
             items={user?.nfts?.length || '0'}
             onFollowClick={() => onFollowClick(user)}
+            onEmailClick={() => history.push({ pathname: ROUTES.profile, search: `?id=${user?.id}&wallet=${user.wallet}` })}
           />
         ))}
       </div>

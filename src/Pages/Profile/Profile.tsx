@@ -10,7 +10,6 @@ import StyledProfile, {
   StyledBlock,
   Info,
   Paragraph,
-  SmallParagraph,
   Text,
   SkilsWrapper,
   Skill,
@@ -36,50 +35,64 @@ import { LoadingBar } from '../../Components/LoadingBar/LoadingBar';
 import useStore from '../../Hooks/useStore';
 import { CurrentFirebaseUserStore } from '../../Store/CurrentFirebaseUser.store';
 import { SmartContractsStore } from '../../Store/SmartContracts.store';
+import useQuery from '../../Hooks/useSearch';
 
 export const Profile = observer(() => {
   const smartContractsStore = useStore('smartContracts') as SmartContractsStore;
+  const query = useQuery();
+  const [firebaseUser, setFirebaseUser] = useState<any>({});
+  const queryWallet = query.get('wallet');
+  const queryID = query.get('id');
 
   const [badges, setBadges] = useState([]);
 
-  const currentFirebaseUser = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
-  const { skills } = currentFirebaseUser?.currentUserData || {};
+  const { currentUserData, getUserDataByID } = useStore('currentFirebaseUser') as CurrentFirebaseUserStore;
+  const { skills } = firebaseUser || {};
   const fakeSkillsLimit = ((skills?.coding || 0) + (skills?.connection || 0) + (skills?.wellness || 0) + (skills?.karma || 0)) / 4;
 
   useEffect(() => {
-    smartContractsStore.getNFTSOfWallet().then(assets => {
+    smartContractsStore.getNFTSOfWallet(queryWallet || undefined).then(assets => {
       const filteredBadges = assets.filter((asset: any) => asset.metadata.type === 'badge');
       setBadges(filteredBadges);
     });
+
+    if (queryID) {
+      getUserDataByID(queryID).then(payload => {
+        setFirebaseUser(payload);
+      });
+    } else {
+      setFirebaseUser(currentUserData);
+    }
   }, []);
 
   return (
     <WithAppLayout>
       <StyledProfile>
-        <Avatar>
-          <img width='100%' height='95%' src={avatarPodium} />
-          <img className='avatar' src={currentFirebaseUser?.currentUserData?.profilePicture?.imageURL} />
-        </Avatar>
+        {firebaseUser?.profilePicture && (
+          <Avatar>
+            <img width='100%' height='95%' src={avatarPodium} />
+            <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
+          </Avatar>
+        )}
 
         <Info>
-          <Name>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.name}</Name>
-          <SubName>{currentFirebaseUser?.currentUserData?.profilePicture?.metadata?.description}</SubName>
+          {firebaseUser?.profilePicture && (
+            <>
+              <Name>{firebaseUser?.profilePicture?.metadata?.name}</Name>
+              <SubName>{firebaseUser?.profilePicture?.metadata?.description}</SubName>
+            </>
+          )}
           <Text>
-            <img src={profileElement} />
+            {firebaseUser?.profileBio && (
+              <>
+                <img src={profileElement} />
+                <StyledBlock>
+                  <Paragraph dangerouslySetInnerHTML={{ __html: firebaseUser?.profileBio }} />
 
-            <StyledBlock>
-              <Paragraph>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet. Velit officia consequat duis enim velit mollit. Exercitation veniam
-                consequat sunt nostrud amet.
-              </Paragraph>
-              <Paragraph>
-                Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
-                Exercitation veniam consequat sunt nostrud amet.
-              </Paragraph>
-              <SmallParagraph>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</SmallParagraph>
-              <StylingElement src={profileElement2} />
-            </StyledBlock>
+                  <StylingElement src={profileElement2} />
+                </StyledBlock>
+              </>
+            )}
           </Text>
           <SkilsWrapper>
             <Skill>
