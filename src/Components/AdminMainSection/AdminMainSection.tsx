@@ -100,6 +100,7 @@ const AdminMainSection = ({
         <CustomButton buttonText='Extract Report' handleClick={() => {}} />
       </div>
     </StyledAdminMainSection>
+      
   );
 };
 

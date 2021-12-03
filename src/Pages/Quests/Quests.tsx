@@ -69,6 +69,7 @@ export const Quests = observer(() => {
           onCreateModal={payload =>
             createQuest(payload).then(() => {
               initQuests();
+              setIsAddingQuest(false);
             })
           }
         />

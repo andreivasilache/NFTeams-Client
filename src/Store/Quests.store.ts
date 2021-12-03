@@ -1,5 +1,6 @@
 import { addDoc, collection, doc, getDocs, getFirestore, increment, updateDoc } from '@firebase/firestore';
 import { makeAutoObservable } from 'mobx';
+import { toast } from 'react-toastify';
 import { FIRESTORE_COLLECTION_KEYS } from '../Shared/constants/FireStoreTableKeys';
 
 export default class QuestsStore {
@@ -18,7 +19,7 @@ export default class QuestsStore {
   public initQuests = async () => {
     const localQuests: any[] = [];
     const querySnapshot = await getDocs(collection(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS));
-
+    
     querySnapshot.forEach(doc => {
       localQuests.push({ ...doc.data(), id: doc.id });
     });
@@ -26,8 +27,9 @@ export default class QuestsStore {
     console.log(localQuests);
     console.warn(this.quests);
   };
-
+  
   public createQuest = async ({ description, title, skillsAward, coins, awardItem }: any) => {
+    const id = toast.loading("Please wait, creating quest...")
     const toBeCreated = {
       description,
       title,
@@ -43,14 +45,22 @@ export default class QuestsStore {
       awardItem,
     };
 
-    await addDoc(collection(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS), toBeCreated);
+    try{
+      await addDoc(collection(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS), toBeCreated);
+      toast.update(id, { render: "The quest was successfully created!", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+    }catch(err:any){
+      toast.update(id, { render: "There was an error creating quest!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+    }
   };
 
   public toggleUserQuestStatus = async (questID: string, userEmail: string, currentQuestParticipants: string[], shouldJoin: boolean) => {
+    const id = toast.loading("Updating user quest status")
+
     await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS, questID), {
       participants: shouldJoin ? [...currentQuestParticipants, userEmail] : currentQuestParticipants.filter(email => email !== userEmail),
     } as any);
     this.initQuests();
+    toast.update(id, { render: "User quest status successfully updated!", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
   };
 
   public rewardPlayers = async ({
@@ -67,6 +77,7 @@ export default class QuestsStore {
     awardNFTWalletsInstance: any;
   }) => {
     const promises: any[] = [];
+    const id = toast.loading("Adding rewards to players...")
     winnersEmails.forEach(winner => {
       // FieldValue
       if (quest?.skillsAward) {
@@ -103,5 +114,6 @@ export default class QuestsStore {
     await updateDoc(doc(this.db, FIRESTORE_COLLECTION_KEYS.QUESTS, quest.id), { isFinished: true });
 
     await Promise.all(promises);
+    toast.update(id, { render: "All selected users were rewarded!", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
   };
 }

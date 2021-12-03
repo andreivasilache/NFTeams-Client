@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 // import { collection, getDocs, getFirestore } from '@firebase/firestore';
 // import { Wallet } from '@ethersproject/wallet';
 import Box from '@mui/material/Box';
@@ -64,30 +65,41 @@ const AdminDashBoard = () => {
   };
 
   const sendCoinsToWallet = async ({ value, users, address }: { value: number; users?: any[]; address?: string }) => {
+    const id = toast.loading("Please wait, adding tokens to user...")
+
     if (address) {
       try {
-        await coinsSM.giveCoinsToAddress(address, value);
+        const coinsAdd = await coinsSM.giveCoinsToAddress(address, value);
+        await coinsAdd.wait()
         setConfirmTokensSend(true);
-      } catch (err) {
-        alert(err);
+        toast.update(id, { render: "Tokens added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+      } catch (err:any) {
+        toast.update(id, { render: err.message || "There was an error while trying to send tokens to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
       }
     }
     if (users) {
       const wallets = users.map(user => user.wallet);
       try {
         // eslint-disable-next-line no-await-in-loop
-        await coinsSM.giveCoinsToAddresses(wallets, value);
+        const coinsAdd = await coinsSM.giveCoinsToAddresses(wallets, value);
+
+        await coinsAdd.wait()
+
         setConfirmTokensSend(true);
         setTimeout(() => {
           setConfirmTokensSend(false);
         }, 5000);
-      } catch (err) {
-        alert(err);
+        toast.update(id, { render: "Tokens added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+      } catch (err:any) {
+        console.log(err.message)
+        toast.update(id, { render: err.message || "There was an error while trying to send tokens to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
       }
     }
   };
 
   const mintNFT = async (item: any, giveNFTToAddresses: string[]) => {
+    const id = toast.loading("Please wait, adding tokens to user...")
+
     try {
       // eslint-disable-next-line no-await-in-loop
       const res = await smartContractsStore.getContractByKey(SMART_CONTRACTS_ENUM.GENERATE_NFT).awardMultipleWallets(
@@ -101,9 +113,11 @@ const AdminDashBoard = () => {
           },
         }),
       );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
+      await res.wait();
+      toast.update(id, { render: "NFT added successfully", type: "success", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
+
+    } catch (err:any) {
+      toast.update(id, { render: err.message || "There was an error while trying to send NFT to users!", type: "error", isLoading: false, autoClose:5000, closeOnClick:true, closeButton:true});
     }
     setDisplayConfirmation(item);
     setTimeout(() => {
@@ -122,8 +136,6 @@ const AdminDashBoard = () => {
     if (!displayApproval) {
       return;
     }
-    console.log('approve:', displayApproval);
-
     mintNFT(displayApproval.item, displayApproval.giveNFTToAddresses);
     setDisplayApproval(null);
   };
