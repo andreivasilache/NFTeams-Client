@@ -101,11 +101,11 @@ export const Profile = observer(() => {
               <LoadingBar currentValue={skills?.coding || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <StyledPopup content='Social' trigger={<img src={socialIcon} />} position='right center' />
+              <StyledPopup content='Connection' trigger={<img src={socialIcon} />} position='right center' />
               <LoadingBar currentValue={skills?.connection || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <StyledPopup content='Health' trigger={<img src={healthIcon} />} position='right center' />
+              <StyledPopup content='Wellness' trigger={<img src={healthIcon} />} position='right center' />
               <LoadingBar currentValue={skills?.wellness || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
