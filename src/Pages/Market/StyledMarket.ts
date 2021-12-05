@@ -5,7 +5,7 @@ export const StyledMarket = styled.div`
     margin-top: 29px;
     display: flex;
     &__filters {
-      width: 285px;
+      width: 190px;
       display: flex;
       justify-content: space-between;
       margin-bottom: 58px;
@@ -27,7 +27,6 @@ export const StyledMarket = styled.div`
       height: 733px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       overflow-y: auto;
     }
   }
@@ -37,6 +36,7 @@ export const StyledMarket = styled.div`
     height: 327px;
     position: relative;
     margin-bottom: 77px;
+    margin-right: 40px;
     &__image {
       width: 205px;
       height: 205px;

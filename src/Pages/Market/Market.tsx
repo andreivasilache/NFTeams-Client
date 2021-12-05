@@ -21,10 +21,6 @@ const filters = [
     label: 'Outside job',
   },
   {
-    key: 'fun',
-    label: 'FunFun',
-  },
-  {
     key: 'all',
     label: 'All',
   },
@@ -92,19 +88,29 @@ const Market = () => {
                     src={RedeemItem}
                     onClick={() => {
                       const id = toast.loading('Purchasing selected item...');
-                      withdrawUserCoins(wallet?.address as string, item.price).then(() => {
-                        setTimeout(() => {
-                          headerCoinsRef.current?.loadCurrentAccountCoins?.();
+                      withdrawUserCoins(wallet?.address as string, item.price)
+                        .then(() => {
+                          setTimeout(() => {
+                            toast.update(id, {
+                              render: 'Item was successfully redeemed!',
+                              type: 'success',
+                              isLoading: false,
+                              autoClose: 5000,
+                              closeOnClick: true,
+                              closeButton: true,
+                            });
+                          }, 2000);
+                        })
+                        .catch(err => {
                           toast.update(id, {
-                            render: 'Item was successfully redeemed!',
-                            type: 'success',
+                            render: err.message || 'Something went wrong.',
+                            type: 'error',
                             isLoading: false,
                             autoClose: 5000,
                             closeOnClick: true,
                             closeButton: true,
                           });
-                        }, 2000);
-                      });
+                        });
                     }}
                   />
                 </div>
