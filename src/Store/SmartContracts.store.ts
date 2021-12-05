@@ -5,8 +5,8 @@ import { makeAutoObservable } from 'mobx';
 import { FIRESTORE_COLLECTION_KEYS } from '../Shared/constants/FireStoreTableKeys';
 
 export enum SMART_CONTRACTS_ENUM {
-  GENERATE_NFT = 'NFTProvider',
-  COINS_PROVIDER = 'MarketCoins',
+  GENERATE_NFT = 'NFTProvider_matic',
+  COINS_PROVIDER = 'MarketCoins_matic',
 }
 
 export class SmartContractsStore {

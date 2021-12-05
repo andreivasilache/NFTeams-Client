@@ -24,16 +24,23 @@ const TokensAndStats = () => {
       walletToAddressMap[user.wallet.toLowerCase()] = user.email;
     });
 
-    const decoder = new InputDataDecoder(smartContractsStore.smartContracts[SMART_CONTRACTS_ENUM.GENERATE_NFT].abi);
+    const NFTDecoder = new InputDataDecoder(smartContractsStore.smartContracts[SMART_CONTRACTS_ENUM.GENERATE_NFT].abi);
+    const coinDecoder = new InputDataDecoder(smartContractsStore.smartContracts[SMART_CONTRACTS_ENUM.COINS_PROVIDER].abi);
+
     currentWalletTransactions.result.forEach((transaction: any) => {
-      const decodedInput = decoder.decodeData(transaction.input);
-      const to = decodedInput.inputs[0];
+      const decodedInputNFT = NFTDecoder.decodeData(transaction.input);
+      const decodedCoin = coinDecoder.decodeData(transaction.input);
+
+      const nftReceiver = decodedInputNFT.inputs[0];
+      const coinReceiver = decodedCoin.inputs[0];
+
+      const smartContractReceiverAddress = nftReceiver || coinReceiver;
 
       parsedTransactions.push({
-        from: walletToAddressMap[transaction.from] || 'COMPANY',
-        to: to ? walletToAddressMap[`0x${to}`] : 'COMPANY',
+        from: (walletToAddressMap[transaction.from] && 'ASSIST') || 'unknown',
+        to: smartContractReceiverAddress ? walletToAddressMap[`0x${smartContractReceiverAddress}`] : 'unknown',
         timeStamp: transaction.timeStamp,
-        redirectTo: `https://ropsten.etherscan.io/tx/${transaction.hash}`,
+        redirectTo: `https://polygonscan.com/tx/${transaction.hash}`,
       });
     });
 

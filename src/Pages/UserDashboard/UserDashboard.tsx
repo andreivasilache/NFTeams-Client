@@ -12,6 +12,7 @@ import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
 
 const UserDashboard = () => {
   const windowHeight = window.innerHeight;
+
   return (
     <WithAppLayout>
       <StyledUserDashboard>
