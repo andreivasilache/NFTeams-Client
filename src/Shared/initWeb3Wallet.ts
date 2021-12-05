@@ -6,7 +6,7 @@ export const initEthWalletAndInfuraSmartContracts = (privateKey: string) => {
   // const utils = ethers.utils;
   // const providers = ethers.providers;
 
-  const network: 'ropsten' | 'kovan' | 'rinkeby' | 'homestead' = 'ropsten';
+  const network: 'ropsten' | 'kovan' | 'rinkeby' | 'matic' = 'matic';
 
   const infuraAPIKey = process.env.REACT_APP_INFURA_API_KEY;
 
