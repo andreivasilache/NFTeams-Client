@@ -7,8 +7,9 @@ import WalletBalance from './WalletBalance/WalletBalance';
 import Hello from '../../Components/Hello/Hello';
 import ProfilePreview from './ProfilePreviw/ProfilePreview';
 import LeaderBoardsPreview from './LeaderBoards/LeaderBoards';
-import NewsPreview from './News/News';
+import EventsPreview from './Events/Events';
 import WithAppLayout from '../../HOCs/WithAppLayout/WithAppLayout';
+import NewsPreview from './News/News';
 
 const UserDashboard = () => {
   const windowHeight = window.innerHeight;
@@ -47,9 +48,18 @@ const UserDashboard = () => {
               </Grid>
             </Grid>
             <Grid item xs={4}>
-              <GridItem height={windowHeight - 120} color='#6979F8'>
-                <NewsPreview />
-              </GridItem>
+              <Grid container rowSpacing={2} columnSpacing={3}>
+                <Grid item xs={12}>
+                  <GridItem height={(windowHeight - 120) * 0.6 - 20} color='#6979F8'>
+                    <EventsPreview />
+                  </GridItem>
+                </Grid>
+                <Grid item xs={12}>
+                  <GridItem height={(windowHeight - 120) * 0.4} color='#6979F8'>
+                    <NewsPreview />
+                  </GridItem>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Box>
