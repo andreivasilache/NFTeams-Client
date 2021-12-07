@@ -157,6 +157,9 @@ const StyledAdminMainSection = styled.div`
       line-height: 48px;
       width: 235px;
       text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 `;
