@@ -14,11 +14,16 @@ import { WalletStore } from '../../Store/Wallet.store';
 const filters = [
   {
     key: 'in-world',
-    label: 'Inworld',
+    label: 'Intristic',
   },
   {
-    key: 'outside-job',
-    label: 'Outside job',
+    key: 'outside-world',
+    label: 'Extrinsic',
+  },
+
+  {
+    key: 'fun',
+    label: 'Fun',
   },
   {
     key: 'all',
