@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
       margin-left: 20px;
     }
 
-    &__level-icon{
+    &__level-icon {
       margin: 0 25px;
     }
 
@@ -36,7 +36,7 @@ const StyledHeader = styled.div`
       justify-content: space-between;
       align-items: center;
       width: 90px;
-      margin-left: 20px
+      margin-left: 20px;
     }
 
     &__finance-value {
