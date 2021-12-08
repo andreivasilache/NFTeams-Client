@@ -1,4 +1,8 @@
-html,
+html{
+  overflow: hidden;
+  height: 100%;
+}
+
 body,
 #root {
   height: 100%;
