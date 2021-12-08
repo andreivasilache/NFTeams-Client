@@ -46,6 +46,18 @@ const StyledAuth = styled.div`
     top: 18.24vh;
   }
 
+  .login-logo {
+    position: absolute;
+    right: 24.7vw;
+    top: 71.8vh;
+  }
+
+  .avatar-photo {
+    position: absolute;
+    right: 12.8vw;
+    top: 18.14vh;
+  }
+
   .vector-photo {
     position: absolute;
     width: 61.77vw;

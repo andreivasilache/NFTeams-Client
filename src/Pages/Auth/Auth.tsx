@@ -9,6 +9,8 @@ import StyledAuth, { authTheme, StyledTabs } from './StyledAuth';
 import { Login } from '../../Components/Login/Login';
 import loginPh from '../../assets/png/login-photo.png';
 import vectorPh from '../../assets/png/vector-photo.png';
+import loginLogo from '../../assets/png/logo-login.png';
+import avatarsLogin from '../../assets/svg/avatar-login.svg';
 import { Register } from '../../Components/Register/Register';
 import { ROUTES } from '../../Shared/constants/Routes';
 
@@ -69,6 +71,8 @@ export const Auth = () => {
         </TabPanel>
         <img className='login-photo' src={loginPh} />
         <img className='vector-photo' src={vectorPh} />
+        <img className='login-logo' src={loginLogo} />
+        <img className='avatar-photo' src={avatarsLogin} />
       </StyledAuth>
     </ThemeProvider>
   );

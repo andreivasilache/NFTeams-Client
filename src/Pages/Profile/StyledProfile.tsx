@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const StyledProfile = styled.div`
   position: relative;
   padding: 0 30px;
-  height: 100%;
+  height: calc(100% - 10px);
 
   display: flex;
   justify-content: center;
@@ -20,6 +20,14 @@ export const Avatar = styled.div`
   display: flex;
   align-items: center;
 
+  .avatar-podium {
+    max-width: 100%;
+    border-radius: 40px;
+    width: 100%;
+    height: 93%;
+    max-height: 95%;
+  }
+
   .avatar {
     width: 340px;
     height: 600px;
@@ -31,18 +39,24 @@ export const Avatar = styled.div`
 
 export const Info = styled.div`
   height: 100%;
+  width: 620px;
 
   font-family: 'SF Pro Display';
 `;
 
 export const Name = styled.div`
-  margin-top: 8.42vh;
+  margin-top: 6.4vh;
   margin-bottom: 1.1vh;
 
   font-style: normal;
   font-weight: bold;
-  font-size: 88px;
+  font-size: 85px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   line-height: 64px;
+  max-width: 615px;
+  height: 85px;
 `;
 export const SubName = styled.div`
   font-style: normal;
@@ -72,6 +86,8 @@ export const StyledBlock = styled.div`
 
 export const Paragraph = styled.div`
   margin-bottom: 7.4vh;
+  height: 250px;
+  overflow: auto;
   width: 481px;
 `;
 
@@ -89,6 +105,7 @@ export const StylingElement = styled.img`
 export const SkilsWrapper = styled.div`
   margin-top: 9.25vh;
   height: 14.81vh;
+  width: 115px;
 
   display: flex;
   flex-direction: column;
