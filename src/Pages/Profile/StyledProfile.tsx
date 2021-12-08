@@ -39,7 +39,7 @@ export const Avatar = styled.div`
 export const Info = styled.div`
   height: 100%;
   width: 620px;
-  z-index:1;
+  z-index: 1;
 
   font-family: 'SF Pro Display';
 `;

@@ -9,8 +9,8 @@ const StyledSideNavigation = styled.div`
   align-items: center;
   justify-content: flex-start;
   position: absolute;
-    width: 135px;
-    z-index: 9999999;
+  width: 135px;
+  z-index: 9999999;
 `;
 
 export default StyledSideNavigation;
