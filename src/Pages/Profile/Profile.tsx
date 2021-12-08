@@ -21,7 +21,8 @@ import StyledProfile, {
   StyledPopup,
 } from './StyledProfile';
 // import InfoListElement from './InfoList/InfoList';
-import avatarPodium from '../../assets/png/avatarPodium.png';
+// import avatarPodium from '../../assets/png/avatarPodium.png';
+import avatarPodium from '../../assets/svg/podium.svg'
 import profileElement from '../../assets/svg/profileElement.svg';
 import profileElement2 from '../../assets/svg/profileElement2.svg';
 
@@ -71,7 +72,7 @@ export const Profile = observer(() => {
       <StyledProfile>
         {firebaseUser?.profilePicture && (
           <Avatar>
-            <img width='100%' height='95%' src={avatarPodium} />
+            <img className='avatar-podium' src={avatarPodium} />
             <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
           </Avatar>
         )}
