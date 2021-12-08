@@ -24,9 +24,8 @@ export const Avatar = styled.div`
     width: 340px;
     height: 600px;
     position: absolute;
-    bottom: 100px;
     left: 179px;
-    bottom: 0px;
+    bottom: 100px;
   }
 `;
 

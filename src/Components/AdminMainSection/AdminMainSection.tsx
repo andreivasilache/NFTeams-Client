@@ -67,7 +67,9 @@ const AdminMainSection = ({
       {(displayConfirmation || confirmTokensSend || item) && (
         <div className='confirm-asset'>
           <ConfirmAsset handleClickAway={handleClickAway}>
-            <span className='confirm-asset__name'>{confirmTokensSend || displayConfirmation ? 'Success!' : item.metadata.name}</span>
+            <span className='confirm-asset__name'>
+              {confirmTokensSend || displayConfirmation ? 'Success!' : item.metadata.keyvalues.name}
+            </span>
             <img
               className='confirm-asset__image'
               src={confirmTokensSend ? coinImg : `https://gateway.pinata.cloud/ipfs/${item?.ipfs_pin_hash}`}

@@ -39,15 +39,17 @@ export const StyledMarket = styled.div`
     margin-right: 40px;
     &__image {
       width: 205px;
+      padding: 33px;
       height: 205px;
       border: 1px solid #7efacd;
       box-sizing: border-box;
       border-radius: 8px;
+      padding-top: 45px;
     }
     &__coins {
       position: absolute;
       top: 19px;
-      right: 45px;
+      right: 54px;
     }
     &__coins-support {
       position: absolute;
