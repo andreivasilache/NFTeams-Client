@@ -20,7 +20,7 @@ export const Avatar = styled.div`
   display: flex;
   align-items: center;
 
-  .avatar-podium{
+  .avatar-podium {
     max-width: 100%;
     border-radius: 40px;
     width: 100%;
@@ -53,7 +53,7 @@ export const Name = styled.div`
   font-size: 85px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   line-height: 64px;
   max-width: 615px;
   height: 85px;

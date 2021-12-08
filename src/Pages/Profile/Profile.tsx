@@ -22,7 +22,7 @@ import StyledProfile, {
 } from './StyledProfile';
 // import InfoListElement from './InfoList/InfoList';
 // import avatarPodium from '../../assets/png/avatarPodium.png';
-import avatarPodium from '../../assets/svg/podium.svg'
+import avatarPodium from '../../assets/svg/podium.svg';
 import profileElement from '../../assets/svg/profileElement.svg';
 import profileElement2 from '../../assets/svg/profileElement2.svg';
 
