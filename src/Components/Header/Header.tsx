@@ -12,6 +12,7 @@ import profile from '../../assets/png/profile-logo.png';
 import { ReactComponent as MoneyIcon } from '../../assets/svg/finance.svg';
 import { ReactComponent as BellIcon } from '../../assets/svg/bell.svg';
 import { ReactComponent as SearchIcon } from '../../assets/svg/search-icon.svg';
+import { ReactComponent as Rookie } from '../../assets/svg/rookie.svg';
 import useCoins from '../../Hooks/useCoints';
 import useStore from '../../Hooks/useStore';
 import { CurrentFirebaseUserStore } from '../../Store/CurrentFirebaseUser.store';
@@ -50,7 +51,8 @@ const Header = observer(({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any })
       <div className='left-panel'>
         <img className='left-panel__logo' src={logo} alt='logo' />
         <div className='left-panel__info'>
-          <span className='left-panel__text'>Progress</span>
+          <span className='left-panel__text'>ROOKIE</span>
+          <Rookie className='left-panel__level-icon' />
           <Box sx={{ width: '150px' }}>
             <LinearProgress
               variant='determinate'
