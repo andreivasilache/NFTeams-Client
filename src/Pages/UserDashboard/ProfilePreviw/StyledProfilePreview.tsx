@@ -7,7 +7,7 @@ const StyledProfilePreview = styled.div`
   position: relative;
 
   .image {
-    margin-top: 30px;
+    margin-top: 90px;
     width: 383px;
     height: 441px;
     margin-bottom: 50px;

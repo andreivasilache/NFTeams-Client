@@ -14,7 +14,6 @@ const ProfilePreview = observer(() => {
       {currentFirebaseUser.currentUserData?.profilePicture && (
         <>
           <img className='image' src={currentFirebaseUser.currentUserData.profilePicture.imageURL} alt='preview-image' />
-          <span className='description'>{currentFirebaseUser.currentUserData.profilePicture.metadata.description}</span>
         </>
       )}
     </StyledProfilePreview>
