@@ -23,6 +23,7 @@ const StyledLeaderBoardItem = styled.div`
       color: white;
       width: 120px;
       text-overflow: ellipsis;
+      cursor: pointer;
     }
   }
 
