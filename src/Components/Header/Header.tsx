@@ -53,7 +53,7 @@ const Header = observer(({ loadAccountCoinsRef }: { loadAccountCoinsRef?: any })
         <div className='left-panel__info'>
           <span className='left-panel__text'>ROOKIE</span>
           <Rookie className='left-panel__level-icon' />
-          <Box sx={{ width: '150px' }}>
+          <Box sx={{ width: '200px' }}>
             <LinearProgress
               variant='determinate'
               color='primary'
