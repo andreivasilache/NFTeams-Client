@@ -12,6 +12,9 @@ const StyledEvents = styled.div`
     align-items: center;
     overflow-y: auto;
   }
+  .user-name {
+    cursor: pointer;
+  }
   .event {
     display: flex;
     margin-bottom: 10px;
