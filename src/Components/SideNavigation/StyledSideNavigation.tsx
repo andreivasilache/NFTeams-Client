@@ -8,6 +8,9 @@ const StyledSideNavigation = styled.div`
   flex-flow: column;
   align-items: center;
   justify-content: flex-start;
+  position: absolute;
+  width: 135px;
+  z-index: 9999999;
 `;
 
 export default StyledSideNavigation;

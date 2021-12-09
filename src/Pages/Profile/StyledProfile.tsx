@@ -21,25 +21,25 @@ export const Avatar = styled.div`
   align-items: center;
 
   .avatar-podium {
-    max-width: 100%;
-    border-radius: 40px;
-    width: 100%;
-    height: 93%;
-    max-height: 95%;
+    height: 991px;
+    margin-top: 58px;
+    margin-left: -187px;
+    position: absolute;
   }
 
   .avatar {
     width: 340px;
     height: 600px;
     position: absolute;
-    left: 179px;
-    bottom: 100px;
+    left: 155px;
+    bottom: 80px;
   }
 `;
 
 export const Info = styled.div`
   height: 100%;
   width: 620px;
+  z-index: 1;
 
   font-family: 'SF Pro Display';
 `;
@@ -50,7 +50,7 @@ export const Name = styled.div`
 
   font-style: normal;
   font-weight: bold;
-  font-size: 85px;
+  font-size: 65px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
