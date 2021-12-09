@@ -27,12 +27,12 @@ export const Avatar = styled.div`
     position: absolute;
   }
 
-  .avatar {
-    width: 340px;
-    height: 600px;
+  .avatar-container {
     position: absolute;
-    left: 155px;
-    bottom: 80px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    bottom: 100px;
   }
 `;
 
@@ -153,9 +153,10 @@ export const StyledPopup = styled(Popup)`
   font-size: 20px;
   background-color: #221e1e;
   color: #7efacd;
-  margin-left: 1rem;
+  margin-right: 1rem;
   padding: 1rem;
   border-radius: 8px;
+  z-index: 99;
 `;
 
 export default StyledProfile;

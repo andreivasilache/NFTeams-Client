@@ -71,7 +71,9 @@ export const Profile = observer(() => {
         {firebaseUser?.profilePicture && (
           <Avatar>
             <img className='avatar-podium' src={avatarPodium} />
-            <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
+            <div className='avatar-container'>
+              <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
+            </div>
           </Avatar>
         )}
 
@@ -96,19 +98,19 @@ export const Profile = observer(() => {
           </Text>
           <SkilsWrapper>
             <Skill>
-              <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='right center' />
+              <StyledPopup content='Code' trigger={<img src={codeIcon} alt='code' />} position='left center' />
               <LoadingBar currentValue={skills?.coding || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <StyledPopup content='Connection' trigger={<img src={socialIcon} />} position='right center' />
+              <StyledPopup content='Connection' trigger={<img src={socialIcon} />} position='left center' />
               <LoadingBar currentValue={skills?.connection || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <StyledPopup content='Wellness' trigger={<img src={healthIcon} />} position='right center' />
+              <StyledPopup content='Wellness' trigger={<img src={healthIcon} />} position='left center' />
               <LoadingBar currentValue={skills?.wellness || 0} limit={fakeSkillsLimit} />
             </Skill>
             <Skill>
-              <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='right center' />
+              <StyledPopup content='Karma' trigger={<img src={karmaIcon} />} position='left center' />
               <LoadingBar currentValue={skills?.karma || 0} limit={fakeSkillsLimit} />
             </Skill>
           </SkilsWrapper>
