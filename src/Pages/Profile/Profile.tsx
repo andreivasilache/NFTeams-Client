@@ -71,7 +71,9 @@ export const Profile = observer(() => {
         {firebaseUser?.profilePicture && (
           <Avatar>
             <img className='avatar-podium' src={avatarPodium} />
-            <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
+            <div className='avatar-container'>
+              <img className='avatar' src={firebaseUser?.profilePicture?.imageURL} />
+            </div>
           </Avatar>
         )}
 
