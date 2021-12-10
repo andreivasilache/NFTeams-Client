@@ -14,13 +14,15 @@ interface Props {
 const NFT = ({ imgUrl = '', name = '', isActive, setImageRef, makeProfilePicture, onNFTClick }: Props) => (
   <StyledNFT>
     <div className='nft'>
-      <img
-        onClick={onNFTClick}
-        className={`nft__image ${isActive ? 'nft__image--active' : ''}`}
-        src={imgUrl}
-        alt=''
-        ref={isActive ? newRef => setImageRef(newRef) : null}
-      />
+      <div className='nft__image-container'>
+        <img
+          onClick={onNFTClick}
+          className={`nft__image ${isActive ? 'nft__image--active' : ''}`}
+          src={imgUrl}
+          alt=''
+          ref={isActive ? newRef => setImageRef(newRef) : null}
+        />
+      </div>
       <div className='nft__set-as-profile' onClick={makeProfilePicture}>
         Make it profile pic <img src={PurpleProfile} />
       </div>
