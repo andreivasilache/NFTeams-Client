@@ -93,7 +93,7 @@ const CreateQuest = ({ isModalOpen = false, onCloseModal, onCreateModal }: Props
                     value={getStatValue(item)}
                     onChange={e => updateStatValue(item, e.target.value)}
                     className='quests-modal__input quests-modal__input--stat-input'
-                    type='text'
+                    type='number'
                   />
                 </div>
               </div>
