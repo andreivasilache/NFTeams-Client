@@ -55,7 +55,7 @@ const StyledAuth = styled.div`
   .avatar-photo {
     position: absolute;
     right: 12.8vw;
-    top: 18.14vh;
+    top: 15vh;
   }
 
   .vector-photo {
