@@ -42,6 +42,7 @@ const AdminDashBoard = () => {
     pinataClient
       .pinList({
         status: 'pinned',
+        pageLimit: 200,
       })
       .then((res: any) => {
         setItems(res.rows);
