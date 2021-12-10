@@ -9,11 +9,19 @@ const StyledNFT = styled.div`
     height: 260px;
     position: relative;
 
-    &__image {
+    &__image-container {
       width: 249px;
       height: 287px;
       margin-top: -100px;
       margin-left: -20px;
+      display: flex;
+      justify-content: center;
+      position: absolute;
+    }
+
+    &__image {
+      max-width: 249px;
+      max-height: 287px;
       cursor: pointer;
       &--active {
         z-index: 9999999;

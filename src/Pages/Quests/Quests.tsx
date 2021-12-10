@@ -126,8 +126,8 @@ export const Quests = observer(() => {
                     questFocus={quest.mainLabel}
                     coinsWon={quest.coins}
                     awardItem={{
-                      title: quest.awardItem.metadata.keyvalues.name,
-                      imgSrc: `https://gateway.pinata.cloud/ipfs/${quest.awardItem.ipfs_pin_hash}`,
+                      title: quest.awardItem?.metadata?.keyvalues?.name || '',
+                      imgSrc: `https://gateway.pinata.cloud/ipfs/${quest.awardItem?.ipfs_pin_hash}`,
                     }}
                     isParticipantOfQuest={!(quest?.participants).includes(user.email)}
                     toggleUserStatusOfQuest={isParticipating =>

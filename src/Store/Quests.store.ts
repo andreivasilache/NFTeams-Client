@@ -41,7 +41,7 @@ export default class QuestsStore {
         wellness: 0,
         ...skillsAward,
       },
-      coins,
+      coins: coins || 0,
       awardItem,
     };
 
